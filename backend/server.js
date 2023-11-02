@@ -1,24 +1,33 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+
+// Import routers
 const userRoutes = require('./routes/userRoutes');
-const courseRoutes = require('./routes/courseRoutes');
-// ... otros imports ...
 
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Configurar la conexión a la base de datos
-mongoose.connect('mongodb://localhost:27017/LearnEdgeDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// Connect to MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017');
 
-// Configurar el middleware
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-// ... otra configuración de middleware ...
+const upload = multer();
+app.use(upload.array());
 
-// Configurar las rutas
+// Routes
 app.use('/users', userRoutes);
-// ... otras rutas ...
 
-// Iniciar el servidor
-const PORT = process.env.PORT || 3000;
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Servidor iniciado en el puerto ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
