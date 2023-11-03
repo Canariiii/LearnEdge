@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const User = require('../models/user');
+
 
 const courseSchema = new mongoose.Schema({
   title: {
@@ -10,7 +12,7 @@ const courseSchema = new mongoose.Schema({
     required: true
   },
   enrolledUsers: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'User'
+    type: mongoose.Schema.Types.ObjectId, ref: User
   }]
 })
 

@@ -10,7 +10,6 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Controller to get all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -22,7 +21,6 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// Controller to get a user by their ID
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params._id);
@@ -35,7 +33,6 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-// Controller to update a user by their ID
 exports.updateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params._id, req.body, {
@@ -51,7 +48,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Controller to delete a user by their ID
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params._id);

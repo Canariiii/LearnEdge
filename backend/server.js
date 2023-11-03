@@ -5,6 +5,7 @@ const multer = require('multer');
 
 // Import routers
 const userRoutes = require('./routes/userRoutes');
+const courseRoutes = require('./routes/courseRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,6 +24,7 @@ app.use(upload.array());
 
 // Routes
 app.use('/users', userRoutes);
+app.use('/courses', courseRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
