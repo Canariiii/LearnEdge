@@ -1,6 +1,5 @@
-const User = require('../models/user'); // Make sure to adjust the correct path to the model
+const User = require('../models/user'); 
 
-// Controller to create a new user
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
@@ -15,6 +14,8 @@ exports.createUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
+    console.log("a", users);
+
     res.status(200).json({ success: true, data: users });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
