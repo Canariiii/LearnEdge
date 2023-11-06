@@ -1,47 +1,55 @@
 .header {
-    background-color: #282828;
-    position: absolute;
-    width: 856px;
-    height: 78px;
-    text-align: center;
-    left: 232px;
-    display: flex;
-    align-items: center; 
-    justify-content: space-between; 
+  background-color: #282828;
+  position: absolute;
+  width: 856px;
+  height: 78px;
+  text-align: center;
+  left: 232px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-text {
-    color: #FFFFFF;
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    width: 344px;
-    height: 38px;
-    left: 256px;
-    display: flex;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  width: 344px;
+  height: 38px;
+  left: 256px;
+  top: 24px;
+  display: flex;
+  position: fixed;
 }
 
 .container {
-    display: flex;
-    align-items: center; 
+  display: flex;
+  align-items: center;
+  
 }
 
 .container input[type='text'] {
-    display: flex;
-    width: 308px;
-    height: 36px;
-    position: absolute;
-    left: 656px; 
-    top: 25px; 
+  display: flex;
+  width: 308px;
+  height: 36px;
+  position: fixed;
+  left: 656px;
+  top: 25px;
+
 }
 
 input[placeholder='Search for courses'] {
-    padding-left: 30px;
+  padding-left: 30px;
+  background: #161616;
+  color: white;
+  border-color: black;
 }
 
 .search-icon {
-    color: black;
-    position: absolute;
-    left: 668px;
-    top: 32px;
+  color: white;
+  position: fixed;
+  left: 668px;
+  top: 38px;
+  z-index: 999;
 }

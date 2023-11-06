@@ -6,9 +6,9 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="navbar">
+        <p className='header-text'>Get Started</p>
         <div className='container'>
-          <p className='header-text'>Get Started</p>
-          <SearchOutlined className='search-icon'/>
+          <SearchOutlined className='search-icon' />
           <input type='text' placeholder='Search for courses' />
         </div>
       </nav>
