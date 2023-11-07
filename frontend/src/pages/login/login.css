@@ -148,16 +148,63 @@
 }
 
 .login-form .remember-check[type='checkbox'] {
-  left: 40px;
-  top: 330.5px;
   width: 18px;
   height: 18px;
   flex: none;
   order: 0;
   flex-grow: 0;
   position: absolute;
+  left: 40px;
+  top: 330.5px;
   border-radius: 12px;
   background: linear-gradient(180deg, #7CC1F3 0%, #D27EEF 100%);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.remember-me-container {
+  position: relative;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
+.custom-checkbox {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  position: absolute;
+  left: 40px;
+  top: 330.5px;
+  bottom: 12.5%;
+  background: linear-gradient(180deg, #7CC1F3 0%, #D27EEF 100%);
+  border-radius: 4px;
+}
+
+.custom-checkbox::before {
+  content: '\2713'; 
+  position: absolute;
+  display: none;
+  left: 4px;
+  top: 1px;
+  color: black; 
+  font-size: 12px; 
+}
+
+.remember-check:checked + .custom-checkbox::before {
+  display: block; 
 }
 
 .remember-text {

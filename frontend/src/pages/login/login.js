@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './login.css'; 
+import './login.css';
 import { EyeInvisibleOutlined } from '@ant-design/icons';
 
 function Login() {
@@ -23,9 +23,7 @@ function Login() {
 
   return (
     <div className='login-container'>
-      <a className='logo' href='/login'>
-        <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img' />
-      </a>
+      <a className='logo' href='/login'><img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img' /></a>
       <img src={process.env.PUBLIC_URL + '/assets/img/background.jpg'} alt='background' className='background-img' />
       <p className='welcome'>Welcome Back .!</p>
       <div className='line'></div>
@@ -37,9 +35,10 @@ function Login() {
           <input className='username-input' type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
           <EyeInvisibleOutlined className='eye-icon' />
           <input className='password-input' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-          <div>
-            <label>
+          <div className='remember-me-container'>
+            <label className='checkbox-label'>
               <input className='remember-check' type='checkbox' checked={isChecked} onChange={handleCheckboxChange} />
+              <span className='custom-checkbox'></span>
               <p className='remember-text'>Remember me</p>
             </label>
             <Link to='/home'>
