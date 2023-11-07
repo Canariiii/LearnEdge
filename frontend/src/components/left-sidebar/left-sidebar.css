@@ -1,14 +1,13 @@
-.sidebar {
+.left-sidebar {
     position: fixed;
     width: 232px;
     height: 900px;
     top: 0;
     left: 0;
     background-color: #282828;
-	z-index: 10;
 }
 
-.container {
+.left-container {
     display: flex;
     align-items: center;
 }

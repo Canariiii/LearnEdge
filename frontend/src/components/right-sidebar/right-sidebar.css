@@ -1,4 +1,4 @@
-.sidebar {
+.right-sidebar {
 	position: fixed;
 	width: 352px;
 	height: 900px;
@@ -8,7 +8,7 @@
 	z-index: 10;
 }
 
-.container {
+.right-container {
 	display: flex;
 	align-items: center;
 }

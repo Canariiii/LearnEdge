@@ -8,9 +8,8 @@ import {
 
 const LeftSidebar = () => {
   return (
-    <>
-      <nav className='sidebar'>
-        <ul className='container'>
+      <nav className='left-sidebar'>
+        <ul className='left-container'>
           <TableOutlined className='table-icon' />
           <ClockCircleOutlined className='clock-icon' />
           <CheckOutlined className='check-icon' />
@@ -27,7 +26,6 @@ const LeftSidebar = () => {
           <li className='logout-text'>Log Out</li>
         </ul>
       </nav>
-    </>
   );
 }
 
