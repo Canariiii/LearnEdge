@@ -1,6 +1,10 @@
+body {
+  background-color: #161616;
+}
+
 .header {
   background-color: #282828;
-  position: absolute;
+  position: fixed;
   width: 856px;
   height: 78px;
   text-align: center;
@@ -10,23 +14,49 @@
   justify-content: space-between;
 }
 
-.header-text {
-  color: #FFFFFF;
-  font-family: 'Poppins', sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-  width: 344px;
-  height: 38px;
-  left: 256px;
-  top: 24px;
-  display: flex;
+.left-sidebar {
   position: fixed;
+  width: 232px;
+  height: 900px;
+  top: 0;
+  left: 0; 
+  background-color: #282828; 
+}
+
+.right-sidebar {
+  position: fixed;
+  width: 352px;
+  height: 900px;
+  top: 0;
+  left: 1088px;
+  background-color: #282828; 
+}
+
+.text {
+  position: relative;
+  color: #FFFFFF;
+  font-size: 28px;
+  left: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+
 }
 
 .container {
   display: flex;
   align-items: center;
-  
+}
+
+.left-container {
+  display: flex;
+  align-items: center;
+}
+
+.right-container {
+  display: flex;
+  align-items: center;
 }
 
 .container input[type='text'] {
@@ -34,9 +64,8 @@
   width: 308px;
   height: 36px;
   position: fixed;
-  left: 656px;
-  top: 25px;
-
+  left: 610px;
+  top: 15px;
 }
 
 input[placeholder='Search for courses'] {
@@ -49,7 +78,194 @@ input[placeholder='Search for courses'] {
 .search-icon {
   color: white;
   position: fixed;
-  left: 668px;
-  top: 38px;
+  left: 620px;
+  top: 29px;
   z-index: 999;
+}
+
+.bell-icon {
+  color: white;
+  position: fixed;
+  left: 980px;
+  top: 28px;
+}
+
+.mail-icon {
+  color: white;
+  position: fixed;
+  left: 1012px;
+  top: 28px;
+}
+
+.comment-icon {
+  color: white;
+  position: fixed;
+  left: 1043px;
+  top: 28px;
+}
+
+.table-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 132px;
+}
+
+.clock-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 180px;
+}
+
+.check-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 228px;
+}
+
+.instructors-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 276px;
+}
+
+.note-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 324px;
+}
+
+.setting-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 808px;
+}
+
+.logout-icon {
+  color: white;
+  position: fixed;
+  left: 24px;
+  top: 856px;
+}
+
+.overview-text{
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 133px;
+  width: 142px;
+  height: 18px;
+}
+
+.upcoming-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 181px;
+  width: 142px;
+  height: 18px;
+}
+
+.grades-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 229px;
+  width: 142px;
+  height: 18px;
+}
+
+.instructors-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 277px;
+  width: 142px;
+  height: 18px;
+}
+
+.notes-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 325px;
+  width: 142px;
+  height: 18px;
+}
+
+.setting-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 809px;
+  width: 142px;
+  height: 18px;
+}
+
+.logout-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  position: fixed;
+  left: 56px;
+  top: 857px;
+  width: 142px;
+  height: 18px;
+}
+
+.current-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  display: flex;
+  position: fixed;
+  left: 1112px;
+  top: 30px;
+  width: 296px;
+  height: 26px;
+}
+
+.inbox-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  display: flex;
+  position: fixed;
+  left: 1112px;
+  top: 712px;
+  width: 296px;
+  height: 26px;
 }
