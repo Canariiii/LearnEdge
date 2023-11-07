@@ -194,17 +194,17 @@
 }
 
 .custom-checkbox::before {
-  content: '\2713'; 
+  content: '\2713';
   position: absolute;
   display: none;
   left: 4px;
   top: 1px;
-  color: black; 
-  font-size: 12px; 
+  color: black;
+  font-size: 12px;
 }
 
-.remember-check:checked + .custom-checkbox::before {
-  display: block; 
+.remember-check:checked+.custom-checkbox::before {
+  display: block;
 }
 
 .remember-text {
@@ -257,3 +257,96 @@
   left: 177px;
   top: 430px;
 }
+
+.or-text {
+  width: 20px;
+  height: 22px;
+  color: #4D4D4D;
+  position: absolute;
+  left: 190px;
+  top: -25px;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+
+}
+
+.line-or-first {
+  width: 170px;
+  height: 0px;
+  border: 2px solid #4D4D4D;
+  position: absolute;
+  left: 40px;
+  top: 490px;
+}
+
+.second-or-first {
+  width: 170px;
+  height: 0px;
+  border: 2px solid #4D4D4D;
+  position: absolute;
+  left: 268px;
+  top: 490px;
+}
+
+.google-icon {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 150px;
+  top: 520px;
+  font-size: 42px;
+}
+
+.face-icon {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 220px;
+  top: 520px;
+  font-size: 42px;
+}
+
+.git-icon {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 290px;
+  top: 520px;
+  font-size: 42px;
+}
+
+.signup-text {
+  display: flex;
+  position: absolute;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  left: 25%;
+  top: 600px;
+}
+
+.terms-support-container {
+  display: flex;
+  position: absolute;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 650px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.terms-support-container p {
+  margin: 0 20px;
+}
+

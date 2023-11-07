@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
-import { EyeInvisibleOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
 
 function Login() {
   const [isChecked, setIsChecked] = useState(false);
@@ -41,10 +41,23 @@ function Login() {
               <span className='custom-checkbox'></span>
               <p className='remember-text'>Remember me</p>
             </label>
-            <Link to='/home'>
-              <button className='login-button'>Login</button>
-            </Link>
-            <a href='/home'><p className='forgot-password'>Forgot Password ?</p></a>
+          </div>
+          <Link to='/home'>
+            <button className='login-button'>Login</button>
+          </Link>
+          <a href='/home'><p className='forgot-password'>Forgot Password ?</p></a>
+          <div className='line-or-first'><p className='or-text'>Or</p></div>
+          <div className='second-or-first'></div>
+          <div className='social-container'>
+            <GoogleOutlined className='google-icon' />
+            <FacebookOutlined className='face-icon' />
+            <GithubOutlined className='git-icon' />
+          </div>
+          <p className='signup-text'>Don't have an account ? Sign Up</p>
+          <div className='terms-support-container'>
+            <p>Terms & Conditions</p>
+            <p>Support</p>
+            <p>Customer Care</p>
           </div>
         </form>
       </div>
