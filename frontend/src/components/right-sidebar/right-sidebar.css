@@ -1,0 +1,40 @@
+.sidebar {
+	position: fixed;
+	width: 352px;
+	height: 900px;
+	top: 0;
+	left: 1088px;
+	background-color: #282828;
+	z-index: 10;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+}
+
+.current-text {
+	color: white;
+	font-family: 'Poppins', sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	display: flex;
+	position: fixed;
+	left: 1112px;
+	top: 30px;
+	width: 296px;
+	height: 26px;
+}
+
+.inbox-text {
+	color: white;
+	font-family: 'Poppins', sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	display: flex;
+	position: fixed;
+	left: 1112px;
+	top: 712px;
+	width: 296px;
+	height: 26px;
+}
