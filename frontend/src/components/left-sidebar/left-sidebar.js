@@ -16,7 +16,7 @@ const LeftSidebar = () => {
           <TeamOutlined className='instructors-icon' />
           <FileOutlined className='note-icon' />
           <SettingOutlined className='setting-icon' />
-          <LogoutOutlined className='logout-icon' />
+          <a href='/login'><LogoutOutlined className='logout-icon' /></a>
           <li className='overview-text'>Courses Overview</li>
           <li className='upcoming-text'>Upcoming Classes</li>
           <li className='grades-text'>Grades</li>
