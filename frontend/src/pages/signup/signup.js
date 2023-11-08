@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './signup.css';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
 
@@ -34,6 +35,9 @@ function SignUp() {
         <input className='password-signup' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <input className='confirm-password-signup' type='password' placeholder='Confirm Password' value={confirmPassword} onChange={handleConfirmPasswordChange} />
         {passwordError && <p className='error-message'>{passwordError}</p>}
+        <Link to='/home'>
+          <button className='signup-button'>Signup</button>
+        </Link>
       </div>
       <div className='first-ellipse'></div>
       <div className='second-ellipse'></div>

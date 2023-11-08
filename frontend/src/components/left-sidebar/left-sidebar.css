@@ -51,14 +51,14 @@
     color: white;
     position: fixed;
     left: 24px;
-    top: 808px;
+    top: 708px;
 }
 
 .logout-icon {
     color: white;
     position: fixed;
     left: 24px;
-    top: 856px;
+    top: 748px;
 }
 
 .overview-text {
@@ -134,7 +134,7 @@
     display: flex;
     position: fixed;
     left: 56px;
-    top: 809px;
+    top: 710px;
     width: 142px;
     height: 18px;
 }
@@ -147,7 +147,7 @@
     display: flex;
     position: fixed;
     left: 56px;
-    top: 857px;
+    top: 750px;
     width: 142px;
     height: 18px;
 }
