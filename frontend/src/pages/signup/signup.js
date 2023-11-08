@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './signup.css';
 import { Link } from 'react-router-dom';
+import { GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
 
 function SignUp() {
 
@@ -38,6 +39,19 @@ function SignUp() {
         <Link to='/home'>
           <button className='signup-button'>Signup</button>
         </Link>
+        <div className='line-or-first-signup'><p className='or-text-signup'>Or</p></div>
+        <div className='second-or-first-signup'></div>
+        <div className='social-container-signup'>
+          <GoogleOutlined className='google-icon-signup' />
+          <FacebookOutlined className='face-icon-signup' />
+          <GithubOutlined className='git-icon-signup' />
+        </div>
+        <p className='already-signup'>Already registered ? <a href='/login'>Login</a></p>
+        <div className='terms-support-container-signup'>
+          <p>Terms & Conditions</p>
+          <p>Support</p>
+          <p>Customer Care</p>
+        </div>
       </div>
       <div className='first-ellipse'></div>
       <div className='second-ellipse'></div>

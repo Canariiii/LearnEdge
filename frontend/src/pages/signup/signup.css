@@ -65,7 +65,7 @@
   border-radius: 20px;
   left: 846px;
   width: 480px;
-  height: 700px;
+  height: 730px;
   background: transparent;
   backdrop-filter: blur(26.5px);
   z-index: 2;
@@ -90,7 +90,7 @@
   display: flex;
   position: absolute;
   left: 1190px;
-  top: 570.97px;
+  top: 575.97px;
   transform: translate(-50%, -50%);
   width: 200px;
   height: 200px;
@@ -238,4 +238,104 @@
   font-size: 20px;
   line-height: 27px;
   color: #FFFFFF;
+}
+
+.or-text-signup {
+  width: 20px;
+  height: 22px;
+  color: #4D4D4D;
+  position: absolute;
+  left: 190px;
+  top: -25px;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+
+}
+
+.line-or-first-signup {
+  width: 170px;
+  height: 0px;
+  border: 2px solid #4D4D4D;
+  position: absolute;
+  left: 40px;
+  top: 555px;
+}
+
+.second-or-first-signup {
+  width: 170px;
+  height: 0px;
+  border: 2px solid #4D4D4D;
+  position: absolute;
+  left: 268px;
+  top: 555px;
+}
+
+.google-icon-signup {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 150px;
+  top: 580px;
+  font-size: 42px;
+}
+
+.face-icon-signup {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 220px;
+  top: 580px;
+  font-size: 42px;
+}
+
+.git-icon-signup {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 290px;
+  top: 580px;
+  font-size: 42px;
+}
+
+.already-signup {
+  display: flex;
+  position: absolute;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  left: 30%;
+  top: 625px;
+  text-decoration: none;
+}
+
+.already-signup a {
+  color: white;
+  display: flex;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.terms-support-container-signup{
+  display: flex;
+  position: absolute;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 670px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.terms-support-container-signup p {
+  margin: 0 20px;
 }
