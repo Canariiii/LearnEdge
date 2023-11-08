@@ -53,7 +53,7 @@ function Login() {
             <FacebookOutlined className='face-icon' />
             <GithubOutlined className='git-icon' />
           </div>
-          <p className='signup-text'>Don't have an account ? Sign Up</p>
+          <p className='signup'>Don't have an account ? <a href='/signup'>Sign Up</a></p>
           <div className='terms-support-container'>
             <p>Terms & Conditions</p>
             <p>Support</p>
