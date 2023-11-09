@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const cors = require('cors');
 
 // Import routers
 const userRoutes = require('./routes/userRoutes');
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 const upload = multer();
 app.use(upload.array());
+app.use(cors());
 
 // Routes
 app.use('/users', userRoutes);

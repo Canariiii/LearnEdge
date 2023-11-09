@@ -2,23 +2,37 @@ import React, { useState } from 'react';
 import './signup.css';
 import { Link } from 'react-router-dom';
 import { GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
+import axios from 'axios'; 
+
 
 function SignUp() {
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [mobile, setMobile] = useState('');
 
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-    if (password && e.target.value !== password) {
-      setPasswordError("Passwords do not match");
-    } else {
-      setPasswordError("");
-    }
+  const handleMobileChange = (e) => {
+    setMobile(e.target.value);
+  };
+
+  const handleSignUp = () => {
+    const newUser = {
+      username: username,
+      password: password,
+      email: email,
+      phone: mobile,
+      role: 'user' 
+    };
+
+    axios.post('http://localhost:3001/users', newUser)
+      .then(response => {
+        console.log(response.data); 
+      })
+      .catch(error => {
+        console.error('Error al crear usuario:', error);
+      });
   };
 
   return (
@@ -34,10 +48,9 @@ function SignUp() {
         <input className='username-signup' type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
         <input className='email-signup' type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <input className='password-signup' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-        <input className='confirm-password-signup' type='password' placeholder='Confirm Password' value={confirmPassword} onChange={handleConfirmPasswordChange} />
-        {passwordError && <p className='error-message'>{passwordError}</p>}
+        <input className='mobile-signup' type='text' placeholder='Mobile' value={mobile} onChange={handleMobileChange} />
         <Link to='/home'>
-          <button className='signup-button'>Signup</button>
+          <button className='signup-button' onClick={handleSignUp}>Signup</button>
         </Link>
         <div className='line-or-first-signup'><p className='or-text-signup'>Or</p></div>
         <div className='second-or-first-signup'></div>
