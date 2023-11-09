@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
-import { EyeInvisibleOutlined, GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, GoogleOutlined, FacebookOutlined, GithubOutlined, EyeOutlined } from '@ant-design/icons';
 
 function Login() {
   const [isChecked, setIsChecked] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {
@@ -23,7 +28,7 @@ function Login() {
 
   return (
     <div className='login-container'>
-      <a className='logo' href='/login'><img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img'/></a>
+      <a className='logo' href='/login'><img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img' /></a>
       <img src={process.env.PUBLIC_URL + '/assets/img/background.jpg'} alt='background' className='background-img' />
       <p className='welcome'>Welcome Back .!</p>
       <div className='line-login'></div>
@@ -33,8 +38,10 @@ function Login() {
           <p className='login-text'>Login</p>
           <p className='glad-text'>Glad you're back.!</p>
           <input className='username-input' type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
-          <EyeInvisibleOutlined className='eye-icon' />
-          <input className='password-input' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input className='password-input' type={showPassword ? 'text' : 'password'} placeholder='Password' value={password}  onChange={(e) => setPassword(e.target.value)} />
+          <div className='eye-icon' onClick={toggleShowPassword}>
+            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+          </div>
           <div className='remember-me-container'>
             <label className='checkbox-label'>
               <input className='remember-check' type='checkbox' checked={isChecked} onChange={handleCheckboxChange} />
@@ -49,9 +56,9 @@ function Login() {
           <div className='line-or-first'><p className='or-text'>Or</p></div>
           <div className='second-or-first'></div>
           <div className='social-container'>
-            <GoogleOutlined className='google-icon' />
-            <FacebookOutlined className='face-icon' />
-            <GithubOutlined className='git-icon' />
+            <GoogleOutlined className='social-icon' />
+            <FacebookOutlined className='social-icon' />
+            <GithubOutlined className='social-icon' />
           </div>
           <p className='signup'>Don't have an account ? <a href='/signup'>Sign Up</a></p>
           <div className='terms-support-container'>

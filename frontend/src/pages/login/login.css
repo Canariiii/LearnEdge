@@ -94,8 +94,7 @@
   line-height: 100%;
   left: 5%;
   top: 15%;
-  width: 135px;
-  height: 22px;
+  width: 50%;
   flex: none;
   order: 1;
   flex-grow: 0;
@@ -144,7 +143,7 @@
 }
 
 .login-form .remember-check[type='checkbox'] {
-  
+
   width: 1%;
   height: 1%;
   flex: none;
@@ -250,8 +249,8 @@
 .or-text {
   color: #4D4D4D;
   position: fixed;
-  left: 50%;
-  top: 69%;
+  left: 49.2%;
+  top: 70%;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -262,8 +261,8 @@
   width: 35%;
   border: 2px solid #4D4D4D;
   position: absolute;
-  left: 10%;
-  top: 72%;
+  left: 8%;
+  top: 72.8%;
 }
 
 .second-or-first {
@@ -271,34 +270,22 @@
   border: 2px solid #4D4D4D;
   position: absolute;
   left: 57.5%;
-  top: 72%;
+  top: 72.8%;
 }
 
-.google-icon {
+.social-container {
   display: flex;
+  justify-content: center;
   position: absolute;
   color: white;
-  left: 37%;
-  top: 77%;
-  font-size: 200%;
+  left: 8%;
+  right: 0;
+  top: 78%;
 }
 
-.face-icon {
-  display: flex;
-  position: absolute;
-  color: white;
-  left: 48.5%;
-  top: 77%;
+.social-icon {
   font-size: 200%;
-}
-
-.git-icon {
-  display: flex;
-  position: absolute;
-  color: white;
-  left: 60%;
-  top: 77%;
-  font-size: 200%;
+  margin-right: 2vw;
 }
 
 .signup {
@@ -339,4 +326,165 @@
 
 .terms-support-container p {
   margin: 1% 5%;
+}
+
+@media (max-width: 430px) and (max-height: 932px) {
+  .logo-img {
+    width: 50%;
+  }
+
+  .line-login {
+    display: none;
+  }
+
+  .login-border {
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 60%;
+  }
+
+  .welcome {
+    font-size: 24px;
+    left: 7%;
+    top: 15%;
+  }
+
+  .skipthelag {
+    font-size: 24px;
+    left: 7%;
+    top: 20%;
+  }
+
+  .forgot-password {
+    left: 25%;
+    top: 65%;
+  }
+
+  .or-text {
+    left: 35%;
+    top: 70%;
+  }
+
+  .line-or-first,
+  .second-or-first {
+    width: 35%;
+    left: 32.5%;
+    top: 73%;
+  }
+
+  .social-container {
+    top: 80%;
+  }
+
+  .signup {
+    left: 10%;
+    top: 85%;
+  }
+
+  .terms-support-container {
+    top: 90%;
+  }
+
+  .login-text {
+    font-size: 24px;
+  }
+
+  .glad-text {
+    font-size: 12px;
+  }
+
+  .username-input,
+  .password-input {
+    padding: 5% 3%;
+    width: 85%;
+    height: 8%;
+    font-size: 12px;
+  }
+
+  .eye-icon {
+    top: 37.8%;
+  }
+
+  .remember-check[type='checkbox'] {
+    top: 45%;
+    width: 10px;
+    height: 10px;
+  }
+
+  .custom-checkbox {
+    width: 3.5%;
+    height: 2.7%;
+    left: 7.5%;
+    top: 46.5%;
+  }
+
+  .custom-checkbox::before {
+    left: 15%;
+    top: 1%;
+  }
+
+  .remember-text {
+    font-size: 12px;
+    left: 12.5%;
+    top: 44.2%;
+  }
+
+  .login-button {
+    top: 55%;
+    height: 8%;
+    font-size: 16px;
+  }
+
+  .forgot-password {
+    left: 40%;
+    top: 63%;
+    width: 80%;
+    font-size: 12px;
+  }
+
+  .or-text {
+    left: 48.5%;
+    top: 67%;
+  }
+
+  .line-or-first {
+    width: 40%;
+    border: 2px solid #4D4D4D;
+    position: absolute;
+    left: 3%;
+    top: 71%;
+  }
+
+  .second-or-first {
+    width: 40%;
+    border: 2px solid #4D4D4D;
+    position: absolute;
+    left: 57%;
+    top: 71%;
+  }
+
+  .social-container {
+    top: 78%;
+  }
+
+  .social-icon {
+    font-size: 150%;
+    margin-right: 5%;
+  }
+
+  .signup {
+    left: 20%;
+    top: 82%;
+  }
+
+  .terms-support-container {
+    top: 88%;
+  }
+
+  .terms-support-container p {
+    margin: 5% 10%;
+    font-size: 50%;
+  }
 }

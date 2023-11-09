@@ -42,10 +42,10 @@ function SignUp() {
         <div className='line-or-first-signup'><p className='or-text-signup'>Or</p></div>
         <div className='second-or-first-signup'></div>
         <div className='social-container-signup'>
-          <GoogleOutlined className='google-icon-signup' />
-          <FacebookOutlined className='face-icon-signup' />
-          <GithubOutlined className='git-icon-signup' />
-        </div>
+            <GoogleOutlined className='social-icon' />
+            <FacebookOutlined className='social-icon' />
+            <GithubOutlined className='social-icon' />
+          </div>
         <p className='already-signup'>Already registered ? <a href='/login'>Login</a></p>
         <div className='terms-support-container-signup'>
           <p>Terms & Conditions</p>
