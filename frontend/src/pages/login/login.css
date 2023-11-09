@@ -9,19 +9,18 @@
 }
 
 .logo {
-  position: fixed;
-  top: 10px;
-  left: 10px;
+  position: absolute;
+  top: 1%;
+  left: 1%;
 }
 
 .logo-img {
-  width: 350px;
-  height: auto;
+  width: 15%;
 }
 
 .background-img {
-  width: 1440px;
-  height: 900px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -32,16 +31,16 @@
   font-size: 96px;
   display: flex;
   position: absolute;
-  left: 56px;
-  top: 250px;
+  left: 3.5%;
+  top: 30%;
 }
 
-.line {
+.line-login {
   display: flex;
   position: fixed;
-  left: 280px;
-  top: 460px;
-  width: 561px;
+  left: 20%;
+  top: 58%;
+  width: 40%;
   height: 1px;
   border: 2px dashed #4D4D4D;
 }
@@ -53,8 +52,8 @@
   font-size: 32px;
   display: flex;
   position: fixed;
-  left: 65px;
-  top: 400px;
+  left: 5%;
+  top: 51%;
   border: 2px solid white;
   padding: 10px;
 }
@@ -63,10 +62,10 @@
   display: flex;
   position: absolute;
   border: 1px solid white;
-  border-radius: 20px;
-  left: 846px;
-  width: 480px;
-  height: 700px;
+  border-radius: 5%;
+  left: 60%;
+  width: 35%;
+  height: 90%;
   background: transparent;
   backdrop-filter: blur(26.5px);
 }
@@ -77,13 +76,11 @@
   font-style: normal;
   font-weight: 600;
   font-size: 36px;
-  line-height: 49px;
+  line-height: 100%;
   display: flex;
   position: fixed;
-  left: 40px;
-  top: 60px;
-  width: 98px;
-  height: 49px;
+  left: 5%;
+  top: 5%;
 }
 
 .glad-text {
@@ -94,9 +91,9 @@
   font-size: 16px;
   display: flex;
   position: fixed;
-  line-height: 22px;
-  left: 40px;
-  top: 130px;
+  line-height: 100%;
+  left: 5%;
+  top: 15%;
   width: 135px;
   height: 22px;
   flex: none;
@@ -110,14 +107,13 @@
   position: absolute;
   flex-direction: row;
   align-items: center;
-  padding: 14px 16px;
-  gap: 10px;
-  width: 400px;
-  height: 55px;
+  padding: 1% 3%;
+  width: 85%;
+  height: 8%;
   border: 1px solid #FFFFFF;
   border-radius: 12px;
-  left: 40px;
-  top: 180px;
+  left: 7%;
+  top: 25%;
   background-color: transparent;
   color: white;
 }
@@ -128,14 +124,13 @@
   position: absolute;
   flex-direction: row;
   align-items: center;
-  padding: 14px 16px;
-  gap: 10px;
-  width: 400px;
-  height: 55px;
+  padding: 1% 3%;
+  width: 85%;
+  height: 8%;
   border: 1px solid #FFFFFF;
   border-radius: 12px;
-  left: 40px;
-  top: 260px;
+  left: 7%;
+  top: 35%;
   background-color: transparent;
   color: white;
 }
@@ -144,19 +139,20 @@
   color: white;
   display: flex;
   position: absolute;
-  left: 400px;
-  top: 279px;
+  left: 85%;
+  top: 38%;
 }
 
 .login-form .remember-check[type='checkbox'] {
-  width: 18px;
-  height: 18px;
+  
+  width: 1%;
+  height: 1%;
   flex: none;
   order: 0;
   flex-grow: 0;
   position: absolute;
-  left: 40px;
-  top: 330.5px;
+  left: 7%;
+  top: 45%;
   border-radius: 12px;
   background: linear-gradient(180deg, #7CC1F3 0%, #D27EEF 100%);
   opacity: 0;
@@ -180,26 +176,24 @@
 }
 
 .custom-checkbox {
-  position: relative;
-  width: 18px;
-  height: 18px;
+  width: 3.5%;
+  height: 2.7%;
   flex: none;
   order: 0;
   flex-grow: 0;
-  position: absolute;
-  left: 40px;
-  top: 330.5px;
-  bottom: 12.5%;
+  position: fixed;
+  left: 7.5%;
+  top: 46.5%;
   background: linear-gradient(180deg, #7CC1F3 0%, #D27EEF 100%);
   border-radius: 4px;
 }
 
 .custom-checkbox::before {
   content: '\2713';
-  position: absolute;
+  position: relative;
   display: none;
-  left: 4px;
-  top: 1px;
+  left: 25%;
+  top: 10%;
   color: black;
   font-size: 12px;
 }
@@ -209,17 +203,15 @@
 }
 
 .remember-text {
-  position: absolute;
-  width: 114px;
-  height: 22px;
+  position: fixed;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 22px;
   color: #FFFFFF;
-  left: 69px;
-  top: 315px;
+  left: 12.5%;
+  top: 44.2%;
 }
 
 .login-button {
@@ -229,94 +221,84 @@
   justify-content: center;
   align-items: center;
   padding: 14px 10px;
-  left: 40px;
-  top: 370px;
-  gap: 10px;
-  width: 400px;
-  height: 55px;
+  left: 10%;
+  top: 55%;
+  width: 80%;
+  height: 8%;
   background: linear-gradient(90.57deg, #628EFF 9.91%, #8740CD 53.29%, #580475 91.56%);
   border-radius: 12px;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
-  line-height: 27px;
   color: #FFFFFF;
 }
 
 .forgot-password {
-  position: absolute;
+  position: fixed;
   display: flex;
-  width: 140px;
-  height: 22px;
+  width: 30%;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  line-height: 22px;
   color: #FFFFFF;
-  left: 177px;
-  top: 430px;
+  left: 38%;
+  top: 64%;
 }
 
 .or-text {
-  width: 20px;
-  height: 22px;
   color: #4D4D4D;
-  position: absolute;
-  left: 190px;
-  top: -25px;
+  position: fixed;
+  left: 50%;
+  top: 69%;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  line-height: 22px;
-
 }
 
 .line-or-first {
-  width: 170px;
-  height: 0px;
+  width: 35%;
   border: 2px solid #4D4D4D;
   position: absolute;
-  left: 40px;
-  top: 490px;
+  left: 10%;
+  top: 72%;
 }
 
 .second-or-first {
-  width: 170px;
-  height: 0px;
+  width: 35%;
   border: 2px solid #4D4D4D;
   position: absolute;
-  left: 268px;
-  top: 490px;
+  left: 57.5%;
+  top: 72%;
 }
 
 .google-icon {
   display: flex;
   position: absolute;
   color: white;
-  left: 150px;
-  top: 520px;
-  font-size: 42px;
+  left: 37%;
+  top: 77%;
+  font-size: 200%;
 }
 
 .face-icon {
   display: flex;
   position: absolute;
   color: white;
-  left: 220px;
-  top: 520px;
-  font-size: 42px;
+  left: 48.5%;
+  top: 77%;
+  font-size: 200%;
 }
 
 .git-icon {
   display: flex;
   position: absolute;
   color: white;
-  left: 290px;
-  top: 520px;
-  font-size: 42px;
+  left: 60%;
+  top: 77%;
+  font-size: 200%;
 }
 
 .signup {
@@ -327,8 +309,8 @@
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  left: 25%;
-  top: 600px;
+  left: 30%;
+  top: 85.5%;
   text-decoration: none;
 }
 
@@ -347,14 +329,14 @@
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  left: 0;
-  right: 0;
+  left: 1%;
+  right: 1%;
   margin: auto;
-  top: 650px;
+  top: 93%;
   justify-content: center;
   flex-direction: row;
 }
 
 .terms-support-container p {
-  margin: 0 20px;
+  margin: 1% 5%;
 }

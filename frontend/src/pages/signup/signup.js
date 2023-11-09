@@ -23,8 +23,8 @@ function SignUp() {
 
   return (
     <div className='signup-container'>
-      <a className='logo' href='/login'><img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img' /></a>
-      <img src={process.env.PUBLIC_URL + '/assets/img/background.jpg'} alt='background' className='background-img' />
+      <a className='logo-signup' href='/login'><img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img-signup' /></a>
+      <img src={process.env.PUBLIC_URL + '/assets/img/background.jpg'} alt='background' className='background-img-signup' />
       <p className='join'>Join Now .!</p>
       <div className='line'></div>
       <p className='scare'>Scare to join ?</p>
