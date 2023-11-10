@@ -49,7 +49,7 @@ function Login() {
               <p className='remember-text'>Remember me</p>
             </label>
           </div>
-          <Link to='/home'>
+          <Link to='/courses'>
             <button className='login-button'>Login</button>
           </Link>
           <a href='/home'><p className='forgot-password'>Forgot Password ?</p></a>
