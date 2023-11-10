@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './signup.css';
 import { Link } from 'react-router-dom';
 import { GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
-import axios from 'axios'; 
+import axios from 'axios';
 
 
 function SignUp() {
@@ -11,6 +11,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
+  const [role, setRole] = useState('user');
 
 
   const handleMobileChange = (e) => {
@@ -23,12 +24,12 @@ function SignUp() {
       password: password,
       email: email,
       phone: mobile,
-      role: 'user' 
+      role: role
     };
 
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
-        console.log(response.data); 
+        console.log(response.data);
       })
       .catch(error => {
         console.error('Error al crear usuario:', error);
@@ -49,16 +50,21 @@ function SignUp() {
         <input className='email-signup' type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <input className='password-signup' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <input className='mobile-signup' type='text' placeholder='Mobile' value={mobile} onChange={handleMobileChange} />
+        <select className='role-dropdown' value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value='user'>User</option>
+          <option value='teacher'>Teacher</option>
+          <option value='admin'>Admin</option>
+        </select>
         <Link to='/home'>
           <button className='signup-button' onClick={handleSignUp}>Signup</button>
         </Link>
         <div className='line-or-first-signup'><p className='or-text-signup'>Or</p></div>
         <div className='second-or-first-signup'></div>
         <div className='social-container-signup'>
-            <GoogleOutlined className='social-icon' />
-            <FacebookOutlined className='social-icon' />
-            <GithubOutlined className='social-icon' />
-          </div>
+          <GoogleOutlined className='social-icon' />
+          <FacebookOutlined className='social-icon' />
+          <GithubOutlined className='social-icon' />
+        </div>
         <p className='already-signup'>Already registered ? <a href='/login'>Login</a></p>
         <div className='terms-support-container-signup'>
           <p>Terms & Conditions</p>
