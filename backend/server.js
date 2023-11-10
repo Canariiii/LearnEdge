@@ -17,19 +17,21 @@ const PORT = process.env.PORT || 3001;
 // Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-const upload = multer();
 app.use(cors());
 
 // Routes
-app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', userRoutes);
 app.use('/courses', courseRoutes);
+
+// public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
