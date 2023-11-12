@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body.style.backgroundColor = location.pathname === '/' ? '#101828' : 'initial';
+
+    return () => {
+      body.style.backgroundColor = 'initial';
+    };
+  }, [location.pathname]);
   return (
-    <header className="header">
+    <header className="navbar">
       <div className='navbar-container'>
         <nav className="navbar">
           <img className='logo-img-home' src="/assets/img/logo.png" alt="" height={50} />

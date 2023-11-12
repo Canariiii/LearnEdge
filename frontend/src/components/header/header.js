@@ -1,22 +1,21 @@
 import React from 'react';
 import './header.css';
-import { SearchOutlined, BellOutlined, MailOutlined, 
-  CommentOutlined } from '@ant-design/icons';
 
 const Header = () => {
   return (
     <header className="header">
+      <div className="logo-container">
+        <img src={'/assets/img/logo.png'} alt="Logo" className="logo" />
+      </div>
+      <div className='line-header'></div>
       <nav>
-        <p className='text'>Get Started</p>
-        <div className='container'>
-          <SearchOutlined className='search-icon' />
-          <input type='text' placeholder='Search for courses' />
-          <a href='/'><BellOutlined className='bell-icon' /></a>
-          <a href='/'><MailOutlined className='mail-icon' /></a>
-          <a href='/'><CommentOutlined className='comment-icon' /></a>
-        </div>
+        <ul className='header-container'>
+          <li>Home</li>
+          <li>Courses</li>
+          <li>My Courses</li>
+        </ul>
       </nav>
-    </header >
+    </header>
   );
 }
 

@@ -1,76 +1,52 @@
-body {
-  background-color: #161616;
+.logo {
+  display: flex;
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  width: 15%;
+}
+
+.line-header {
+  display: flex;
+  position: fixed;
+  left: 18%;
+  top: 2.5%;
+  height: 50px;
+  border: 1px solid #4D4D4D;
 }
 
 .header {
-  background-color: #282828;
-  position: fixed;
-  width: 856px;
-  height: 78px;
-  text-align: center;
-  left: 232px;
   display: flex;
-  align-items: center;
+  position: fixed;
+  background-color: grey;
+  width: 100%;
+  height: 10%;
+}
+
+.header-container {
+  display: flex;
+  position: fixed;
+  top: 4%;
+  left: 20%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-container li {
+  margin-right: 20px;
+}
+
+.header-options {
+  display: flex;
+  position: fixed;
+  left: 20%;
   justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.text {
-  position: relative;
-  color: #FFFFFF;
-  font-size: 28px;
-  left: 10px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: normal;
-  display: flex;
-  justify-content: center;
-}
-
-.container {
-  display: flex;
-  align-items: center;
-}
-
-.container input[type='text'] {
-  display: flex;
-  width: 308px;
-  height: 36px;
-  position: fixed;
-  left: 610px;
-  top: 15px;
-}
-
-input[placeholder='Search for courses'] {
-  padding-left: 30px;
-  background: #161616;
-  color: white;
-  border-color: black;
-}
-
-.search-icon {
-  color: white;
-  position: fixed;
-  left: 620px;
-  top: 29px;
-  z-index: 999;
-}
-
-.bell-icon {
-  color: white;
-  position: fixed;
-  left: 980px;
-  top: 28px;
-}
-
-.mail-icon {
-  color: white;
-  position: fixed;
-  left: 1012px;
-  top: 28px;
-}
-
-.comment-icon {
-  color: white;
-  position: fixed;
-  left: 1043px;
-  top: 28px;
+.header-options li {
+  margin-right: 20px; 
 }
