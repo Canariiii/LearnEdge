@@ -67,7 +67,7 @@ body {
 .nav-line{
   display: flex;
   position: fixed;
-  left: 1;
+  left: 3.3%;
   top: 18%;
   width: 93%;
   border: 1.15px solid #4D4D4D;

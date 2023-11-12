@@ -236,7 +236,7 @@
   align-items: center;
   padding: 14px 10px;
   left: 10%;
-  top: 65%;
+  top: 66%;
   width: 80%;
   height: 8%;
   background: linear-gradient(90.57deg, #2E4CEE 9.91%, #221EBF 53.29%, #040F75 91.56%);
@@ -253,7 +253,7 @@
   color: #4D4D4D;
   position: fixed;
   left: 49.2%;
-  top: 73%;
+  top: 74%;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -265,7 +265,7 @@
   border: 2px solid #4D4D4D;
   position: absolute;
   left: 8%;
-  top: 76%;
+  top: 76.5%;
 }
 
 .second-or-first-signup {
@@ -273,7 +273,7 @@
   border: 2px solid #4D4D4D;
   position: absolute;
   left: 57.5%;
-  top: 76%;
+  top: 76.5%;
 }
 
 .social-container-signup {
