@@ -21,8 +21,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  file: {
-    type: String
+  filename: {
+    type: String,
+    required: true,
+    match: /\.(jpg|jpeg|png|gif)$/
   }
 });
 

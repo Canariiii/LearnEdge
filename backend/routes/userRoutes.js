@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = express.Router();
-var userController = require('../controllers/userController');
-var upload = require('../multer/upload');
+const userController = require('../controllers/userController');
+const upload = require('../multer/upload');
 
 userRouter.route('/')
   .post(upload.single('file'), userController.createUser)
