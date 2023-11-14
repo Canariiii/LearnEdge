@@ -8,7 +8,7 @@ var path = require('path');
 
 dotenv.config();
 // Import routers
-const userRoutes = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 
 const app = express();
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use('/users', userRoutes);
+app.use('/users', userRouter);
 app.use('/courses', courseRoutes);
 
 // public directory

@@ -1,4 +1,9 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+
+const createToken = (user) => {
+  return jwt.sign({ _id: user._id}, 'token');
+}
 
 exports.createUser = async (req, res) => {
   try {
