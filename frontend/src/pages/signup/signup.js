@@ -11,10 +11,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
-  const [role, setRole] = useState('user');
-  const [filename, setFilename] = useState('user');
-
-
+  const [role, setRole] = useState('');
 
   const handleMobileChange = (e) => {
     setMobile(e.target.value);
