@@ -111,7 +111,7 @@
   display: flex;
   position: fixed;
   left: 5%;
-  top: 1;
+  top: 1%;
 }
 
 .details-text {
@@ -124,7 +124,7 @@
   position: fixed;
   line-height: 100%;
   left: 5%;
-  top: 9%;
+  top: 10%;
   width: 50%;
   flex: none;
   order: 1;
@@ -143,7 +143,7 @@
   border: 1px solid #FFFFFF;
   border-radius: 12px;
   left: 7%;
-  top: 16%;
+  top: 17.5%;
   background-color: transparent;
   color: white;
 }
@@ -160,7 +160,7 @@
   border: 1px solid #FFFFFF;
   border-radius: 12px;
   left: 7%;
-  top: 26%;
+  top: 27.5%;
   background-color: transparent;
   color: white;
 }
@@ -177,7 +177,7 @@
   border: 1px solid #FFFFFF;
   border-radius: 12px;
   left: 7%;
-  top: 36%;
+  top: 37.5%;
   background-color: transparent;
   color: white;
 }
@@ -194,7 +194,7 @@
   border: 1px solid #FFFFFF;
   border-radius: 12px;
   left: 7%;
-  top: 46%;
+  top: 47.5%;
   background-color: transparent;
   color: white;
 }
@@ -211,21 +211,9 @@
   border: 1px solid #FFFFFF;
   border-radius: 12px;
   left: 7%;
-  top: 56%;
+  top: 57.5%;
   background-color: transparent;
   color: white;
-}
-
-.error-message {
-  display: flex;
-  position: absolute;
-  color: red;
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  font-size: 30px;
-  left: 17.5%;
 }
 
 .signup-button {
@@ -236,7 +224,7 @@
   align-items: center;
   padding: 14px 10px;
   left: 10%;
-  top: 66%;
+  top: 69%;
   width: 80%;
   height: 8%;
   background: linear-gradient(90.57deg, #2E4CEE 9.91%, #221EBF 53.29%, #040F75 91.56%);
@@ -253,7 +241,7 @@
   color: #4D4D4D;
   position: fixed;
   left: 49.2%;
-  top: 74%;
+  top: 77%;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -265,7 +253,7 @@
   border: 2px solid #4D4D4D;
   position: absolute;
   left: 8%;
-  top: 76.5%;
+  top: 80%;
 }
 
 .second-or-first-signup {
@@ -273,7 +261,7 @@
   border: 2px solid #4D4D4D;
   position: absolute;
   left: 57.5%;
-  top: 76.5%;
+  top: 80%;
 }
 
 .social-container-signup {
@@ -283,7 +271,7 @@
   color: white;
   left: 8%;
   right: 0;
-  top: 80%;
+  top: 85%;
 }
 
 .social-icon {
@@ -299,8 +287,8 @@
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  left: 30%;
-  top: 85.5%;
+  left: 32.5%;
+  top: 89%;
   text-decoration: none;
 }
 
@@ -322,7 +310,7 @@
   left: 1%;
   right: 1%;
   margin: auto;
-  top: 93%;
+  top: 95%;
   justify-content: center;
   flex-direction: row;
 }
@@ -404,34 +392,35 @@
   .username-signup,
   .email-signup,
   .password-signup,
-  .confirm-password-signup {
-    padding: 5% 3%;
+  .mobile-signup,
+  .role-dropdown {
+    padding: 2.5% 3%;
     width: 85%;
     height: 8%;
     font-size: 12px;
   }
 
   .signup-button {
-    top: 65%;
+    top: 67%;
     height: 8%;
     font-size: 16px;
   }
 
   .or-text-signup {
     left: 50%;
-    top: 73%;
+    top: 74%;
   }
 
   .line-or-first-signup {
     width: 40%;
     left: 5%;
-    top: 76.5%;
+    top: 77.5%;
   }
 
   .second-or-first-signup {
     width: 40%;
     left: 58%;
-    top: 76.5%;
+    top: 77.5%;
   }
 
   .social-container-signup {

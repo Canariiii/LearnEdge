@@ -5,27 +5,21 @@ exports.createUser = async (req, res) => {
     if (!req.file || !req.file.filename) {
       return res.status(400).json({ success: false, error: 'File not provided' });
     }
-
     const newUser = new User({
       ...req.body,
       filename: req.file.filename
     });
-
-    // Guarda el nuevo usuario en la base de datos
     await newUser.save();
-
-    // Devuelve una respuesta con el nuevo usuario
     res.status(201).json({ success: true, data: newUser });
   } catch (error) {
-    // Maneja los errores durante el proceso
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
+
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
-
     res.status(200).json({ success: true, data: users });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

@@ -16,6 +16,7 @@ const Header = () => {
           <li><img className='user-pic' src='/assets/img/user.jpeg' alt='pic'></img></li>
         </ul>
       </nav>
+      <div className='line-bottom-header'></div>
     </header>
   );
 }
