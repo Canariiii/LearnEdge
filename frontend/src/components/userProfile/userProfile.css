@@ -1,0 +1,21 @@
+body.user-page {
+  background-color: #101828;
+}
+
+.user-container {
+  display: flex;
+  position: relative;
+}
+
+.user-border {
+  display: flex;
+  position: absolute;
+  border: 1px solid white;
+  border-radius: 2%;
+  left: 8%;
+  top: 15%;
+  width: 50%;
+  height: 50%;
+  background: transparent;
+  backdrop-filter: blur(26.5px);
+}
