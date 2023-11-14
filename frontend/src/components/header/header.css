@@ -51,3 +51,12 @@
 .header-options li {
   margin-right: 20px; 
 }
+
+.user-pic {
+  display: flex;
+  position: fixed;
+  width: 4.5%;
+  top: 1.5%;
+  left: 93%;
+  border-radius: 100%;
+}

@@ -13,6 +13,7 @@ const Header = () => {
           <li>Home</li>
           <li>Courses</li>
           <li>My Courses</li>
+          <li><img className='user-pic' src='/assets/img/user.jpeg' alt='pic'></img></li>
         </ul>
       </nav>
     </header>
