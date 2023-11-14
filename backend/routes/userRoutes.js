@@ -2,6 +2,9 @@ const express = require('express');
 const userRouter = express.Router();
 const userController = require('../controllers/userController');
 const upload = require('../multer/upload');
+const auth = require("../controllers/auth.js");
+
+userRouter.use(auth);
 
 userRouter.route('/')
   .post(upload.single('file'), userController.createUser)
