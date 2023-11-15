@@ -1,7 +1,6 @@
-const User = require('../models/user'); // Make sure to adjust the correct path to the model
+const User = require('../models/user'); 
 const jwt = require('jsonwebtoken');
 
-// Create a token for authentication
 const createToken = (user) => {
   return jwt.sign({ _id: user._id }, 'your_secret_key');
 };
@@ -9,8 +8,8 @@ const createToken = (user) => {
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
-    await newUser.save();
     const token = createToken(newUser);
+    await newUser.save();
     res.status(201).json({ success: true, data: newUser, token });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -39,7 +38,6 @@ exports.login = async (req, res) => {
 };
 
 
-// Controller to get all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -49,7 +47,6 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// Controller to get a user by their ID
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params._id);
@@ -62,7 +59,6 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-// Controller to update a user by their ID
 exports.updateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params._id, req.body, {
@@ -78,7 +74,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Controller to delete a user by their ID
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params._id);

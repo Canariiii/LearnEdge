@@ -32,7 +32,7 @@ function SignUp() {
         localStorage.setItem('token', response.data.access_token);
 
         const token = localStorage.getItem('token');
-
+        
         axios.post('http://localhost:3001/users', newUser, {
           headers: {
             Authorization: `Bearer ${token}`
@@ -69,7 +69,7 @@ function SignUp() {
           <option value='teacher'>Teacher</option>
           <option value='admin'>Admin</option>
         </select>
-        <Link to='/home'>
+        <Link to='/courses'>
           <button className='signup-button' onClick={handleSignUp}>Signup</button>
         </Link>
         <div className='line-or-first-signup'><p className='or-text-signup'>Or</p></div>
