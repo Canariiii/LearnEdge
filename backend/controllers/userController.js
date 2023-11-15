@@ -17,15 +17,21 @@ exports.createUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { _id, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ _id });
+    const user = await User.findOne({ username });
+
     if (!user) {
       return res.status(404).json({ success: false, error: 'User not found' });
     }
 
+    if (!user.verified) {
+      return res.status(401).json({ success: false, error: 'User not registered' });
+    }
+
     const validPassword = await user.comparePassword(password);
+
     if (!validPassword) {
       return res.status(401).json({ success: false, error: 'Invalid password' });
     }
@@ -36,6 +42,7 @@ exports.login = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 
 exports.getUsers = async (req, res) => {

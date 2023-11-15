@@ -17,12 +17,11 @@ function Login() {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (username !== '' && password !== '') {
-      console.log('Campos no vacíos');
-    } else {
-      console.log('Por favor, complete todos los campos');
+  const handleSubmit = () => {
+    try {
+      
+    } catch (error) {
+      
     }
   };
 
