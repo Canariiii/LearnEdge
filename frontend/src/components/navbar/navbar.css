@@ -2,6 +2,10 @@ body.home-page {
   background-color: #101828;
 }
 
+body.courses-page {
+  background-color: #101828;
+}
+
 .navbar {
   position: fixed;
   display: flex;

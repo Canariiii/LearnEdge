@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken');
 const utils = require('../utils');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const User = require("../models/user"); 
+const User = require("../models/user");
+
+const secretKey = 'jose';
 
 exports.signin = (req, res) => {
   const user = req.body.username;
@@ -33,6 +35,9 @@ exports.signin = (req, res) => {
         message: "Error retrieving user: " + err.message
       });
     });
+  const token = utils.generateToken(data, secretKey); // Pasa la clave secreta al generar el token
+  const userObj = utils.getCleanUser(data);
+  return res.json({ user: userObj, access_token: token });
 };
 
 exports.isAuthenticated = (req, res, next) => {
@@ -43,12 +48,8 @@ exports.isAuthenticated = (req, res, next) => {
       message: "Token is required."
     });
   }
-  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
-    if (err) return res.status(401).json({
-      error: true,
-      message: "Invalid token."
-    });
 
+  jwt.verify(token, secretKey, function (err, user) { 
     User.findOne({ _id: mongoose.Types.ObjectId(user.id) })
       .then(data => {
         if (!data) {

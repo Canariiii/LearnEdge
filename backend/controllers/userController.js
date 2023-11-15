@@ -5,7 +5,7 @@ const utils = require("../utils");
 
 const createToken = (user) => {
   const tokenData = { _id: user._id };
-  const token = jwt.sign(tokenData, 'token');
+  const token = jwt.sign(tokenData, 'jose');
   return token;
 };
 
@@ -15,18 +15,17 @@ exports.createUser = async (req, res) => {
     const filename = req.file ? req.file.filename : null;
     const newUser = new User({
       ...req.body,
-      filename: filename, 
+      password: hashedPassword,
+      filename: filename,
     });
-
     await newUser.save();
     const token = createToken(newUser);
-    res.status(201).json({ success: true, data: newUser });
+    console.log(token);
+    res.status(201).json({ success: true, data: newUser, access_token: token });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
-
 
 exports.getUsers = async (req, res) => {
   try {

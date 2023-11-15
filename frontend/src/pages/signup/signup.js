@@ -24,20 +24,30 @@ function SignUp() {
       email: email,
       phone: mobile,
       role: role
-      // filename: optional field, you can include it if needed
     };
 
-    console.log(newUser); // Add this line to log the newUser object
-  
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
         console.log(response.data);
+        localStorage.setItem('token', response.data.access_token);
+
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:3001/users', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error('Error al hacer la solicitud GET:', error);
+          });
       })
       .catch(error => {
         console.error('Error al crear usuario:', error);
       });
   };
-  
 
   return (
     <div className='signup-container'>
