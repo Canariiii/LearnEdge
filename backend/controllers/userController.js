@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const utils = require("../utils");
 
 const createToken = (user) => {
   const tokenData = { _id: user._id };
@@ -10,14 +11,13 @@ const createToken = (user) => {
 
 exports.createUser = async (req, res) => {
   try {
-    if (!req.file || !req.file.filename) {
-      return res.status(400).json({ success: false, error: 'File not provided' });
-    }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const filename = req.file ? req.file.filename : null;
     const newUser = new User({
       ...req.body,
-      filename: req.file.filename
+      filename: filename, 
     });
+
     await newUser.save();
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: newUser });
@@ -25,6 +25,7 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 
 exports.getUsers = async (req, res) => {

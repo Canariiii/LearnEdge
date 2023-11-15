@@ -11,7 +11,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('user');
 
   const handleMobileChange = (e) => {
     setMobile(e.target.value);
@@ -24,8 +24,11 @@ function SignUp() {
       email: email,
       phone: mobile,
       role: role
+      // filename: optional field, you can include it if needed
     };
 
+    console.log(newUser); // Add this line to log the newUser object
+  
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
         console.log(response.data);
@@ -34,6 +37,7 @@ function SignUp() {
         console.error('Error al crear usuario:', error);
       });
   };
+  
 
   return (
     <div className='signup-container'>

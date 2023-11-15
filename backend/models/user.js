@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
   },
   filename: {
     type: String,
-    required: true,
+    required: false, // Make filename optional
     match: /\.(jpg|jpeg|png|gif)$/
   }
 });
