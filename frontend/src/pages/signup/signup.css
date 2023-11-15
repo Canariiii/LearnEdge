@@ -407,19 +407,19 @@
   }
 
   .or-text-signup {
-    left: 50%;
+    left: 48%;
     top: 74%;
   }
 
   .line-or-first-signup {
     width: 40%;
-    left: 5%;
+    left: 3%;
     top: 77.5%;
   }
 
   .second-or-first-signup {
     width: 40%;
-    left: 58%;
+    left: 56%;
     top: 77.5%;
   }
 
@@ -442,7 +442,7 @@
   }
 
   .terms-support-container-signup p {
-    margin: 5% 10%;
-    font-size: 50%;
+    margin: 5% 7%;
+    font-size: 72.5%;
   }
 }
