@@ -1,32 +1,45 @@
-const User = require('../models/user');
+const User = require('../models/user'); // Make sure to adjust the correct path to the model
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const utils = require("../utils");
 
+// Create a token for authentication
 const createToken = (user) => {
-  const tokenData = { _id: user._id };
-  const token = jwt.sign(tokenData, 'jose');
-  return token;
+  return jwt.sign({ _id: user._id }, 'your_secret_key');
 };
 
 exports.createUser = async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const filename = req.file ? req.file.filename : null;
-    const newUser = new User({
-      ...req.body,
-      password: hashedPassword,
-      filename: filename,
-    });
+    const newUser = new User(req.body);
     await newUser.save();
     const token = createToken(newUser);
-    console.log(token);
-    res.status(201).json({ success: true, data: newUser, access_token: token });
+    res.status(201).json({ success: true, data: newUser, token });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
+exports.login = async (req, res) => {
+  const { _id, password } = req.body;
+
+  try {
+    const user = await User.findOne({ _id });
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+
+    const validPassword = await user.comparePassword(password);
+    if (!validPassword) {
+      return res.status(401).json({ success: false, error: 'Invalid password' });
+    }
+
+    const token = createToken(user);
+    res.status(200).json({ success: true, token });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
+// Controller to get all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -36,6 +49,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+// Controller to get a user by their ID
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params._id);
@@ -48,6 +62,7 @@ exports.getUserById = async (req, res) => {
   }
 };
 
+// Controller to update a user by their ID
 exports.updateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params._id, req.body, {
@@ -63,6 +78,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+// Controller to delete a user by their ID
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params._id);

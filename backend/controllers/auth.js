@@ -28,17 +28,16 @@ exports.signin = (req, res) => {
 
       const token = utils.generateToken(data);
       const userObj = utils.getCleanUser(data);
-      return res.json({ user: userObj, access_token: token });
+      
+      res.json({ user: userObj, access_token: token });
     })
     .catch(err => {
       res.status(500).send({
         message: "Error retrieving user: " + err.message
       });
     });
-  const token = utils.generateToken(data, secretKey); // Pasa la clave secreta al generar el token
-  const userObj = utils.getCleanUser(data);
-  return res.json({ user: userObj, access_token: token });
 };
+
 
 exports.isAuthenticated = (req, res, next) => {
   var token = req.token;
@@ -50,6 +49,16 @@ exports.isAuthenticated = (req, res, next) => {
   }
 
   jwt.verify(token, secretKey, function (err, user) { 
+    if (err) {
+      console.error("Error verifying token:", err);
+      return res.status(401).json({
+        error: true,
+        message: "Invalid token."
+      });
+    }
+
+    console.log("Verified token:", user);
+
     User.findOne({ _id: mongoose.Types.ObjectId(user.id) })
       .then(data => {
         if (!data) {
@@ -58,9 +67,11 @@ exports.isAuthenticated = (req, res, next) => {
             message: "Invalid user."
           });
         }
+        console.log("User found:", data);
         next();
       })
       .catch(err => {
+        console.error("Error retrieving user:", err);
         res.status(500).send({
           message: "Error retrieving user: " + err.message
         });

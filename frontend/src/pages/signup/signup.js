@@ -32,7 +32,8 @@ function SignUp() {
         localStorage.setItem('token', response.data.access_token);
 
         const token = localStorage.getItem('token');
-        axios.get('http://localhost:3001/users', {
+
+        axios.post('http://localhost:3001/users', newUser, {
           headers: {
             Authorization: `Bearer ${token}`
           }
