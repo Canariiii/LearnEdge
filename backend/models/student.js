@@ -27,7 +27,7 @@ const studentSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', async function (next) {
+studentSchema.pre('save', async function (next) {
   const student = this;
   if (!student.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);

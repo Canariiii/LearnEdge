@@ -25,18 +25,15 @@ function SignUp() {
       phone: mobile,
       role: role
     };
-
-    const token = localStorage.getItem('token');
-
-    axios.post('http://localhost:3001/users', newUser, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then(response => {
-      console.log(response.data);
-    })
+  
+    axios.post('http://localhost:3001/users', newUser)
+      .then(response => {
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        console.log(response.data);
+      })
       .catch(error => {
-        console.error('Error al hacer la solicitud GET:', error);
+        console.error('Error al hacer la solicitud POST:', error);
       });
   };
 

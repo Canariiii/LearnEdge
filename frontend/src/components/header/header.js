@@ -1,8 +1,15 @@
 import React from 'react';
 import './header.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
+  const navigate = useNavigate();
+  
+  const logOut = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   return (
     <header className="header">
@@ -14,7 +21,9 @@ const Header = () => {
         <ul className='header-container'>
           <li>Courses</li>
           <li>My Courses</li>
+          <Link onClick={logOut}>
           <li><img className='user-pic' src='/assets/img/user.jpeg' alt='pic' ></img></li>
+          </Link>
         </ul>
       </nav>
       <div className='line-bottom-header'></div>

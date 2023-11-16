@@ -8,8 +8,8 @@ const createToken = (user) => {
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
-    const token = createToken(newUser);
     await newUser.save();
+    const token = createToken(newUser);
     res.status(201).json({ success: true, data: newUser, token });
   } catch (error) {
     console.error('Error al crear usuario:', error);
@@ -21,9 +21,11 @@ exports.login = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-    if (!user || !user.verified || !(await user.comparePassword(password))) {
+
+    if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ success: false, error: 'Invalid credentials' });
     }
+
     const token = createToken(user);
     res.status(200).json({ success: true, token });
   } catch (error) {

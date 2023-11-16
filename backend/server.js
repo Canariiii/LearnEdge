@@ -7,10 +7,7 @@ const cors = require('cors');
 // Import routers
 const userRouter = require('./routes/userRoutes');
 const studentRouter = require('./routes/studentRoutes');
-const instructorRouter = require('./routes/instructorRoutes');
 const courseRoutes = require('./routes/courseRoutes');
-const contentRoutes = require('./routes/contentRoutes');
-const adminRoutes = require('./routes/adminRoutes');
 
 
 const app = express();
@@ -33,10 +30,7 @@ app.use(upload.array());
 // Routes
 app.use('/users', userRouter);
 app.use('/students', studentRouter);
-app.use('/instructors', instructorRouter);
 app.use('/courses', courseRoutes);
-app.use('/content', contentRoutes);
-app.use('/admin', adminRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

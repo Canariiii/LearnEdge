@@ -22,24 +22,24 @@ function Login() {
   const handleSubmit = async () => {
     if (!username || !password) {
       console.error('Username and password are required.');
-      navigate('/login');
       return;
     }
+  
     try {
       const response = await UserService.login({ username, password });
-      console.log(response);
-      localStorage.setItem('token', response.token);
-      navigate('/courses');
+  
+      // Solo redirigir si el inicio de sesión fue exitoso
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        navigate('/courses');
+      } else {
+        console.error('Login failed:', response.error);
+      }
     } catch (error) {
-      console.error('Error while logging in: ', error);
-      if (error.response && error.response.status === 404) {
-        console.error('User not found. Please check your username.');
-      } else if (error.response) {
+      console.error('Error while logging in:', error);
+      if (error.response) {
         console.error('Server responded with status code:', error.response.status);
         console.error('Response data:', error.response.data);
-      } else if (error.request) {
-        console.error('No response received from the server');
-        console.error('Request data:', error.request);
       } else {
         console.error('Error setting up the request:', error.message);
       }
