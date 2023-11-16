@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
+    minlength: [8, 'Password must have 8 characters']
   },
   password: {
     type: String,
@@ -12,11 +13,23 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: function (value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      },
+      message: 'El formato del correo electrónico no es válido'
+    }
   },
   phone: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: function (value) {
+        return /^\d{9}$/.test(value);
+      },
+      message: 'El formato del número de teléfono no es válido'
+    }
   },
   role: {
     type: String,
