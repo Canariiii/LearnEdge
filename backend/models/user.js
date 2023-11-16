@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
       validator: function (value) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       },
-      message: 'El formato del correo electrónico no es válido'
+      message: 'Not valid email'
     }
   },
   phone: {
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
       validator: function (value) {
         return /^\d{9}$/.test(value);
       },
-      message: 'El formato del número de teléfono no es válido'
+      message: 'Not valid phone'
     }
   },
   role: {
@@ -45,7 +45,6 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function (next) {
   const user = this;
   if (!user.isModified('password')) return next();
-
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(user.password, salt);
   user.password = hash;

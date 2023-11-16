@@ -12,7 +12,6 @@ const Header = () => {
       <div className='line-header'></div>
       <nav>
         <ul className='header-container'>
-          <li>Home</li>
           <li>Courses</li>
           <li>My Courses</li>
           <li><img className='user-pic' src='/assets/img/user.jpeg' alt='pic' ></img></li>
