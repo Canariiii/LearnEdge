@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import { EyeInvisibleOutlined, GoogleOutlined, FacebookOutlined, GithubOutlined, EyeOutlined } from '@ant-design/icons';
+import UserService from '../../services/loginService';
 
 function Login() {
   const [isChecked, setIsChecked] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -17,13 +19,40 @@ function Login() {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!username || !password) {
+      console.error('Username and password are required.');
+      navigate('/login');
+      return;
+    }
     try {
-      
+      const response = await UserService.login({ username, password });
+      console.log(response);
+      localStorage.setItem('token', response.token);
+      navigate('/courses');
     } catch (error) {
-      
+      console.error('Error while logging in: ', error);
+      if (error.response && error.response.status === 404) {
+        console.error('User not found. Please check your username.');
+      } else if (error.response) {
+        console.error('Server responded with status code:', error.response.status);
+        console.error('Response data:', error.response.data);
+      } else if (error.request) {
+        console.error('No response received from the server');
+        console.error('Request data:', error.request);
+      } else {
+        console.error('Error setting up the request:', error.message);
+      }
     }
   };
+  
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/courses');
+    }
+  }, [navigate]);
 
   return (
     <div className='login-container'>
@@ -33,11 +62,11 @@ function Login() {
       <div className='line-login'></div>
       <p className='skipthelag'>Skip the lag ?</p>
       <div className='login-border'>
-        <form className='login-form' onSubmit={handleSubmit}>
+        <form className='login-form'>
           <p className='login-text'>Login</p>
           <p className='glad-text'>Glad you're back.!</p>
           <input className='username-input' type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
-          <input className='password-input' type={showPassword ? 'text' : 'password'} placeholder='Password' value={password}  onChange={(e) => setPassword(e.target.value)} />
+          <input className='password-input' type={showPassword ? 'text' : 'password'} placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
           <div className='eye-icon' onClick={toggleShowPassword}>
             {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
           </div>
@@ -49,7 +78,7 @@ function Login() {
             </label>
           </div>
           <Link to='/courses'>
-            <button className='login-button'>Login</button>
+            <button className='login-button' onClick={handleSubmit}>Login</button>
           </Link>
           <a href='/home'><p className='forgot-password'>Forgot Password ?</p></a>
           <div className='line-or-first'><p className='or-text'>Or</p></div>
