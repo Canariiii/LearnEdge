@@ -22,6 +22,9 @@ const UserProfile = () => {
           <Link onClick={logOut} to={'/login'}>
             <button className='logout-button'>Logout</button>
           </Link>
+          <Link>
+            <button className='settings'></button>
+          </Link>
         </div>
       </div>
     </div>
