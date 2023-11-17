@@ -19,9 +19,15 @@ exports.createUser = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-  try {
-    const user = await User.findOne({ username });
 
+  try {
+    // Check if both username and password are provided
+    if (!username || !password) {
+      return res.status(400).json({ success: false, error: 'Both username and password are required' });
+      
+    }
+    const user = await User.findOne({ username });
+    // Check if the user exists
     if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ success: false, error: 'Invalid credentials' });
     }
@@ -44,6 +50,7 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
+  
   try {
     const user = await User.findById(req.params._id);
     if (!user) {

@@ -20,32 +20,15 @@ function Login() {
   };
 
   const handleSubmit = async () => {
-    if (!username || !password) {
-      console.error('Username and password are required.');
-      return;
-    }
-  
     try {
       const response = await UserService.login({ username, password });
-  
-      // Solo redirigir si el inicio de sesión fue exitoso
-      if (response.success) {
-        localStorage.setItem('token', response.token);
-        navigate('/courses');
-      } else {
-        console.error('Login failed:', response.error);
-      }
+      console.log(response);
+      localStorage.setItem('token', response.token);
+      navigate('/courses');
     } catch (error) {
-      console.error('Error while logging in:', error);
-      if (error.response) {
-        console.error('Server responded with status code:', error.response.status);
-        console.error('Response data:', error.response.data);
-      } else {
-        console.error('Error setting up the request:', error.message);
-      }
+      console.error('Error while logging in:', error.response?.data || error.message);
     }
   };
-  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -77,7 +60,7 @@ function Login() {
               <p className='remember-text'>Remember me</p>
             </label>
           </div>
-          <Link to='/courses'>
+          <Link>
             <button className='login-button' onClick={handleSubmit}>Login</button>
           </Link>
           <a href='/home'><p className='forgot-password'>Forgot Password ?</p></a>

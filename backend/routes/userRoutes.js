@@ -1,18 +1,21 @@
 const express = require('express');
-const userRouter = express.Router();
 const userController = require('../controllers/userController');
 const upload = require('../multer/upload');
 
-const router = express.Router();
+const userRouter = express.Router();
 
+// Login route
+userRouter.post('/login', userController.login);
+
+// Routes for users
 userRouter.route('/')
   .post(upload.single('file'), userController.createUser)
   .get(userController.getUsers);
 
-userRouter.route('/:_id')
+// Update the route for user details, for example, using /profile instead of /:_id
+userRouter.route('/profile')
   .get(userController.getUserById)
   .put(upload.single('file'), userController.updateUser)
   .delete(userController.deleteUser);
 
-router.post('/login', userController.login);
 module.exports = userRouter;
