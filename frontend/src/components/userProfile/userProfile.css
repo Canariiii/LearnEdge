@@ -4,7 +4,7 @@ body.user-page {
 
 .user-container {
   display: flex;
-  position: relative;
+  position: absolute;
 }
 
 .user-border {
@@ -25,7 +25,7 @@ body.user-page {
   position: fixed;
   border-radius: 100%;
   width: 20%;
-  top: 27.5%;
+  top: 5%;
   left: 2%;
 }
 
@@ -33,18 +33,7 @@ body.user-page {
   display: flex;
   position: fixed;
   left: 25%;
-  top: 20%;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-weight: normal;
-  font-size: 30px;
-}
-
-.user-age {
-  display: flex;
-  position: fixed;
-  left: 25%;
-  top: 30%;
+  top: 13.5%;
   color: white;
   font-family: 'Poppins', sans-serif;
   font-weight: normal;
@@ -54,7 +43,7 @@ body.user-page {
 .button-container {
   display: flex;
   position: relative;
-  left: 79.5%;
+  left: 5%;
   top: 82.5%;
   justify-content: space-between;
   border-color: transparent;
@@ -82,21 +71,18 @@ body.user-page {
 
   .profile-pic {
     top: 5%;
+    width: 25%;
   }
 
   .user-name {
-    top: 5%;
-  }
-
-  .user-age {
-    left: 50%;
-    top: 5%;
+    top: 7%;
+    left: 30%;
   }
 
   .button-container {
-    left: 70%;
+    left: 5%;
     top: 82.5%;
     width: 25%;
-    height: 80.5%;    
+    height: 80.5%;
   }
 }

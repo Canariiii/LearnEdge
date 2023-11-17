@@ -14,7 +14,8 @@ userRouter.route('/')
 
 userRouter.route('/profile')
   .get(userController.getUserById)
-  .put(upload.single('filename'), userController.updateUser)
-  .delete(userController.deleteUser);
+  .put(upload.single('filename'), userController.updateUser);
 
+userRouter.route('/:_id')
+  .delete(userController.deleteUser);
 module.exports = userRouter;

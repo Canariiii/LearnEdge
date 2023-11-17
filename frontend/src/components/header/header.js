@@ -1,16 +1,8 @@
 import React from 'react';
 import './header.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-
-  const navigate = useNavigate();
-  
-  const logOut = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
-
   return (
     <header className="header">
       <div className="logo-container">
