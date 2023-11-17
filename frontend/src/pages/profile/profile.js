@@ -5,7 +5,6 @@ import Header from '../../components/header/header';
 function Profile() {
   return (
     <>
-
       <Header />
       <UserProfile />
     </>

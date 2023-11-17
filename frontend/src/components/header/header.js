@@ -21,7 +21,7 @@ const Header = () => {
         <ul className='header-container'>
           <li>Courses</li>
           <li>My Courses</li>
-          <Link onClick={logOut} to={'/login'}>
+          <Link to={'/profile'}>
             <li><img className='user-pic' src='/assets/img/user.jpeg' alt='pic' ></img></li>
           </Link>
         </ul>

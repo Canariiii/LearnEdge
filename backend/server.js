@@ -1,9 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const multer = require('multer');
 const cors = require('cors');
-
+const path = require('path');
 // Import routers
 const userRouter = require('./routes/userRoutes');
 const studentRouter = require('./routes/studentRoutes');
@@ -24,8 +23,7 @@ mongoose.connect('mongodb://127.0.0.1:27017', {
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-const upload = multer();
-app.use(upload.array());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/users', userRouter);

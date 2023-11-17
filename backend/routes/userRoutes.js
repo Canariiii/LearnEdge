@@ -9,13 +9,12 @@ userRouter.post('/login', userController.login);
 
 // Routes for users
 userRouter.route('/')
-  .post(upload.single('file'), userController.createUser)
+  .post(upload.single('filename'), userController.createUser)
   .get(userController.getUsers);
 
-// Update the route for user details, for example, using /profile instead of /:_id
 userRouter.route('/profile')
   .get(userController.getUserById)
-  .put(upload.single('file'), userController.updateUser)
+  .put(upload.single('filename'), userController.updateUser)
   .delete(userController.deleteUser);
 
 module.exports = userRouter;
