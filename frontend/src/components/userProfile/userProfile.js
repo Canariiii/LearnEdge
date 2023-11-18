@@ -23,7 +23,7 @@ const UserProfile = () => {
             <button className='logout-button'>Logout</button>
           </Link>
           <Link>
-            <button className='settings'></button>
+            <button className='settings-button'>Preferences</button>
           </Link>
         </div>
       </div>
