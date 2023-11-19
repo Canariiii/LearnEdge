@@ -12,10 +12,11 @@ userRouter.route('/')
   .post(upload.single('filename'), userController.createUser)
   .get(userController.getUsers);
 
-userRouter.route('/profile')
+userRouter.route('/profile/:_id')
   .get(userController.getUserById)
   .put(upload.single('filename'), userController.updateUser);
 
 userRouter.route('/:_id')
   .delete(userController.deleteUser);
+
 module.exports = userRouter;

@@ -90,3 +90,25 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+exports.getUserDetailsById = async (req, res) => {
+  try {
+    const userId = req.params._id;
+    const usuario = await User.findById(userId);
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.json({
+      username: usuario.username,
+      email: usuario.email,
+      phone: usuario.phone,
+      role: usuario.role,
+      filename: usuario.filename,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};

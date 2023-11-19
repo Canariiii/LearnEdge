@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './userProfile.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-document.body.classList.add('user-page');
-
-const UserProfile = () => {
-
+const UserProfile = ({ userId }) => {
   const navigate = useNavigate();
-
+  const [nombre, setNombre] = useState('');
+  useEffect(() => {
+    // Realizar la solicitud GET al servidor Express
+    axios.get(`http://localhost:3001/users/profile/${userId}`)
+      .then(response => {
+        setNombre(response.data.username);
+      })
+      .catch(error => {
+        console.error('Error al obtener el nombre del usuario:', error);
+      });
+  }, [userId]);
   const logOut = () => {
     localStorage.removeItem('token');
     navigate('/login');
@@ -16,19 +24,17 @@ const UserProfile = () => {
   return (
     <div className='userContainer'>
       <div className='user-border'>
-        <img className='profile-pic' src='/assets/img/user.jpeg' alt='profilePic'></img>
-        <h1 className='user-name'>Jose</h1>
+        <img className='profile-pic' src={'/assets/img/user.jpeg'} alt='profilePic' />
+        <h1 className='user-name'>{nombre}</h1>
         <div className='button-container'>
-          <Link onClick={logOut} to={'/login'}>
-            <button className='logout-button'>Logout</button>
-          </Link>
-          <Link>
-            <button className='settings-button'>Preferences</button>
-          </Link>
+          <button onClick={logOut} className='logout-button'>
+            Logout
+          </button>
+          <button className='settings-button'>Preferences</button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default UserProfile;
