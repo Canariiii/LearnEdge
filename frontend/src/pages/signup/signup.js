@@ -25,10 +25,12 @@ function SignUp() {
       phone: mobile,
       role: role
     };
-  
+
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
         const token = response.data.token;
+        const userId = response.data.data?._id;
+        localStorage.setItem('userId', userId);
         localStorage.setItem('token', token);
         console.log(response.data);
       })

@@ -23,12 +23,13 @@ function Login() {
     try {
       const response = await UserService.login({ username, password });
       console.log(response);
+      
       localStorage.setItem('token', response.token);
       navigate('/courses');
     } catch (error) {
       console.error('Error while logging in:', error.response?.data || error.message);
     }
-  };
+  };  
 
   useEffect(() => {
     const token = localStorage.getItem('token');

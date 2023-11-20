@@ -1,4 +1,4 @@
-const User = require('../models/user'); 
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 const createToken = (user) => {
@@ -9,7 +9,7 @@ exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
     newUser.filename = '';
-    if(req.file) {
+    if (req.file) {
       newUser.filename = req.file.filename;
     }
     await newUser.save();
@@ -50,7 +50,6 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  
   try {
     const user = await User.findById(req.params._id);
     if (!user) {
@@ -88,27 +87,5 @@ exports.deleteUser = async (req, res) => {
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ success: false, error: error.message });
-  }
-};
-
-exports.getUserDetailsById = async (req, res) => {
-  try {
-    const userId = req.params._id;
-    const usuario = await User.findById(userId);
-
-    if (!usuario) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-
-    res.json({
-      username: usuario.username,
-      email: usuario.email,
-      phone: usuario.phone,
-      role: usuario.role,
-      filename: usuario.filename,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
