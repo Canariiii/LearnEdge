@@ -22,15 +22,21 @@ function Login() {
   const handleSubmit = async () => {
     try {
       const response = await UserService.login({ username, password });
-      console.log(response);
-      
-      localStorage.setItem('token', response.token);
-      navigate('/courses');
+      console.log('Login response:', response);
+  
+      if (response.data.success) {
+        const userId = response.data.data._id;
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('token', response.data.token);
+        navigate('/courses');
+      } else {
+        console.error('UserId is undefined or null:', response);
+      }
     } catch (error) {
       console.error('Error while logging in:', error.response?.data || error.message);
     }
-  };  
-
+  };
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {

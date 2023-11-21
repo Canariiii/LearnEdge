@@ -7,20 +7,25 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
 
-  const userId = localStorage.getItem('userId');
-  console.log('userId:', userId);
-  
   useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      navigate('/login');
+      return;
+    }
+  
     axios.get(`http://localhost:3001/users/profile/${userId}`)
       .then(response => {
         setUsername(response.data.data.username);
       })
       .catch(error => {
+        console.error('Error fetching user profile:', error);
       });
-  });
+  }, [navigate]);  
 
   const logOut = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     navigate('/login');
   };
 
