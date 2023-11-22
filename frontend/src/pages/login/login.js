@@ -23,9 +23,8 @@ function Login() {
     try {
       const response = await UserService.login({ username, password });
       console.log('Login response:', response);
-  
       if (response.data.success) {
-        const userId = response.data.data._id;
+        const userId = response.data.data?._id;
         localStorage.setItem('userId', userId);
         localStorage.setItem('token', response.data.token);
         navigate('/courses');
@@ -36,7 +35,7 @@ function Login() {
       console.error('Error while logging in:', error.response?.data || error.message);
     }
   };
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {

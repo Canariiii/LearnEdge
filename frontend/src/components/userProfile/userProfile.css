@@ -37,7 +37,7 @@ body.user-page {
   color: white;
   font-family: 'Poppins', sans-serif;
   font-weight: normal;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .button-container {
@@ -95,5 +95,4 @@ body.user-page {
     width: 83.5%;
     height: 80.5%;
   }
-
 }

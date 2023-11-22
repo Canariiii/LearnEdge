@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-
 function SignUp() {
 
   const [username, setUsername] = useState('');
@@ -28,6 +27,7 @@ function SignUp() {
 
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
+        console.log('SignUp Response:', response.data); 
         const token = response.data.token;
         const userId = response.data.data?._id;
         localStorage.setItem('userId', userId);

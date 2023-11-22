@@ -8,12 +8,13 @@ const UserProfile = () => {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    if (!userId) {
+    if (!token) {
+      console.log("error");
       navigate('/login');
       return;
     }
-  
     axios.get(`http://localhost:3001/users/profile/${userId}`)
       .then(response => {
         setUsername(response.data.data.username);
@@ -21,18 +22,18 @@ const UserProfile = () => {
       .catch(error => {
         console.error('Error fetching user profile:', error);
       });
-  }, [navigate]);  
+  }, [navigate]);
 
   const logOut = () => {
-    localStorage.removeItem('token');
     localStorage.removeItem('userId');
-    navigate('/login');
-  };
+    localStorage.removeItem('token');
+    navigate('/login'); 
+  };  
 
   return (
     <div className='userContainer'>
       <div className='user-border'>
-        <img className='profile-pic' src={''} alt='profilePic' />
+        <img className='profile-pic' src={'/assets/img/user.jpeg'} alt='profilePic' />
         <h1 className='user-name'>{username}</h1>
         <div className='button-container'>
           <button onClick={logOut} className='logout-button'>Logout</button>

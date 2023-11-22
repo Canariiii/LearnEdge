@@ -23,7 +23,6 @@ exports.createUser = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-
   try {
     if (!username || !password) {
       return res.status(400).json({ success: false, error: 'Both username and password are required' });
@@ -32,8 +31,13 @@ exports.login = async (req, res) => {
     if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ success: false, error: 'Invalid credentials' });
     }
+
+    if (!user._id) {
+      return res.status(500).json({ success: false, error: 'User ID is missing or invalid' });
+    }
+
     const token = createToken(user);
-    res.status(200).json({ success: true, token });
+    res.json({ success: true, token, data: { _id: user._id } });
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ success: false, error: 'Internal server error' });
