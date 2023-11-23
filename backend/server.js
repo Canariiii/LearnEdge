@@ -25,6 +25,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/user-images', express.static(path.join(__dirname, 'public/images')));
 
 // Routes
 app.use('/users', userRouter);

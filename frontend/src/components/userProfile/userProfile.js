@@ -54,12 +54,13 @@ const UserProfile = () => {
     axios.get(`http://localhost:3001/users/profile/${userId}`)
       .then(response => {
         setUsername(response.data.data.username);
-        setFilename(response.data.data.filename);
+        setFilename(`http://localhost:3001/user-images/${response.data.data.filename}`);
       })
       .catch(error => {
         console.error('Error fetching user profile:', error);
       });
   }, [navigate]);
+  
 
   const logOut = () => {
     localStorage.removeItem('userId');
