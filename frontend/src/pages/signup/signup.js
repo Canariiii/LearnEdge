@@ -29,7 +29,7 @@ function SignUp() {
       .then(response => {
         console.log('SignUp Response:', response.data); 
         const token = response.data.token;
-        const userId = response.data.data?._id;
+        const userId = response.data.data._id;
         localStorage.setItem('userId', userId);
         localStorage.setItem('token', token);
         console.log(response.data);

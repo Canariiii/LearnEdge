@@ -23,18 +23,18 @@ function Login() {
     try {
       const response = await UserService.login({ username, password });
       console.log('Login response:', response);
-      if (response.data.success) {
-        const userId = response.data.data?._id;
-        localStorage.setItem('userId', userId);
+  
+      if (response.data.token && response.data.user) {
+        localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('token', response.data.token);
         navigate('/courses');
       } else {
-        console.error('UserId is undefined or null:', response);
+        console.error('Token or user information is missing:', response);
       }
     } catch (error) {
       console.error('Error while logging in:', error.response?.data || error.message);
     }
-  };
+  };  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
