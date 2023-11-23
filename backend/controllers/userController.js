@@ -43,7 +43,8 @@ exports.login = async (req, res) => {
         user: {
           _id: user._id,
           username: user.username,
-          password: user.password
+          password: user.password,
+          filename: user.filename
         },
         token
       }
