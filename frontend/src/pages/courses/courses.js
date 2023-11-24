@@ -7,7 +7,7 @@ function Courses() {
   return (
     <>
       <Header />
-      
+      <input className="search-courses" type="search" placeholder="What would you like to learn?"></input>
     </>
   );
 }

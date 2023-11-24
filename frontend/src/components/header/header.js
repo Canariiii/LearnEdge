@@ -11,7 +11,7 @@ const Header = () => {
       <div className='line-header'></div>
       <nav>
         <ul className='header-container'>
-          <li>Courses</li>
+          <li><a href='/courses'>Courses</a></li>
           <li>My Courses</li>
           <Link to={'/profile'}>
             <li><img className='user-pic' src='/assets/img/user.jpeg' alt='pic' ></img></li>

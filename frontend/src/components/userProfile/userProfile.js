@@ -31,7 +31,7 @@ const UserProfile = () => {
   }, [navigate]);
 
 
-  const logOut = () => {
+  const logOut =  () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
     navigate('/login');
@@ -40,12 +40,13 @@ const UserProfile = () => {
   return (
     <div className='userContainer'>
       <div className='user-border'>
-        <img className='profile-pic' src={filename} alt='profilePic' />
+       <img className='profile-pic' src={filename} alt='profilePic' onClick={logOut}/>
         <h1 className='user-name'>{username}</h1>
         <div className='button-container'>
           <button onClick={logOut} className='logout-button'>Logout</button>
           <button className='settings-button'>Preferences</button>
         </div>
+        <button className='change-userpic'>Change Picture</button>
       </div>
     </div>
   );
