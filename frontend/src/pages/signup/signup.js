@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './signup.css';
 import { Link } from 'react-router-dom';
-import { GoogleOutlined, FacebookOutlined, GithubOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 function SignUp() {
@@ -11,10 +10,22 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
   const [role, setRole] = useState('user');
+  const [filename, setFilename] = useState('');
 
   const handleMobileChange = (e) => {
     setMobile(e.target.value);
   };
+
+  const handleUserPic = (e) => {
+    const file = e.target.files[1];
+    if (file) {
+      console.log(file);
+      setFilename(file);
+    } else {
+      setFilename('');
+    }
+  }
+  
 
   const handleSignUp = () => {
     const newUser = {
@@ -22,9 +33,10 @@ function SignUp() {
       password: password,
       email: email,
       phone: mobile,
-      role: role
+      role: role,
+      filename: filename
     };
-
+    console.log("New user data:", newUser);
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
         console.log('SignUp Response:', response.data); 
@@ -54,20 +66,14 @@ function SignUp() {
         <input className='password-signup' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <input className='mobile-signup' type='text' placeholder='Mobile' value={mobile} onChange={handleMobileChange} />
         <select className='role-dropdown' value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value='user'>User</option>
+          <option value='user'>Student</option>
           <option value='teacher'>Teacher</option>
           <option value='admin'>Admin</option>
         </select>
+        <input className='set-pic' type='file' onChange={handleUserPic}/>
         <Link to='/courses'>
           <button className='signup-button' onClick={handleSignUp}>Signup</button>
         </Link>
-        <div className='line-or-first-signup'><p className='or-text-signup'>Or</p></div>
-        <div className='second-or-first-signup'></div>
-        <div className='social-container-signup'>
-          <GoogleOutlined className='social-icon' />
-          <FacebookOutlined className='social-icon' />
-          <GithubOutlined className='social-icon' />
-        </div>
         <p className='already-signup'>Already registered ? <a href='/login'>Login</a></p>
         <div className='terms-support-container-signup'>
           <p>Terms & Conditions</p>

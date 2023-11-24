@@ -216,6 +216,15 @@
   color: white;
 }
 
+.set-pic {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  left: 10%;
+  top: 68%;
+  color: white;
+}
+
 .signup-button {
   position: absolute;
   display: flex;
@@ -224,7 +233,7 @@
   align-items: center;
   padding: 14px 10px;
   left: 10%;
-  top: 69%;
+  top: 74.5%;
   width: 80%;
   height: 8%;
   background: linear-gradient(90.57deg, #2E4CEE 9.91%, #221EBF 53.29%, #040F75 91.56%);
@@ -237,48 +246,6 @@
   color: #FFFFFF;
 }
 
-.or-text-signup {
-  color: #4D4D4D;
-  position: fixed;
-  left: 49.2%;
-  top: 77%;
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.line-or-first-signup {
-  width: 35%;
-  border: 2px solid #4D4D4D;
-  position: absolute;
-  left: 8%;
-  top: 80%;
-}
-
-.second-or-first-signup {
-  width: 35%;
-  border: 2px solid #4D4D4D;
-  position: absolute;
-  left: 57.5%;
-  top: 80%;
-}
-
-.social-container-signup {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  color: white;
-  left: 8%;
-  right: 0;
-  top: 85%;
-}
-
-.social-icon {
-  font-size: 200%;
-  margin-right: 2vw;
-}
-
 .already-signup {
   display: flex;
   position: absolute;
@@ -287,7 +254,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  left: 32.5%;
+  left: 30%;
   top: 89%;
   text-decoration: none;
 }
@@ -373,7 +340,7 @@
     transform: rotate(-28.5deg);
     z-index: 1;
   }
-  
+
   .second-ellipse {
     display: flex;
     position: absolute;
@@ -400,45 +367,26 @@
     font-size: 12px;
   }
 
+  .userpic-button {
+    left: 25%;
+    top: 67.5%;
+    width: 50%;
+    height: 5%;
+  }
+
   .signup-button {
-    top: 67%;
+    top: 75%;
     height: 8%;
     font-size: 16px;
   }
 
-  .or-text-signup {
-    left: 48%;
-    top: 74%;
-  }
-
-  .line-or-first-signup {
-    width: 40%;
-    left: 3%;
-    top: 77.5%;
-  }
-
-  .second-or-first-signup {
-    width: 40%;
-    left: 56%;
-    top: 77.5%;
-  }
-
-  .social-container-signup {
-    top: 82%;
-  }
-
-  .social-icon {
-    font-size: 150%;
-    margin-right: 5%;
-  }
-
   .already-signup {
-    left: 30%;
-    top: 87%;
+    left: 25%;
+    top: 85%;
   }
 
   .terms-support-container-signup {
-    top: 92%;
+    top: 90%;
   }
 
   .terms-support-container-signup p {
