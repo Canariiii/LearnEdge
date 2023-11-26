@@ -26,7 +26,6 @@ function SignUp() {
     }
   }
 
-
   const handleSignUp = () => {
     const newUser = new FormData();
     newUser.append('username', username);
