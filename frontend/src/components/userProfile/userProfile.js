@@ -57,7 +57,6 @@ const UserProfile = () => {
           <button onClick={logOut} className='logout-button'>Logout</button>
           <button onClick={handlePreferencesClick} className='settings-button'>Preferences</button>
         </div>
-        <button className='change-userpic'>Change Picture</button>
         {showPreferences && (
           <UserPreferencesForm userId={userId} onClose={handleClosePreferences} />
         )}
