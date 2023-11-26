@@ -17,7 +17,7 @@ function SignUp() {
   };
 
   const handleUserPic = (e) => {
-    const file = e.target.files[1];
+    const file = e.target.files[0];
     if (file) {
       console.log(file);
       setFilename(file);
@@ -25,21 +25,21 @@ function SignUp() {
       setFilename('');
     }
   }
-  
+
 
   const handleSignUp = () => {
-    const newUser = {
-      username: username,
-      password: password,
-      email: email,
-      phone: mobile,
-      role: role,
-      filename: filename
-    };
+    const newUser = new FormData();
+    newUser.append('username', username);
+    newUser.append('password', password);
+    newUser.append('email', email);
+    newUser.append('phone', mobile);
+    newUser.append('role', role);
+    newUser.append('filename', filename);
+
     console.log("New user data:", newUser);
     axios.post('http://localhost:3001/users', newUser)
       .then(response => {
-        console.log('SignUp Response:', response.data); 
+        console.log('SignUp Response:', response.data);
         const token = response.data.token;
         const userId = response.data.data._id;
         localStorage.setItem('userId', userId);
@@ -70,7 +70,7 @@ function SignUp() {
           <option value='teacher'>Teacher</option>
           <option value='admin'>Admin</option>
         </select>
-        <input className='set-pic' type='file' onChange={handleUserPic}/>
+        <input className='set-pic' type='file' onChange={handleUserPic} />
         <Link to='/courses'>
           <button className='signup-button' onClick={handleSignUp}>Signup</button>
         </Link>

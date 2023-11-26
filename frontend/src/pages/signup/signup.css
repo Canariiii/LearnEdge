@@ -220,9 +220,26 @@
   display: flex;
   position: absolute;
   flex-direction: row;
-  left: 10%;
+  left: 20%;
   top: 68%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: transparent;
+  border-color: white;
   color: white;
+}
+
+.set-pic:hover {
+  border-color: #081639;
+}
+
+.set-pic::before {
+  content: 'Choose File';
+  display: inline-block;
+  color: #081639;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .signup-button {
