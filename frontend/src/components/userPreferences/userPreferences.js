@@ -9,7 +9,6 @@ const UserPreferencesForm = ({ userId, onClose }) => {
     phone: '',
     email: '',
   });
-  const [file, setFile] = useState(null);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/users/profile/${userId}`)
@@ -18,9 +17,8 @@ const UserPreferencesForm = ({ userId, onClose }) => {
         setFormData({
           username: userData.username,
           phone: userData.phone,
-          email: userData.email,
+          email: userData.email
         });
-        setFilename(`http://localhost:3001/user-images/${userData.filename}`);
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
@@ -33,26 +31,20 @@ const UserPreferencesForm = ({ userId, onClose }) => {
 
   const handleUserPic = (e) => {
     const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+    setFilename(selectedFile.name);
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const updatedFormData = new FormData();
       updatedFormData.append('username', formData.username);
       updatedFormData.append('phone', formData.phone);
       updatedFormData.append('email', formData.email);
-
-      if (file) {
-        updatedFormData.append('filename', file);
-      }
+      updatedFormData.append('filename', filename);
       const response = await axios.put(`http://localhost:3001/users/profile/${userId}`, updatedFormData);
       console.log('Preferences updated:', response.data);
-      const newFilename = `http://localhost:3001/user-images/${response.data.data.filename}`;
-      console.log('New filename:', newFilename);
-      setFilename(newFilename);
+      setFilename(filename);
       onClose();
     } catch (error) {
       console.error('Error updating preferences:', error);
