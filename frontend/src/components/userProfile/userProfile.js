@@ -8,13 +8,13 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [filename, setFilename] = useState('');
-  const [userId, setUserId] = useState(''); // Agrega userId al estado
+  const [userId, setUserId] = useState('');
   const [showPreferences, setShowPreferences] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUserId = localStorage.getItem('userId');
-    setUserId(storedUserId); // Actualiza el estado con la userId
+    setUserId(storedUserId);
     if (!token) {
       console.log("error");
       navigate('/login');
@@ -51,7 +51,7 @@ const UserProfile = () => {
   return (
     <div className='userContainer'>
       <div className='user-border'>
-        <img className='profile-pic' src={filename} alt='profilePic' onClick={logOut}/>
+        <img className='profile-pic' src={filename} alt='profilePic' onClick={logOut} />
         <h1 className='user-name'>{username}</h1>
         <div className='button-container'>
           <button onClick={logOut} className='logout-button'>Logout</button>

@@ -3,12 +3,13 @@ import axios from 'axios';
 import './userPreferences.css';
 
 const UserPreferencesForm = ({ userId, onClose }) => {
+  const [filename, setFilename] = useState(''); // Asegúrate de que setFilename esté definido
   const [formData, setFormData] = useState({
     username: '',
     phone: '',
     email: '',
-    filename: '',
   });
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/users/profile/${userId}`)
@@ -18,8 +19,8 @@ const UserPreferencesForm = ({ userId, onClose }) => {
           username: userData.username,
           phone: userData.phone,
           email: userData.email,
-          filename: userData.filename,
         });
+        setFilename(`http://localhost:3001/user-images/${userData.filename}`);
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
@@ -30,16 +31,32 @@ const UserPreferencesForm = ({ userId, onClose }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleUserPic = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:3001/users/profile/${userId}`, formData)
-      .then(response => {
-        console.log('Preferences updated:', response.data);
-        onClose();
-      })
-      .catch(error => {
-        console.error('Error updating preferences:', error);
-      });
+
+    try {
+      const updatedFormData = new FormData();
+      updatedFormData.append('username', formData.username);
+      updatedFormData.append('phone', formData.phone);
+      updatedFormData.append('email', formData.email);
+
+      if (file) {
+        updatedFormData.append('filename', file);
+      }
+      const response = await axios.put(`http://localhost:3001/users/profile/${userId}`, updatedFormData);
+      console.log('Preferences updated:', response.data);
+      const newFilename = `http://localhost:3001/user-images/${response.data.data.filename}`;
+      console.log('New filename:', newFilename);
+      setFilename(newFilename);
+      onClose();
+    } catch (error) {
+      console.error('Error updating preferences:', error);
+    }
   };
 
   return (
@@ -55,6 +72,10 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       <label>
         Email:
         <input type="text" name="email" value={formData.email} onChange={handleChange} />
+      </label>
+      <label>
+        User Picture:
+        <input type='file' onChange={handleUserPic} />
       </label>
       <button type="submit">Save Changes</button>
     </form>
