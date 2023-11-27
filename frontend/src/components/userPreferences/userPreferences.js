@@ -2,13 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './userPreferences.css';
 
+const fileToDataUri = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    resolve(event.target.result)
+  };
+  reader.readAsDataURL(file);
+})
+
 const UserPreferencesForm = ({ userId, onClose }) => {
-  const [filename, setFilename] = useState(''); // Asegúrate de que setFilename esté definido
+  /*const [filename, setFilename] = useState(''); // Asegúrate de que setFilename esté definido*/
   const [formData, setFormData] = useState({
     username: '',
     phone: '',
     email: '',
   });
+  const [dataUri, setDataUri] = useState('')
+
+  const onChange = (file) => {
+    
+    if(!file) {
+      setDataUri('');
+      return;
+    }
+
+    fileToDataUri(file)
+      .then(dataUri => {
+        setDataUri(dataUri)
+      })
+    
+  }
 
   useEffect(() => {
     axios.get(`http://localhost:3001/users/profile/${userId}`)
@@ -29,10 +52,13 @@ const UserPreferencesForm = ({ userId, onClose }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleUserPic = (e) => {
+  
+  /*const handleUserPic = (e) => {
     const selectedFile = e.target.files[0];
-    setFilename(selectedFile.name);
-  }
+    setFilename(selectedFile);
+  }*/
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,10 +67,10 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       updatedFormData.append('username', formData.username);
       updatedFormData.append('phone', formData.phone);
       updatedFormData.append('email', formData.email);
-      updatedFormData.append('filename', filename);
+      updatedFormData.append('filename', dataUri);
       const response = await axios.put(`http://localhost:3001/users/profile/${userId}`, updatedFormData);
       console.log('Preferences updated:', response.data);
-      setFilename(filename);
+      /*setDataUri(dataUri);*/
       onClose();
     } catch (error) {
       console.error('Error updating preferences:', error);
@@ -67,7 +93,7 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       </label>
       <label>
         User Picture:
-        <input type='file' onChange={handleUserPic} />
+        <input type='file' onChange={(event) => onChange(event.target.files[0] || null)} />
       </label>
       <button type="submit">Save Changes</button>
     </form>

@@ -77,7 +77,12 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params._id, req.body, {
+    const newUser = req.body;
+    newUser.filename = '';
+    if (req.file) {
+      newUser.filename = req.file.filename;
+    }
+    const user = await User.findByIdAndUpdate(req.params._id, newUser, {
       new: true,
       runValidators: true,
     });

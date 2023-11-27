@@ -11,28 +11,39 @@ const UserProfile = () => {
   const [userId, setUserId] = useState('');
   const [showPreferences, setShowPreferences] = useState(false);
 
+  const showData = () => {
+    if (userId && userId !== '') {
+      axios.get(`http://localhost:3001/users/profile/${userId}`)
+        .then(response => {
+          setUsername(response.data.data.username);
+          setFilename(`http://localhost:3001/user-images/${response.data.data.filename}`);
+          if (!response.data.data.filename) {
+            console.log('No image receive.');
+            setFilename('/assets/img/user.jpeg');
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching user profile:', error);
+        });
+    }
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const storedUserId = localStorage.getItem('userId');
-    setUserId(storedUserId);
     if (!token) {
       console.log("error");
       navigate('/login');
       return;
     }
-    axios.get(`http://localhost:3001/users/profile/${storedUserId}`)
-      .then(response => {
-        setUsername(response.data.data.username);
-        setFilename(`http://localhost:3001/user-images/${response.data.data.filename}`);
-        if (!response.data.data.filename) {
-          console.log('No image receive.');
-          setFilename('/assets/img/user.jpeg');
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching user profile:', error);
-      });
-  }, [navigate]);
+    const storedUserId = localStorage.getItem('userId');
+    setUserId(storedUserId);
+  }, []);
+
+  useEffect(() => {
+    showData();
+  }, [userId])
+
+
 
   const logOut = () => {
     localStorage.removeItem('userId');
@@ -45,6 +56,7 @@ const UserProfile = () => {
   };
 
   const handleClosePreferences = () => {
+    showData();
     setShowPreferences(false);
   };
 
