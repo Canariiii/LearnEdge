@@ -9,6 +9,7 @@ const UserPreferencesForm = ({ userId, onClose }) => {
     email: '',
   });
   const [userPicture, setUserPicture] = useState(null);
+  const [currentPic, setCurrentPic] = useState(null);
 
   const fileToDataUri = (file) =>
     new Promise((resolve, reject) => {
@@ -35,10 +36,11 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       .get(`http://localhost:3001/users/profile/${userId}`)
       .then((response) => {
         const userData = response.data.data;
+        setCurrentPic(userData.filename);
         setFormData({
           username: userData.username,
           phone: userData.phone,
-          email: userData.email,
+          email: userData.email
         });
       })
       .catch((error) => {
@@ -59,6 +61,8 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       updatedFormData.append('email', formData.email);
       if (userPicture) {
         updatedFormData.append('filename', userPicture);
+      } else {
+        updatedFormData.append('filename', currentPic);
       }
       const response = await axios.put(
         `http://localhost:3001/users/profile/${userId}`,
