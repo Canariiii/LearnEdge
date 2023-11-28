@@ -78,7 +78,8 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const newUser = req.body;
-    newUser.filename = '';
+    newUser.filename = newUser.filename || ''; 
+    console.log('Body received:', req.body);
     if (req.file) {
       newUser.filename = req.file.filename;
     }

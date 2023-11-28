@@ -22,10 +22,9 @@ const UserPreferencesForm = ({ userId, onClose }) => {
 
   const onChange = (file) => {
     if (!file) {
-      setUserPicture(null);
+      setUserPicture();
       return;
     }
-
     fileToDataUri(file).then((dataUri) => {
       setUserPicture(file);
     });
@@ -36,12 +35,12 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       .get(`http://localhost:3001/users/profile/${userId}`)
       .then((response) => {
         const userData = response.data.data;
-        setCurrentPic(userData.filename);
         setFormData({
           username: userData.username,
           phone: userData.phone,
           email: userData.email
         });
+        setCurrentPic(userData.filename);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
@@ -74,6 +73,7 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       console.error('Error updating preferences:', error);
     }
   };
+
 
   return (
     <form className='preferences-form' onSubmit={handleSubmit}>

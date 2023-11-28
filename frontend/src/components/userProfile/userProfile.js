@@ -7,7 +7,7 @@ import UserPreferencesForm from '../userPreferences/userPreferences';
 const UserProfile = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
-  const [filename, setFilename] = useState('');
+  const [filename, setFilename] = useState(null);
   const [userId, setUserId] = useState('');
   const [showPreferences, setShowPreferences] = useState(false);
 
