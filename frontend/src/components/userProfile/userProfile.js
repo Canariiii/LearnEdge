@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './userProfile.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,14 +11,14 @@ const UserProfile = () => {
   const [userId, setUserId] = useState('');
   const [showPreferences, setShowPreferences] = useState(false);
 
-  const showData = () => {
+  const showData = useCallback(() => {
     if (userId && userId !== '') {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
         .then(response => {
           setUsername(response.data.data.username);
           setFilename(`http://localhost:3001/user-images/${response.data.data.filename}`);
           if (!response.data.data.filename) {
-            console.log('No image receive.');
+            console.log('No image received.');
             setFilename('/assets/img/user.jpeg');
           }
         })
@@ -26,7 +26,7 @@ const UserProfile = () => {
           console.error('Error fetching user profile:', error);
         });
     }
-  }
+  }, [userId]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -37,13 +37,11 @@ const UserProfile = () => {
     }
     const storedUserId = localStorage.getItem('userId');
     setUserId(storedUserId);
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     showData();
-  }, [userId])
-
-
+  }, [userId, showData]);
 
   const logOut = () => {
     localStorage.removeItem('userId');

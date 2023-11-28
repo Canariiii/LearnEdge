@@ -2,48 +2,46 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './userPreferences.css';
 
-const fileToDataUri = (file) => new Promise((resolve, reject) => {
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    resolve(event.target.result)
-  };
-  reader.readAsDataURL(file);
-})
-
 const UserPreferencesForm = ({ userId, onClose }) => {
-  /*const [filename, setFilename] = useState(''); // Asegúrate de que setFilename esté definido*/
   const [formData, setFormData] = useState({
     username: '',
     phone: '',
     email: '',
   });
-  const [dataUri, setDataUri] = useState('')
+  const [userPicture, setUserPicture] = useState(null);
+
+  const fileToDataUri = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
 
   const onChange = (file) => {
-    
-    if(!file) {
-      setDataUri('');
+    if (!file) {
+      setUserPicture(null);
       return;
     }
 
-    fileToDataUri(file)
-      .then(dataUri => {
-        setDataUri(dataUri)
-      })
-    
-  }
+    fileToDataUri(file).then((dataUri) => {
+      setUserPicture(file);
+    });
+  };
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/users/profile/${userId}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:3001/users/profile/${userId}`)
+      .then((response) => {
         const userData = response.data.data;
         setFormData({
           username: userData.username,
           phone: userData.phone,
-          email: userData.email
+          email: userData.email,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching user data:', error);
       });
   }, [userId]);
@@ -52,14 +50,6 @@ const UserPreferencesForm = ({ userId, onClose }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
-  /*const handleUserPic = (e) => {
-    const selectedFile = e.target.files[0];
-    setFilename(selectedFile);
-  }*/
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -67,10 +57,14 @@ const UserPreferencesForm = ({ userId, onClose }) => {
       updatedFormData.append('username', formData.username);
       updatedFormData.append('phone', formData.phone);
       updatedFormData.append('email', formData.email);
-      updatedFormData.append('filename', dataUri);
-      const response = await axios.put(`http://localhost:3001/users/profile/${userId}`, updatedFormData);
+      if (userPicture) {
+        updatedFormData.append('filename', userPicture);
+      }
+      const response = await axios.put(
+        `http://localhost:3001/users/profile/${userId}`,
+        updatedFormData
+      );
       console.log('Preferences updated:', response.data);
-      /*setDataUri(dataUri);*/
       onClose();
     } catch (error) {
       console.error('Error updating preferences:', error);
@@ -81,21 +75,21 @@ const UserPreferencesForm = ({ userId, onClose }) => {
     <form className='preferences-form' onSubmit={handleSubmit}>
       <label>
         Username:
-        <input type="text" name="username" value={formData.username} onChange={handleChange} />
+        <input type='text' name='username' value={formData.username} onChange={handleChange} />
       </label>
       <label>
         Phone:
-        <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
+        <input type='text' name='phone' value={formData.phone} onChange={handleChange} />
       </label>
       <label>
         Email:
-        <input type="text" name="email" value={formData.email} onChange={handleChange} />
+        <input type='text' name='email' value={formData.email} onChange={handleChange} />
       </label>
       <label>
         User Picture:
         <input type='file' onChange={(event) => onChange(event.target.files[0] || null)} />
       </label>
-      <button type="submit">Save Changes</button>
+      <button type='submit'>Save Changes</button>
     </form>
   );
 };
