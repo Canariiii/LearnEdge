@@ -32,7 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/')));
 app.use('/user-images', express.static(path.join(__dirname, 'public/images')));
-console.log(__dirname);
 
 // Routes
 app.use('/users', userRouter);

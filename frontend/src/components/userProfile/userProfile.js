@@ -61,7 +61,7 @@ const UserProfile = () => {
   return (
     <div className='userContainer'>
       <div className='user-border'>
-        <img className='profile-pic' src={filename} alt='profilePic' onClick={logOut} />
+        <img className='profile-pic' src={filename} alt='profilePic' />
         <h1 className='user-name'>{username}</h1>
         <div className='button-container'>
           <button onClick={logOut} className='logout-button'>Logout</button>
