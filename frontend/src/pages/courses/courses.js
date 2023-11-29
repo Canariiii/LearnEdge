@@ -4,10 +4,10 @@ import './courses.css';
 
 function Courses() {
   return (
-    <>
+    <div>
       <Header />
       <ImagesCarousel />
-    </>
+    </div>
   );
 }
 

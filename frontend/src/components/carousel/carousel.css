@@ -1,10 +1,11 @@
-.slick-slider {
-    background-color: black;
+/* Estilos del contenedor principal */
+.ant-carousel {
+    background-color: black !important;
     position: absolute;
-    width: 860px;
-    height: 290px;
-    left: 20.49%;
-    top: 70%;
+    width: 44.79%;
+    height: 26.85%;
+    left: 27.49% !important;
+    top: 25.22% !important;
     border: 1px solid #000000;
     border-radius: 20px;
 }
@@ -20,10 +21,7 @@
 }
 
 /* Estilos de las flechas de navegación */
-.slick-prev {
-    color: white;
-}
-
+.slick-prev,
 .slick-next {
     color: white;
 }
