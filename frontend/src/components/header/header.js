@@ -48,7 +48,7 @@ const Header = () => {
         <img src={'/assets/img/logoBlack.png'} alt="Logo" className="logo" />
       </div>
       <div className='line-header'></div>
-      <nav>
+      <div>
         <ul className='home-container'>
           <li className='li-home'><a href='/courses'>Home</a></li>
           <li className='li-courses'>Courses</li>
@@ -57,7 +57,7 @@ const Header = () => {
             <img className='user-pic' src={filename} alt='pic' ></img>
           </Link>
         </ul>
-      </nav>
+      </div>
       <FontAwesomeIcon className='bell-icon' icon={faBell} />
       <div className='right-line-header'></div>
       <div className='line-bottom-header'></div>
