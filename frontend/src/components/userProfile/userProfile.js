@@ -2,14 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './userProfile.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import UserPreferencesForm from '../userPreferences/userPreferences';
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [filename, setFilename] = useState(null);
   const [userId, setUserId] = useState('');
-  const [showPreferences, setShowPreferences] = useState(false);
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
@@ -49,14 +47,9 @@ const UserProfile = () => {
     navigate('/login');
   };
 
-  const handlePreferencesClick = () => {
-    setShowPreferences(true);
-  };
-
-  const handleClosePreferences = () => {
-    showData();
-    setShowPreferences(false);
-  };
+  const goToUserPreferencesForm = () => {
+    navigate('/user-preferences-form');
+  }
 
   return (
     <div className='userContainer'>
@@ -65,11 +58,8 @@ const UserProfile = () => {
         <h1 className='user-name'>{username}</h1>
         <div className='button-container'>
           <button onClick={logOut} className='logout-button'>Logout</button>
-          <button onClick={handlePreferencesClick} className='settings-button'>Preferences</button>
+          <button onClick={goToUserPreferencesForm} className='settings-button'>Preferences</button>
         </div>
-        {showPreferences && (
-          <UserPreferencesForm userId={userId} onClose={handleClosePreferences} />
-        )}
       </div>
     </div>
   );

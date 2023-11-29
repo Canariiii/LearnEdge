@@ -5,6 +5,7 @@ import Login from "./pages/login/login";
 import SignUp from "./pages/signup/signup";
 import Home from "./pages/home/home";
 import Profile from "./pages/profile/profile";
+import UserPreferences from "./pages/userPreferences/userPreferences";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/user-preferences-form" element={<UserPreferences />} /> 
       </Routes>
     </BrowserRouter>
   );

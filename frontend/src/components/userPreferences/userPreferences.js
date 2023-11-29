@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './userPreferences.css';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const UserPreferencesForm = ({ userId, onClose }) => {
   const [formData, setFormData] = useState({
@@ -76,25 +78,23 @@ const UserPreferencesForm = ({ userId, onClose }) => {
 
 
   return (
-    <form className='preferences-form' onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type='text' name='username' value={formData.username} onChange={handleChange} />
-      </label>
-      <label>
-        Phone:
-        <input type='text' name='phone' value={formData.phone} onChange={handleChange} />
-      </label>
-      <label>
-        Email:
-        <input type='text' name='email' value={formData.email} onChange={handleChange} />
-      </label>
-      <label>
-        User Picture:
-        <input type='file' onChange={(event) => onChange(event.target.files[0] || null)} />
-      </label>
-      <button type='submit'>Save Changes</button>
-    </form>
+    <div>
+      <h1 className='my-data'>My Data</h1>
+      <div className='my-data-line'></div>
+      <form className='form-container' onSubmit={handleSubmit}>
+        <FontAwesomeIcon icon={faPlus} className='plus-icon' />
+        <p>Username</p>
+        <input type='text' placeholder='username' onChange={handleChange}></input>
+        <p>Email</p>
+        <input type='text' placeholder='email' onChange={handleChange}></input>
+        <p>Phone</p>
+        <input type='text' placeholder='phone' onChange={handleChange}></input>
+        <p>Password</p>
+        <input type='text' placeholder='password' onChange={handleChange}></input>
+        <p>Repeat Password</p>
+        <input type='text' placeholder='repeat password' onChange={handleChange}></input>
+      </form>
+    </div>
   );
 };
 
