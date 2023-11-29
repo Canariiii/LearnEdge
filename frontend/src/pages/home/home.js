@@ -8,6 +8,7 @@ function Home() {
     <div>
       <NavBar />
       <Jumbotron />
+      
     </div>
   );
 }

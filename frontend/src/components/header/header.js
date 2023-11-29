@@ -3,8 +3,8 @@ import './header.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 const Header = () => {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const Header = () => {
           </Link>
         </ul>
       </nav>
-      <FontAwesomeIcon className='bell-icon' icon="fa-solid fa-bell" />
+      <FontAwesomeIcon className='bell-icon' icon={faBell} />
       <div className='right-line-header'></div>
       <div className='line-bottom-header'></div>
     </header>

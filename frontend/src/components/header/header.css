@@ -93,6 +93,15 @@ body .logo {
   font-weight: normal;
 }
 
+.bell-icon {
+  position: fixed;
+  color: black;
+  left: 87.5%;
+  top: 4.22%;
+  width: 1.53%;
+  height: 2.44%;
+}
+
 .header-options {
   display: flex;
   position: fixed;
