@@ -3,6 +3,8 @@ import './header.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,19 +44,22 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo-container">
-        <img src={'/assets/img/logo.png'} alt="Logo" className="logo" />
+      <div>
+        <img src={'/assets/img/logoBlack.png'} alt="Logo" className="logo" />
       </div>
       <div className='line-header'></div>
       <nav>
-        <ul className='header-container'>
-          <li><a href='/courses'>Courses</a></li>
-          <li>My Courses</li>
+        <ul className='home-container'>
+          <li className='li-home'><a href='/courses'>Home</a></li>
+          <li className='li-courses'>Courses</li>
+          <li className='li-my-courses'>My Courses</li>
           <Link to={'/profile'}>
-            <li><img className='user-pic' src={filename} alt='pic' ></img></li>
+            <img className='user-pic' src={filename} alt='pic' ></img>
           </Link>
         </ul>
       </nav>
+      <FontAwesomeIcon className='bell-icon' icon="fa-solid fa-bell" />
+      <div className='right-line-header'></div>
       <div className='line-bottom-header'></div>
     </header>
   );

@@ -1,56 +1,96 @@
-li a{
-  text-decoration: none;
-  color: white;
+body {
+  background: white;
 }
 
-.logo {
+li a {
+  text-decoration: none;
+  color: black;
+}
+
+body .logo {
   display: flex;
-  position: absolute;
-  left: 1%;
+  position: fixed;
+  left: 2.29%;
   top: 1%;
-  width: 15%;
+  width: 15.14%;
+  height: 10%;
 }
 
 .line-header {
   display: flex;
   position: fixed;
-  left: 17.2%;
-  top: 2.5%;
+  left: 20.35%;
+  top: 2.44%;
   height: 50px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid black;
+}
+
+.right-line-header {
+  display: flex;
+  position: fixed;
+  left: 92.22%;
+  top: 2.44%;
+  height: 50px;
+  border: 1px solid black;
 }
 
 .line-bottom-header {
   display: flex;
   position: fixed;
-  left: 7.5%;
   top: 13%;
-  width: 85%;
+  width: 100%;
   height: 1px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid black;
 }
 
 .header {
   display: flex;
   position: fixed;
-  background-color: transparent;
+  background-color: #F2F2FF;
   color: white;
   width: 100%;
-  height: 10%;
+  height: 13%;
 }
 
 .header-container {
   display: flex;
   position: fixed;
-  top: 4%;
+  top: 2.5%;
   left: 20%;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  color: black;
 }
 
-.header-container li {
-  margin-right: 20px;
+.home-container {
+  color: black;
+  font-size: 20px;
+}
+
+.li-home {
+  display: flex;
+  position: fixed;
+  left: 25.14%;
+  top: 4.5%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+}
+
+.li-courses {
+  display: flex;
+  position: fixed;
+  left: 36.88%;
+  top: 4.5%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+}
+
+.li-my-courses {
+  display: flex;
+  position: fixed;
+  left: 51.32%;
+  top: 4.5%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
 }
 
 .header-options {
@@ -70,9 +110,9 @@ li a{
 .user-pic {
   display: flex;
   position: fixed;
-  width: 4.5%;
-  top: 1.5%;
-  left: 93%;
+  width: 2.92%;
+  top: 2.67%;
+  left: 94.72%;
   border-radius: 100%;
 }
 
@@ -87,7 +127,7 @@ li a{
     left: 22.3%;
   }
 
-  .header-container{
+  .header-container {
     left: 25%;
   }
 
