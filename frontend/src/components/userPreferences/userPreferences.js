@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './userPreferences.css';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -13,15 +13,6 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
   const [userPicture, setUserPicture] = useState(null);
   const [currentPic, setCurrentPic] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
-
-  const fileToDataUri = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        resolve(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    });
 
   const onChange = (file) => {
     if (!file) {
