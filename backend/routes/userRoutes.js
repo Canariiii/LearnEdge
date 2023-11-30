@@ -4,15 +4,17 @@ const upload = require('../multer/upload');
 
 const userRouter = express.Router();
 
-// Login route
 userRouter.post('/login', userController.login);
 
-// Routes for users
 userRouter.route('/')
   .post(upload.single('filename'), userController.createUser)
   .get(userController.getUsers);
 
 userRouter.route('/profile/:_id')
+  .get(userController.getUserById)
+  .put(upload.single('filename'), userController.updateUser);
+
+userRouter.route('/user-preferences-form/:_id')
   .get(userController.getUserById)
   .put(upload.single('filename'), userController.updateUser);
 
