@@ -77,13 +77,13 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
       <div className='my-data-line'></div>
       <form className='form-container' onSubmit={handleSubmit}>
         <p>Username</p>
-        <input type='text' name='username' onChange={handleChange} value={formData.username}></input>
+        <input type='text' name='username' onChange={handleChange} placeholder='new username'></input>
         <p>Email</p>
-        <input type='text' name='email' onChange={handleChange} value={formData.email}></input>
+        <input type='text' name='email' onChange={handleChange} placeholder='new email'></input>
         <p>Phone</p>
-        <input type='text' name='phone' onChange={handleChange} ></input>
+        <input type='text' name='phone' onChange={handleChange} placeholder='new phone'></input>
         <p>Password</p>
-        <input type='text' placeholder='password' ></input>
+        <input type='text' placeholder='new password' ></input>
         <p>Repeat Password</p>
         <input type='text' placeholder='repeat password'></input>
         <p>Change Avatar</p>
