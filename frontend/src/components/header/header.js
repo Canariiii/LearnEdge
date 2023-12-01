@@ -42,10 +42,14 @@ const Header = () => {
     showData();
   }, [userId, showData]);
 
+  const goToHome = () => {
+    navigate("/courses");
+  }
+
   return (
     <header className="header">
       <div>
-        <img src={'/assets/img/logoBlack.png'} alt="Logo" className="logo" />
+        <img src={'/assets/img/logoBlack.png'} alt="Logo" className="logo" onClick={goToHome} />
       </div>
       <div className='line-header'></div>
       <div>

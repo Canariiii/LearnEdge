@@ -317,7 +317,9 @@
     top: 20%;
     width: 4%;
   }
-  .form-container p:nth-of-type(6) {left: 65%;}
+  .form-container p:nth-of-type(6) {
+    left: 65%;
+  }
 
   .form-container button {
     width: 50%;
