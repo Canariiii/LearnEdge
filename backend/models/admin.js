@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
 
 const adminSchema = new mongoose.Schema({
-  
+
 });
 
-const admin = mongoose.model('admin', adminSchema);
-module.exports = admin;
+adminSchema.methods.manageCourse = async function (courseData) {
+    
+},
+
+    adminSchema.methods.manageUsers = async function (userData) {
+       
+    }
+
+const Admin = mongoose.model('admin', adminSchema);
+module.exports = Admin;

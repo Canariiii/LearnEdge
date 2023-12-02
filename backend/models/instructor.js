@@ -3,8 +3,12 @@ const Course = require('../models/course');
 
 const instructorSchema = new mongoose.Schema({
     coursesTaught: [{
-        type: mongoose.Schema.Types.ObjectId, ref: Course
+        type: mongoose.Schema.Types.ObjectId, ref: 'Course'
+    }],
+    currentCourses: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Course'
     }]
-})
-const instructor = mongoose.model('instructor', instructorSchema);
-module.exports = instructor;
+});
+
+const Instructor = mongoose.model('Instructor', instructorSchema);
+module.exports = Instructor;

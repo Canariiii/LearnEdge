@@ -9,12 +9,16 @@ exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
     newUser.filename = '';
+    if (!["student", "instructor", "admin"].includes(newUser.role)) {
+      return res.status(400).json({ success: false, error: 'Invalid role' });
+    }
+
     if (req.file) {
       newUser.filename = req.file.filename;
     }
     await newUser.save();
     const token = createToken(newUser);
-    res.status(201).json({ success: true, data: newUser, token });
+    res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {
     console.error('Error al crear usuario:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -28,7 +32,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Both username and password are required' });
     }
     const user = await User.findOne({ username });
-    console.log('User found:', user);    
+    console.log('User found:', user);
     if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ success: false, error: 'Incorrect username or password' });
     }
@@ -43,7 +47,8 @@ exports.login = async (req, res) => {
         user: {
           _id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          role: user.role,
         },
         token
       }
@@ -78,7 +83,7 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const newUser = req.body;
-    newUser.filename = newUser.filename || ''; 
+    newUser.filename = newUser.filename || '';
     console.log('Body received:', req.body);
     if (req.file) {
       newUser.filename = req.file.filename;
