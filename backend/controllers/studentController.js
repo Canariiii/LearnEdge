@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const Course = require('../models/course');
 const { Student } = require('../models/student');
 
 exports.createStudent = async (req, res) => {
@@ -26,6 +28,11 @@ exports.getStudentById = async (req, res) => {
     if (!student) {
       return res.status(404).json({ success: false, error: 'Estudiante no encontrado' });
     }
+
+    if (student.role !== 'student') {
+      return res.status(403).json({ success: false, error: 'Acceso denegado. No eres un estudiante.' });
+    }
+
     res.status(200).json({ success: true, data: student });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -42,6 +49,11 @@ exports.updateStudent = async (req, res) => {
     if (!student) {
       return res.status(404).json({ success: false, error: 'Estudiante no encontrado' });
     }
+
+    if (student.role !== 'student') {
+      return res.status(403).json({ success: false, error: 'Acceso denegado. No eres un estudiante.' });
+    }
+
     res.status(200).json({ success: true, data: student });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -54,6 +66,11 @@ exports.deleteStudent = async (req, res) => {
     if (!student) {
       return res.status(404).json({ success: false, error: 'Estudiante no encontrado' });
     }
+
+    if (student.role !== 'student') {
+      return res.status(403).json({ success: false, error: 'Acceso denegado. No eres un estudiante.' });
+    }
+
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
     console.error('Error al eliminar estudiante:', error);

@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Student = require('./student');
+const Instructor = require('./instructor');
+const Admin = require('./admin');
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -34,13 +37,17 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: ["student", "instructor", "admin"], 
+    default: 'student',
+    enum: ['student', 'instructor', 'admin'], 
   },
   filename: {
     type: String,
     required: false,
     match: /\.(jpg|jpeg|png|gif|webp)$/
-  }
+  },
+  student: [{type: String, ref: Student}],
+  instructor: [{type: String, ref: Instructor}],
+  admin: [{type: String, ref: Admin}]
 });
 
 userSchema.pre('save', async function (next) {

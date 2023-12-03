@@ -1,5 +1,4 @@
 const Instructor = require('../models/instructorModel');
-const Course = require('../models/courseModel');
 
 exports.createInstructor = async (req, res) => {
   try {
@@ -27,6 +26,11 @@ exports.getInstructorById = async (req, res) => {
     if (!instructor) {
       return res.status(404).json({ success: false, error: 'Instructor not found' });
     }
+
+    if (instructor.role !== 'instructor') {
+      return res.status(403).json({ success: false, error: 'Access denied. You are not an instructor.' });
+    }
+
     res.status(200).json({ success: true, data: instructor });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -43,6 +47,11 @@ exports.updateInstructor = async (req, res) => {
     if (!instructor) {
       return res.status(404).json({ success: false, error: 'Instructor not found' });
     }
+
+    if (instructor.role !== 'instructor') {
+      return res.status(403).json({ success: false, error: 'Access denied. You are not an instructor.' });
+    }
+
     res.status(200).json({ success: true, data: instructor });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -55,6 +64,11 @@ exports.deleteInstructor = async (req, res) => {
     if (!instructor) {
       return res.status(404).json({ success: false, error: 'Instructor not found' });
     }
+
+    if (instructor.role !== 'instructor') {
+      return res.status(403).json({ success: false, error: 'Access denied. You are not an instructor.' });
+    }
+
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
     console.error('Error deleting instructor:', error);
