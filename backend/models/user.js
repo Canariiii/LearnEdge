@@ -45,9 +45,9 @@ const userSchema = new mongoose.Schema({
     required: false,
     match: /\.(jpg|jpeg|png|gif|webp)$/
   },
-  student: [{type: String, ref: Student}],
-  instructor: [{type: String, ref: Instructor}],
-  admin: [{type: String, ref: Admin}]
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },
+  instructor: { type: mongoose.Schema.Types.ObjectId, ref: 'Instructor' },
+  admin: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
 });
 
 userSchema.pre('save', async function (next) {

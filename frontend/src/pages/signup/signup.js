@@ -36,7 +36,7 @@ function SignUp() {
     newUser.append('filename', filename);
 
     console.log("New user data:", newUser);
-    axios.post('http://localhost:3001/users', newUser)
+    axios.post('http://localhost:3001/users', newUser, { withCredentials: true, crossDomain: true })
       .then(response => {
         console.log('SignUp Response:', response.data);
         const token = response.data.token;
@@ -65,9 +65,9 @@ function SignUp() {
         <input className='password-signup' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <input className='mobile-signup' type='text' placeholder='Mobile' value={mobile} onChange={handleMobileChange} />
         <select className='role-dropdown' value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value='user'>Student</option>
-          <option value='teacher'>Teacher</option>
-          <option value='admin'>Admin</option>
+          <option value='student'>student</option>
+          <option value='instructor'>instructor</option>
+          <option value='admin'>admin</option>
         </select>
         <input className='set-pic' type='file' onChange={handleUserPic} />
         <Link to='/courses'>
