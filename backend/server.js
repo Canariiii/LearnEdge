@@ -8,8 +8,10 @@ const Multer = require('multer');
 // Import routers
 const userRouter = require('./routes/userRoutes');
 const studentRouter = require('./routes/studentRoutes');
+const instructorRouter = require('./routes/instructorRoutes');
+const adminRouter = require('./routes/adminRoutes');
 const courseRoutes = require('./routes/courseRoutes');
-
+const contentRoutes = require('./routes/contentRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -36,7 +38,10 @@ app.use('/user-images', express.static(path.join(__dirname, 'public/images')));
 // Routes
 app.use('/users', userRouter);
 app.use('/students', studentRouter);
+app.use('/instructors', instructorRouter);
+app.use('/admin', adminRouter);
 app.use('/courses', courseRoutes);
+app.use('/content', contentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

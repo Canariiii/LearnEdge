@@ -3,7 +3,7 @@ const Course = require('../models/course');
 
 exports.createCourse = async (req, res) => {
   try {
-    const { title, description, filename , users } = req.body;
+    const { title, description, filename, users } = req.body;
     if (!req.body || !req.body.users || !Array.isArray(req.body.users)) {
       return res.status(400).json({ success: false, error: "Invalid request format" });
     }
@@ -23,10 +23,9 @@ exports.createCourse = async (req, res) => {
   }
 };
 
-
 exports.getCourses = async (req, res) => {
   try {
-    const courses = await Course.find().populate('enrolledUsers');
+    const courses = await Course.find().populate('enrolledStudents');
     res.status(200).json({ success: true, data: courses });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -54,7 +53,7 @@ exports.updateCourse = async (req, res) => {
     const userIds = req.body.users.map(userId => mongoose.Types.ObjectId(userId));
     const course = await Course.findByIdAndUpdate(
       req.params._id,
-      { $addToSet: { enrolledUsers: { $each: userIds } } },
+      { $addToSet: { enrolledStudents: { $each: userIds } } },
       { new: true, runValidators: true }
     );
     if (!course) {
@@ -106,8 +105,8 @@ exports.updateStudents = async (req, res) => {
 
 exports.updateInstructor = async (req, res) => {
   try {
-
+    // Agrega la lógica para actualizar el instructor aquí
   } catch (error) {
-
+    res.status(500).json({ success: false, error: error.message });
   }
-}
+};

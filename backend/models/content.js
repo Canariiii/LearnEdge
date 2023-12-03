@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Course = require('../models/course');
+const Course = require('./course'); // Asegúrate de que esté apuntando al archivo correcto
 
 const contentSchema = new mongoose.Schema({
     contentType: {
@@ -11,9 +11,10 @@ const contentSchema = new mongoose.Schema({
         required: true
     },
     associatedCourse: {
-        type: mongoose.Schema.Types.ObjectId, ref: Course
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course' 
     }
-})
+});
 
-const content = mongoose.model('content', contentSchema);
-module.exports = content;
+const Content = mongoose.model('Content', contentSchema);
+module.exports = Content;
