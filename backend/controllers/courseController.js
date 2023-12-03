@@ -1,23 +1,44 @@
 const mongoose = require('mongoose');
 const Course = require('../models/course');
+const Content = require('../models/content');
 
 exports.createCourse = async (req, res) => {
   try {
-    const { title, description, filename, users } = req.body;
-    if (!req.body || !req.body.users || !Array.isArray(req.body.users)) {
-      return res.status(400).json({ success: false, error: "Invalid request format" });
-    }
-    const instructorId = users.map(instructorId => mongoose.Types.ObjectId(instructorId))
+    const { title, description, filename, users, contentType, contentData } = req.body;
+
+    // Crea el nuevo contenido
+    const newContent = new Content({
+      contentType,
+      contentData,
+    });
+    await newContent.save();
+
+    const instructorId = users.map(instructorId => mongoose.Types.ObjectId(instructorId));
     const userIds = users.map(userId => mongoose.Types.ObjectId(userId));
+
+    // Crea el nuevo curso y asocia el contenido
     const newCourse = new Course({
       title,
       description,
       filename,
       instructor: instructorId,
       enrolledStudents: userIds,
+      content: newContent._id,
     });
     await newCourse.save();
-    res.status(201).json({ success: true, data: newCourse });
+
+    // Actualiza el contenido con el curso asociado
+    newContent.associatedCourse = newCourse._id;
+    await newContent.save();
+
+    // Devuelve la respuesta con ambos documentos
+    res.status(201).json({
+      success: true,
+      data: {
+        newCourse,
+        newContent,
+      },
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

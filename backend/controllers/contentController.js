@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
 const Content = require('../models/content');
+const Course = require('../models/course');
 
-exports.createContent = async (req, res) => {
+exports.createContent = async ({ contentType, contentData }) => {
   try {
-    const { contentType, contentData, courseId } = req.body;
-    const newContent = new Content({
-      contentType,
-      contentData,
-      associatedCourse: mongoose.Types.ObjectId(courseId),
-    });
+    const newContent = new Content({ contentType, contentData });
     await newContent.save();
-    res.status(201).json({ success: true, data: newContent });
+    const contentId = newContent._id;
+    return { success: true, data: { newContent, contentId } };
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    return { success: false, error: error.message };
   }
 };
 
@@ -24,7 +21,6 @@ exports.getContentAll = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
 
 exports.getContentByCourse = async (req, res) => {
   try {

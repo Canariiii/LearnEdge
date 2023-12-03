@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-const Students = require('./student');
-const Instructor = require('./instructor');
-const Content = require('./content');
+const { Schema } = mongoose;
 
-const courseSchema = new mongoose.Schema({
+const courseSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -17,16 +15,17 @@ const courseSchema = new mongoose.Schema({
     required: false,
     match: /\.(jpg|jpeg|png|gif|webp)$/
   },
-  content: [{
+  content: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Content'
-  }],
+  },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Instructor'
+    ref: 'Instructor',
+    required: true 
   },
   enrolledStudents: [{
-   type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Student'
   }]
 });
