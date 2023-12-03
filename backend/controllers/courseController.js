@@ -5,18 +5,14 @@ const Content = require('../models/content');
 exports.createCourse = async (req, res) => {
   try {
     const { title, description, filename, users, contentType, contentData } = req.body;
-
-    // Crea el nuevo contenido
+    const file = req.file;
     const newContent = new Content({
       contentType,
       contentData,
     });
     await newContent.save();
-
     const instructorId = users.map(instructorId => mongoose.Types.ObjectId(instructorId));
     const userIds = users.map(userId => mongoose.Types.ObjectId(userId));
-
-    // Crea el nuevo curso y asocia el contenido
     const newCourse = new Course({
       title,
       description,
@@ -24,14 +20,11 @@ exports.createCourse = async (req, res) => {
       instructor: instructorId,
       enrolledStudents: userIds,
       content: newContent._id,
+      file: file ? file.filename : null,
     });
     await newCourse.save();
-
-    // Actualiza el contenido con el curso asociado
     newContent.associatedCourse = newCourse._id;
     await newContent.save();
-
-    // Devuelve la respuesta con ambos documentos
     res.status(201).json({
       success: true,
       data: {
@@ -65,6 +58,7 @@ exports.getCourseById = async (req, res) => {
   }
 };
 
+// Aplica el middleware de autorización a las rutas relevantes
 exports.updateCourse = async (req, res) => {
   try {
     if (!req.body || !req.body.users || !Array.isArray(req.body.users)) {
@@ -86,6 +80,7 @@ exports.updateCourse = async (req, res) => {
   }
 };
 
+// Aplica el middleware de autorización a las rutas relevantes
 exports.deleteCourse = async (req, res) => {
   try {
     const course = await Course.findByIdAndDelete(req.params._id);
@@ -93,40 +88,6 @@ exports.deleteCourse = async (req, res) => {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
     res.status(200).json({ success: true, data: {} });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
-exports.updateStudents = async (req, res) => {
-  try {
-    const courseId = req.body.id;
-    const course = await Course.findById(courseId);
-
-    if (!course) {
-      return res.status(404).json({ success: false, error: 'Course not found' });
-    }
-    const { addStudents, removeStudents } = req.body;
-    if (addStudents && addStudents.length > 0) {
-      const addStudentIds = addStudents.map(studentId => mongoose.Types.ObjectId(studentId));
-      course.enrolledStudents.push(...addStudentIds);
-    }
-    if (removeStudents && removeStudents.length > 0) {
-      const removeStudentIds = removeStudents.map(studentId => mongoose.Types.ObjectId(studentId));
-      course.enrolledStudents = course.enrolledStudents.filter(
-        studentId => !removeStudentIds.includes(studentId)
-      );
-    }
-    await course.save();
-    res.status(200).json({ success: true, data: course });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
-exports.updateInstructor = async (req, res) => {
-  try {
-    // Agrega la lógica para actualizar el instructor aquí
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

@@ -1,14 +1,16 @@
 const express = require('express');
-const courseRouter = express.Router();
 const courseController = require('../controllers/courseController');
+const authorizeInstructor = require('../middleware/authorizeInstructor');
 
-courseRouter.route("/")
-  .post(courseController.createCourse)
+const courseRouter = express.Router();
+
+courseRouter.route('/')
+  .post(authorizeInstructor, courseController.createCourse)
   .get(courseController.getCourses);
 
-courseRouter.route("/:_id")
-  .get(courseController.getCourseById)
-  .put(courseController.updateCourse)
-  .delete(courseController.deleteCourse);
+courseRouter.route('/:_id')
+  .put(authorizeInstructor, courseController.updateCourse)
+  .delete(authorizeInstructor, courseController.deleteCourse);
+
 
 module.exports = courseRouter;
