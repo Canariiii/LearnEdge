@@ -10,6 +10,11 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  filename: {
+    type: String,
+    required: false,
+    match: /\.(jpg|jpeg|png|gif|webp)$/
+  },
   content: [{
     contentType: {
       type: String,
