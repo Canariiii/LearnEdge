@@ -43,10 +43,10 @@ const studentSchema = new mongoose.Schema({
     match: /\.(jpg|jpeg|png|gif|webp)$/
   },
   joinCourses: [{
-    type: mongoose.Schema.Types.ObjectId, ref: Course
+    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
   }],
   courseList: [{
-    type: mongoose.Schema.Types.ObjectId, ref: Course
+    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
   }]
 });
 

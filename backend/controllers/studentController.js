@@ -1,12 +1,27 @@
 const  Student  = require('../models/student');
+const Course = require('../models/course');
 
 exports.createStudent = async (req, res) => {
   try {
     const newStudent = new Student(req.body);
     await newStudent.save();
-    res.status(201).json({ success: true, data: newStudent });
+    const allCourses = await Course.find(); 
+    const courseList = allCourses.map(course => ({
+      title: course.title,
+      filename: course.filename
+    }));
+    res.status(201).json({ success: true, data: { newStudent: { ...newStudent.toObject(), courseList } } });
   } catch (error) {
     console.error('Error al crear estudiante:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.getAllCourses = async (req, res) => {
+  try {
+    const allCourses = await Course.find();
+    res.status(200).json({ success: true, data: allCourses });
+  } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
