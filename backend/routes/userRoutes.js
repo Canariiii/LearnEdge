@@ -5,6 +5,7 @@ const upload = require('../multer/upload');
 const userRouter = express.Router();
 
 userRouter.post('/login', userController.login);
+userRouter.route('/token').post(userController.getUserFromToken);
 
 userRouter.route('/')
   .post(upload.single('filename'), userController.createUser)

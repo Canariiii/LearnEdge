@@ -3,15 +3,18 @@ const Course = require('../models/course');
 
 exports.createCourse = async (req, res) => {
   try {
+    const { title, description, filename , users } = req.body;
     if (!req.body || !req.body.users || !Array.isArray(req.body.users)) {
       return res.status(400).json({ success: false, error: "Invalid request format" });
     }
-    const { title, description, users } = req.body;
+    const instructorId = users.map(instructorId => mongoose.Types.ObjectId(instructorId))
     const userIds = users.map(userId => mongoose.Types.ObjectId(userId));
     const newCourse = new Course({
       title,
       description,
-      enrolledUsers: userIds,
+      filename,
+      instructor: instructorId,
+      enrolledStudents: userIds,
     });
     await newCourse.save();
     res.status(201).json({ success: true, data: newCourse });
@@ -23,7 +26,7 @@ exports.createCourse = async (req, res) => {
 
 exports.getCourses = async (req, res) => {
   try {
-    const courses = await Course.find().populate('enrolledUsers'); 
+    const courses = await Course.find().populate('enrolledUsers');
     res.status(200).json({ success: true, data: courses });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -74,3 +77,37 @@ exports.deleteCourse = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+exports.updateStudents = async (req, res) => {
+  try {
+    const courseId = req.body.id;
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ success: false, error: 'Course not found' });
+    }
+    const { addStudents, removeStudents } = req.body;
+    if (addStudents && addStudents.length > 0) {
+      const addStudentIds = addStudents.map(studentId => mongoose.Types.ObjectId(studentId));
+      course.enrolledStudents.push(...addStudentIds);
+    }
+    if (removeStudents && removeStudents.length > 0) {
+      const removeStudentIds = removeStudents.map(studentId => mongoose.Types.ObjectId(studentId));
+      course.enrolledStudents = course.enrolledStudents.filter(
+        studentId => !removeStudentIds.includes(studentId)
+      );
+    }
+    await course.save();
+    res.status(200).json({ success: true, data: course });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.updateInstructor = async (req, res) => {
+  try {
+
+  } catch (error) {
+
+  }
+}

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const User = require('../models/user');
+const Students = require('./student');
+const Instructor = require('./instructor');
 
 const courseSchema = new mongoose.Schema({
   title: {
@@ -27,11 +28,11 @@ const courseSchema = new mongoose.Schema({
   }],
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Instructor'
+    ref: Instructor
   },
-  enrolledUsers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+  enrolledStudents: [{
+   type: mongoose.Schema.Types.ObjectId,
+    ref: Students
   }]
 });
 

@@ -5,6 +5,27 @@ const createToken = (user) => {
   return jwt.sign({ _id: user._id }, 'your_secret_key');
 };
 
+exports.getUserFromToken = async (req, res) => {
+  try {
+    const decoded = jwt.verify(req.body.token, 'your_secret_key');
+    const userId = decoded._id;
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ success: false, error: 'User not found' });
+      }
+      res.status(200).json({ success: true, data: user });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: 'Invalid token'
+    };
+  }
+};
+
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
