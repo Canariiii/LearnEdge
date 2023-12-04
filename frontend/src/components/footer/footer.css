@@ -1,0 +1,21 @@
+.footer-line {
+    display: flex;
+    position: fixed;
+    width: 92.57%;
+    border: 1.15px solid #4D4D4D;
+    top: 84.11%;
+    left: 3.3%;
+}
+
+.footer-container p:nth-of-type(1) {
+    display: flex;
+    color: white;
+    position: absolute;
+    top: 88.22%;
+    left: 3.75%;
+    font-size: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+}
