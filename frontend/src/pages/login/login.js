@@ -27,6 +27,7 @@ function Login() {
       if (response.data.token && response.data.user) {
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userRole', response.data.user.role);
         navigate('/home');
       } else {
         console.error('Token or user information is missing:', response);

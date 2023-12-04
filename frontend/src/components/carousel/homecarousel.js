@@ -11,7 +11,6 @@ const contentStyle = {
 
 const HomeCarousel = () => {
   const onChange = (currentSlide) => {
-    console.log(currentSlide);
   };
 
   return (

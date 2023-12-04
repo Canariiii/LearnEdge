@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const Multer = require('multer');
-
 // Import routers
 const userRouter = require('./routes/userRoutes');
 const studentRouter = require('./routes/studentRoutes');
@@ -42,7 +41,6 @@ app.use('/instructors', instructorRouter);
 app.use('/admin', adminRouter);
 app.use('/courses', courseRoutes);
 app.use('/content', contentRoutes);
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   if (err instanceof Multer.MulterError) {
