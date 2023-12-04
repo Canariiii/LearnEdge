@@ -19,3 +19,21 @@
     font-weight: 400;
     font-size: 20px;
 }
+
+.footer-container img:nth-of-type(1){
+    display: flex;
+    position: absolute;
+    left: 45%;
+    top: 87%;
+    width: 15.76%;
+    height: 10%;
+}
+
+.footer-container a img:nth-of-type(1){
+    display: flex;
+    position: absolute;
+    left: 92.57%;
+    top: 89.44%;
+    width: 2.78%;
+    height: 4.44%;
+}
