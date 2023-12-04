@@ -44,7 +44,7 @@ const UserProfile = () => {
   const logOut = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate('/');
   };
 
   const goToUserPreferencesForm = () => {
