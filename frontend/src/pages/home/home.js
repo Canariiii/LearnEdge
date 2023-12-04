@@ -1,14 +1,10 @@
-import React from 'react';
+import Header from "../../components/header/header";
 import './home.css';
-import NavBar from '../../components/navbar/navbar';
-import Jumbotron from '../../components/jumbotron/jumbotron';
 
 function Home() {
   return (
     <div>
-      <NavBar />
-      <Jumbotron />
-      
+      <Header />
     </div>
   );
 }

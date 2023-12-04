@@ -39,7 +39,7 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/courses');
+      navigate('/home');
     }
   }, [navigate]);
 

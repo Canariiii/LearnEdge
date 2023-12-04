@@ -58,7 +58,6 @@ exports.getCourseById = async (req, res) => {
   }
 };
 
-// Aplica el middleware de autorización a las rutas relevantes
 exports.updateCourse = async (req, res) => {
   try {
     if (!req.body || !req.body.users || !Array.isArray(req.body.users)) {
@@ -80,7 +79,6 @@ exports.updateCourse = async (req, res) => {
   }
 };
 
-// Aplica el middleware de autorización a las rutas relevantes
 exports.deleteCourse = async (req, res) => {
   try {
     const course = await Course.findByIdAndDelete(req.params._id);

@@ -54,7 +54,7 @@ const Header = () => {
       <div className='line-header'></div>
       <div>
         <ul className='home-container'>
-          <li className='li-home'><a href='/courses'>Home</a></li>
+          <li className='li-home'><a href='/home'>Home</a></li>
           <li className='li-courses'>Courses</li>
           <li className='li-my-courses'>My Courses</li>
           <Link to={'/profile'}>
