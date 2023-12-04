@@ -9,12 +9,14 @@ function Home() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
         .then(response => {
           setUsername(response.data.data.username);
+          /*setUserRole(response.data.data.role);*/
         })
         .catch(error => {
           console.error('Error fetching user profile:', error);
@@ -43,6 +45,9 @@ function Home() {
       <p className="home-username">Hi {username}. ¡Let's get to work!</p>
       <HomeCarousel />
       <p className="home-discover">Discover all the courses!</p>
+      {/* {userRole === 'instructor' && (
+        <button>Visible Only for Instructors</button>
+      )} */}
     </div>
   );
 }
