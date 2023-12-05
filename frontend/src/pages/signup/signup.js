@@ -41,10 +41,8 @@ function SignUp() {
         console.log('SignUp Response:', response.data);
         const token = response.data.token;
         const userId = response.data.data._id;
-        const userRole = response.data.data.role;
         localStorage.setItem('userId', userId);
         localStorage.setItem('token', token);
-        localStorage.setItem('userRole', userRole);
         console.log(response.data);
       })
       .catch(error => {

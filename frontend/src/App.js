@@ -7,6 +7,7 @@ import Signuplogin from "./pages/signuplogin/signuplogin";
 import Profile from "./pages/profile/profile";
 import UserPreferences from "./pages/userPreferences/userPreferences";
 import Course from "./pages/courses/courses";
+import CreateCourse from "./pages/createCourse/createCourse";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/user-preferences-form" element={<UserPreferences />} />
+        <Route path="/create-course" element={<CreateCourse />} />
       </Routes>
     </BrowserRouter>
   );

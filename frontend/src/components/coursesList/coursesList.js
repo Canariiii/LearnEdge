@@ -1,20 +1,18 @@
-import HomeCarousel from "../../components/carousel/homecarousel";
-import Header from "../../components/header/header";
-import './home.css';
-import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './coursesList.css';
 
-function Home() {
+const CoursesList = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
   const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
         .then(response => {
-          setUsername(response.data.data.username);
+          setUserRole(response.data.data.role);
         })
         .catch(error => {
           console.error('Error fetching user profile:', error);
@@ -39,12 +37,13 @@ function Home() {
 
   return (
     <div>
-      <Header />
-      <p className="home-username">Hi {username}. ¡Let's get to work!</p>
-      <HomeCarousel />
-      <p className="home-discover">Discover all the courses!</p>
+      <Link to="/create-course">
+        {userRole === 'instructor' && (
+          <button className='create-course'>Create Course</button>
+        )}
+      </Link>
     </div>
   );
 }
 
-export default Home;
+export default CoursesList;

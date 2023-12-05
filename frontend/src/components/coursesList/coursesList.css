@@ -1,0 +1,13 @@
+.create-course {
+    display: flex;
+    position: fixed;
+    left: 4.58%;
+    top: 24%;
+    width: 14.03%;
+    height: 6.78%;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
