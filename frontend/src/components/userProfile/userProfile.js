@@ -52,14 +52,13 @@ const UserProfile = () => {
   }
 
   return (
-    <div className='userContainer'>
-      <div className='user-border'>
-        <img className='profile-pic' src={filename} alt='profilePic' />
-        <h1 className='user-name'>{username}</h1>
-        <div className='button-container'>
-          <button onClick={logOut} className='logout-button'>Logout</button>
-          <button onClick={goToUserPreferencesForm} className='settings-button'>Preferences</button>
-        </div>
+    <div className='user-container'>
+      <img src={filename} alt='profilePic' />
+      <h1 className='user-name'>{username}</h1>
+      <div className='user-line'></div>
+      <div className='button-container'>
+        <button onClick={logOut} className='logout-button'>Logout</button>
+        <button onClick={goToUserPreferencesForm} className='settings-button'>Preferences</button>
       </div>
     </div>
   );
