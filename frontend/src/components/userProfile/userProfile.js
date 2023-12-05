@@ -8,12 +8,14 @@ const UserProfile = () => {
   const [username, setUsername] = useState('');
   const [filename, setFilename] = useState(null);
   const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
         .then(response => {
           setUsername(response.data.data.username);
+          setUserRole(response.data.data.role);
           setFilename(`http://localhost:3001/user-images/${response.data.data.filename}`);
           if (!response.data.data.filename) {
             console.log('No image received.');
@@ -51,15 +53,25 @@ const UserProfile = () => {
     navigate('/user-preferences-form');
   }
 
+  const goToManage = () => {
+    navigate('/manage');
+  }
+
   return (
     <div className='user-container'>
       <img src={filename} alt='profilePic' />
       <h1 className='user-name'>{username}</h1>
       <div className='user-line'></div>
       <div className='button-container'>
-        <button onClick={logOut} className='logout-button'>Logout</button>
-        <button onClick={goToUserPreferencesForm} className='settings-button'>Preferences</button>
+        <button onClick={logOut}>Logout</button>
+        <button onClick={goToUserPreferencesForm} >Preferences</button>
       </div>
+      {userRole === 'instructor' | userRole === 'student' && (
+        <p>Active courses</p>
+      )}
+      {userRole === 'admin' && (
+        <button onClick={goToManage} className='manage-button'>Manage</button>
+      )}
     </div>
   );
 };
