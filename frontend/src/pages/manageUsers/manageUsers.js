@@ -7,6 +7,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -43,10 +44,14 @@ function ManageUsers() {
     }
   };
 
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
     <div>
       <Header />
-      <h1>Users</h1>
+      <h1 className='list-user-title'>Users</h1>
       <ul className='list-users'>
         {users.map(user => (
           <li key={user._id}>
@@ -59,6 +64,7 @@ function ManageUsers() {
                 className='edit-icon'
                 icon={faPenToSquare}
                 style={{ color: "#000000" }}
+                onClick={togglePopup}
               />
               <FontAwesomeIcon
                 className='trash-icon'
@@ -70,6 +76,21 @@ function ManageUsers() {
           </li>
         ))}
       </ul>
+      {showPopup && (
+      <form className='edit-user-form-popup'>
+        <p>Username</p>
+        <input type='text' placeholder='New Username'></input>
+        <p>Email</p>
+        <input type='text' placeholder='New Email'></input>
+        <p>Phone</p>
+        <input type='text' placeholder='New Phone'></input>
+        <p>Role</p>
+        <input type='text' placeholder='New Role'></input>
+        <input type='file'></input>
+        <label htmlFor='fileInput' className='fileLabel'>Search...</label>
+        <button>Save Changes</button>
+      </form>)
+      }
     </div>
   );
 }
