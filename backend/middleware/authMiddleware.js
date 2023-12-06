@@ -17,7 +17,7 @@ const authenticateUser = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
-    next(); // Si es admin, permite continuar
+    next(); 
   } else {
     res.status(403).json({ success: false, error: 'Permission denied' });
   }

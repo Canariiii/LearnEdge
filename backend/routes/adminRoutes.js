@@ -7,7 +7,7 @@ router.use(authenticateUser);
 
 router.get('/users', isAdmin, adminController.getAllUsers);
 router.get('/users/:userId', isAdmin, adminController.getUserById);
-router.put('/users/:adminId/:userId', isAdmin, adminController.updateUserById);
+router.put('/admin/users/:adminId/:userId', isAdmin, adminController.updateUserById);
 router.delete('/users/:adminId/:userId', isAdmin, adminController.deleteUserById);
 
 module.exports = router;
