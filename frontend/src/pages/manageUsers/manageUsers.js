@@ -1,53 +1,39 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import './manageUsers.css';
-import Header from "../../components/header/header";
-import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-
+import Header from '../../components/header/header';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'; 
 
 function ManageUsers() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [filename, setFilename] = useState(null);
-  const [userId, setUserId] = useState('');
-
-  const fetchUsers = useCallback(() => {
-    if (userId && userId !== '') {
-      axios.get(`http://localhost:3001/users`)
-        .then(response => {
-          setUsername(response.username);
-          setFilename(`http://localhost:3001/user-images/${response.filename}`);
-          if (!response.data.data.filename) {
-            console.log('No image received.');
-            setFilename('/assets/img/user.jpeg');
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching user profile:', error);
-        });
-    }
-  }, [userId]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.log("error");
-      navigate('/login');
-      return;
-    }
-    const storedUserId = localStorage.getItem('userId');
-    setUserId(storedUserId);
-  }, [navigate]);
-
-  useEffect(() => {
-    fetchUsers();
-  }, [userId, fetchUsers]);
+    axios.get('http://localhost:3001/admin/users')
+      .then(response => {
+        setUsers(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching users:', error);
+      });
+  }, []);
 
   return (
-    <div className="manage-users-container">
+    <div>
       <Header />
-      <ul>
-        <li>{filename}{username}</li>
+      <h1>Users</h1>
+      <ul className='list-users'>
+        {users.map(user => (
+          <li key={user._id}>
+            <div>
+              <img src={`http://localhost:3001/user-images/${user.filename}`} alt={user.username} />
+            </div>
+            <div>
+              <p>{user.username}</p>
+              <FontAwesomeIcon className='edit-icon' icon={faPenToSquare} style={{color: "#000000"}} />
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );

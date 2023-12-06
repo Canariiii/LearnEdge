@@ -1,24 +1,30 @@
 const Admin = require('../models/admin');
+const User = require('../models/user');
 
-exports.manageCourse = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
-    const { courseData } = req.body;
-    const admin = await Admin.findById(req.params.adminId);
-
-    if (!admin) {
-      return res.status(404).json({ success: false, error: 'Admin not found' });
-    }
-
-    const newCourse = await admin.manageCourse(courseData);
-
-    res.status(201).json({ success: true, data: newCourse });
+    const users = await User.find();
+    res.status(200).json({ success: true, data: users });
   } catch (error) {
-    console.error('Error managing course:', error);
+    console.error('Error getting all users:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-exports.manageUsers = async (req, res) => {
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    console.error('Error getting user by ID:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.updateUserById = async (req, res) => {
   try {
     const { userData } = req.body;
     const admin = await Admin.findById(req.params.adminId);
@@ -27,11 +33,38 @@ exports.manageUsers = async (req, res) => {
       return res.status(404).json({ success: false, error: 'Admin not found' });
     }
 
-    const newUser = await admin.manageUsers(userData);
+    const user = await User.findByIdAndUpdate(req.params.userId, userData, {
+      new: true,
+      runValidators: true,
+    });
 
-    res.status(201).json({ success: true, data: newUser });
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+
+    res.status(200).json({ success: true, data: user });
   } catch (error) {
-    console.error('Error managing users:', error);
+    console.error('Error updating user by ID:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.deleteUserById = async (req, res) => {
+  try {
+    const admin = await Admin.findById(req.params.adminId);
+
+    if (!admin) {
+      return res.status(404).json({ success: false, error: 'Admin not found' });
+    }
+
+    const user = await User.findByIdAndDelete(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+
+    res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    console.error('Error deleting user by ID:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };

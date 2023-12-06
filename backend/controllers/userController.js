@@ -40,12 +40,11 @@ exports.createUser = async (req, res) => {
       newUser.filename = req.file.filename;
     }
     await newUser.save();
-    // Si el rol es estudiante, crear y guardar en la colección de estudiantes
     if (role === 'student') {
       const newStudent = new Student(userData);
       newStudent.filename = newUser.filename;
       await newStudent.save();
-    } else if (role === 'instructor') { // Agregar lógica para el rol de instructor
+    } else if (role === 'instructor') { 
       const newInstructor = new Instructor(userData);
       newInstructor.filename = newUser.filename;
       await newInstructor.save();

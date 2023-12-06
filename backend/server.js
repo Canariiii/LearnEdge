@@ -41,6 +41,8 @@ app.use('/instructors', instructorRouter);
 app.use('/admin', adminRouter);
 app.use('/courses', courseRoutes);
 app.use('/content', contentRoutes);
+const adminRoutes = require('./routes/adminRoutes');
+app.use('/admin', adminRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   if (err instanceof Multer.MulterError) {

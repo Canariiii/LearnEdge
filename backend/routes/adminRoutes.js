@@ -1,9 +1,10 @@
 const express = require('express');
+const router = express.Router();
 const adminController = require('../controllers/adminController');
 
-const adminRouter = express.Router();
+router.get('/users', adminController.getAllUsers);
+router.get('/users/:_id', adminController.getUserById);
+router.put('/users/:_id', adminController.updateUserById);
+router.delete('/users/:_id', adminController.deleteUserById);
 
-adminRouter.route('/:_id/manage-course').post(adminController.manageCourse);
-adminRouter.route('/:_id/manage-users').post(adminController.manageUsers);
-
-module.exports = adminRouter;
+module.exports = router;
