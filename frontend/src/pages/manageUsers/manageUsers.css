@@ -1,3 +1,14 @@
+h1 {
+  display: flex;
+  position: fixed;
+  left: 6.39%;
+  top: 17%;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+}
+
 .list-users li {
   display: flex;
   position: relative;
@@ -32,12 +43,21 @@
   padding: 0;
   position: absolute;
   left: 6.39%;
-  top: 38%;
+  top: 30%;
 }
 
 .edit-icon {
+  cursor: pointer;
+  font-size: 15px; 
+  display: flex;
   position: fixed;
-  left: 85.42%;
-  top: 43 .44%;
-  color: #000000;
+  left: 85%;
+}
+
+.trash-icon {
+  cursor: pointer;
+  font-size: 15px; 
+  display: flex;
+  position: fixed;
+  left: 90%
 }

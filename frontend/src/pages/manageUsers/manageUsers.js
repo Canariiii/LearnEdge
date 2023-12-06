@@ -3,7 +3,7 @@ import './manageUsers.css';
 import Header from '../../components/header/header';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'; 
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'; 
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
@@ -31,6 +31,7 @@ function ManageUsers() {
             <div>
               <p>{user.username}</p>
               <FontAwesomeIcon className='edit-icon' icon={faPenToSquare} style={{color: "#000000"}} />
+              <FontAwesomeIcon className='trash-icon' icon={faTrash} style={{color: "#000000" }} />
             </div>
           </li>
         ))}
