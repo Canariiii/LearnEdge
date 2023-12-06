@@ -1,6 +1,6 @@
 h1 {
   display: flex;
-  position: fixed;
+  position: absolute;
   left: 6.39%;
   top: 17%;
   font-family: 'Poppins', sans-serif;
@@ -15,7 +15,7 @@ h1 {
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
-  width: 1000%;
+  width: 950%;
 }
 
 .list-users img {
@@ -50,14 +50,14 @@ h1 {
   cursor: pointer;
   font-size: 15px; 
   display: flex;
-  position: fixed;
-  left: 85%;
+  position: absolute;
+  left: 90%;
 }
 
 .trash-icon {
   cursor: pointer;
   font-size: 15px; 
   display: flex;
-  position: fixed;
-  left: 90%
+  position: absolute;
+  left: 95%
 }

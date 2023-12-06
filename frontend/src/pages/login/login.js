@@ -22,11 +22,12 @@ function Login() {
   const handleSubmit = async () => {
     try {
       console.log('Logging in with:', { username, password });
-    const response = await UserService.login({ username, password });
-    console.log('Login response:', response);
+      const response = await UserService.login({ username, password });
+      console.log('Login response:', response);
       if (response.data.token && response.data.user) {
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('role', response.data.user.role);
         navigate('/home');
       } else {
         console.error('Token or user information is missing:', response);
@@ -34,7 +35,7 @@ function Login() {
     } catch (error) {
       console.error('Error while logging in:', error.response?.data || error.message);
     }
-  };  
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');

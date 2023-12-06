@@ -4,7 +4,7 @@ const Instructor = require('../models/instructor');
 const Student = require('../models/student');
 
 const createToken = (user) => {
-  return jwt.sign({ _id: user._id }, 'your_secret_key');
+  return jwt.sign({ _id: user._id, role: user.role }, 'your_secret_key');
 };
 
 exports.getUserFromToken = async (req, res) => {
@@ -44,7 +44,7 @@ exports.createUser = async (req, res) => {
       const newStudent = new Student(userData);
       newStudent.filename = newUser.filename;
       await newStudent.save();
-    } else if (role === 'instructor') { 
+    } else if (role === 'instructor') {
       const newInstructor = new Instructor(userData);
       newInstructor.filename = newUser.filename;
       await newInstructor.save();

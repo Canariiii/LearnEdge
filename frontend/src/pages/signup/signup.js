@@ -43,6 +43,7 @@ function SignUp() {
         const userId = response.data.data._id;
         localStorage.setItem('userId', userId);
         localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
         console.log(response.data);
       })
       .catch(error => {
