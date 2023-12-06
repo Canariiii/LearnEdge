@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const Instructor = require('../models/instructor');
+const Student = require('../models/student');
 
 const createToken = (user) => {
   return jwt.sign({ _id: user._id }, 'your_secret_key');
@@ -38,6 +40,16 @@ exports.createUser = async (req, res) => {
       newUser.filename = req.file.filename;
     }
     await newUser.save();
+    // Si el rol es estudiante, crear y guardar en la colección de estudiantes
+    if (role === 'student') {
+      const newStudent = new Student(userData);
+      newStudent.filename = newUser.filename;
+      await newStudent.save();
+    } else if (role === 'instructor') { // Agregar lógica para el rol de instructor
+      const newInstructor = new Instructor(userData);
+      newInstructor.filename = newUser.filename;
+      await newInstructor.save();
+    }
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {
