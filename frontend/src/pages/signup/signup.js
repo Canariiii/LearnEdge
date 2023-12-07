@@ -34,20 +34,21 @@ function SignUp() {
     newUser.append('phone', mobile);
     newUser.append('role', role);
     newUser.append('filename', filename);
-
     console.log("New user data:", newUser);
     axios.post('http://localhost:3001/users', newUser, { withCredentials: true, crossDomain: true })
       .then(response => {
         console.log('SignUp Response:', response.data);
         const token = response.data.token;
         const userId = response.data.data._id;
+        const userRole = response.data.data.role;
         localStorage.setItem('userId', userId);
         localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
+        localStorage.setItem('role', userRole);
         console.log(response.data);
       })
       .catch(error => {
         console.error('Error al hacer la solicitud POST:', error);
+        console.error('Error en la solicitud POST:', error);
       });
   };
 

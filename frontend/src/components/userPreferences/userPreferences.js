@@ -61,7 +61,6 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
         updatedFormData
       );
       console.log('Preferences updated:', response.data);
-      onClose();
     } catch (error) {
       console.error('Error updating preferences:', error);
     }
@@ -93,7 +92,7 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
       {showPopup && (
         <div className='avatar-popup'>
           <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)} />
-          <label htmlFor='fileInput' className='fileLabel'>Search...</label>
+          <label htmlFor='fileInput' className='file-label'>Search...</label>
           <p>Avatar preview</p>
           {userPicture && <img src={URL.createObjectURL(userPicture)} alt='Avatar preview' />}
         </div>

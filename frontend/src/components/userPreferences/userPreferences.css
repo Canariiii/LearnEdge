@@ -196,7 +196,7 @@
   z-index: -1;
 }
 
-.fileLabel {
+.file-label {
   box-sizing: border-box;
   position: absolute;
   width: 90%;

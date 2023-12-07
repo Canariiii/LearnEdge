@@ -4,7 +4,7 @@ const Instructor = require('../models/instructor');
 const Student = require('../models/student');
 
 const createToken = (user) => {
-  return jwt.sign({ _id: user._id, role: user.role }, 'your_secret_key');
+  return jwt.sign({ _id: user._id, role: user.role }, 'your_secret_key', { algorithm: 'HS256' });
 };
 
 exports.getUserFromToken = async (req, res) => {
@@ -21,10 +21,10 @@ exports.getUserFromToken = async (req, res) => {
       res.status(500).json({ success: false, error: error.message });
     }
   } catch (error) {
-    return {
+    return res.status(401).json({
       success: false,
       error: 'Invalid token'
-    };
+    });
   }
 };
 
@@ -40,15 +40,6 @@ exports.createUser = async (req, res) => {
       newUser.filename = req.file.filename;
     }
     await newUser.save();
-    if (role === 'student') {
-      const newStudent = new Student(userData);
-      newStudent.filename = newUser.filename;
-      await newStudent.save();
-    } else if (role === 'instructor') {
-      const newInstructor = new Instructor(userData);
-      newInstructor.filename = newUser.filename;
-      await newInstructor.save();
-    }
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {

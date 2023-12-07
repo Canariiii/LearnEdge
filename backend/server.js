@@ -8,7 +8,7 @@ const Multer = require('multer');
 const userRouter = require('./routes/userRoutes');
 const studentRouter = require('./routes/studentRoutes');
 const instructorRouter = require('./routes/instructorRoutes');
-const adminRouter = require('./routes/adminRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 
@@ -38,11 +38,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/users', userRouter);
 app.use('/students', studentRouter);
 app.use('/instructors', instructorRouter);
-app.use('/admin', adminRouter);
+app.use('/admin', adminRoutes);
 app.use('/courses', courseRoutes);
 app.use('/content', contentRoutes);
-const adminRoutes = require('./routes/adminRoutes');
-app.use('/admin', adminRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   if (err instanceof Multer.MulterError) {

@@ -10,13 +10,12 @@ function ManageUsers({ onClose }) {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
-    phone: '',
     email: '',
+    phone: '',
     role: ''
   });
   const [userPicture, setUserPicture] = useState(null);
   const [currentPic, setCurrentPic] = useState(null);
-  // En tu componente de React, donde obtienes el userId del localStorage
   const [adminId, setAdminId] = useState('');
   const [userId, setUserId] = useState('');
 
@@ -32,37 +31,93 @@ function ManageUsers({ onClose }) {
     fetchUsers();
   }, []);
 
-  const fetchUsers = () => {
-    axios.get('http://localhost:3001/admin/users', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then(response => {
-        setUsers(response.data.data);
-        const adminUser = response.data.data.find(user => user.role === 'admin');
-        if (adminUser) {
-          setAdminId(adminUser._id);
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching users:', error);
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:3001/admin/users', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+      setUsers(response.data.data);
+      const adminUser = response.data.data.find((user) => user._id && user.role === 'admin');
+      if (adminUser) {
+        setAdminId(adminUser._id);
+        console.log('Admin ID:', adminUser._id);
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
   };
 
-  const deleteUser = async (userId) => {
+  const deleteUser = async (adminId, userId) => {
     try {
-      await axios.delete(`http://localhost:3001/users/${userId}`, {
+      const userExists = users.find(user => user._id === userId);
+      if (!userExists) {
+        console.error('User not found:', userId);
+        return;
+      }
+
+      await axios.delete(`http://localhost:3001/admin/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      fetchUsers();
+
+      // Espera a que la solicitud DELETE se complete antes de actualizar la lista
+      await fetchUsers();
     } catch (error) {
       if (error.response && error.response.status === 404) {
         console.error('User not found:', error.response.data.error);
       } else {
         console.error('Error deleting user:', error);
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!adminId) {
+        console.error('Admin ID not available');
+        return;
+      }
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Token not available');
+        return;
+      }
+      const updatedFormData = new FormData();
+      updatedFormData.append('username', formData.username);
+      updatedFormData.append('email', formData.email);
+      updatedFormData.append('phone', formData.phone);
+      updatedFormData.append('role', formData.role);
+      if (userPicture) {
+        updatedFormData.append('filename', userPicture, userPicture.name);
+      } else {
+        updatedFormData.append('filename', currentPic);
+      }
+      console.log('Token:', localStorage.getItem('token'));
+      const response = await axios.put(
+        `http://localhost:3001/admin/users/${adminId}/${userId}`,
+        updatedFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log('User updated:', response.data);
+      onClose();
+    } catch (error) {
+      console.error('Error updating user:', error);
+
+      if (error.response) {
+        console.error('Response data:', error.response?.data);
+        console.error('Response status:', error.response?.status);
+        console.error('Response headers:', error.response?.headers);
       }
     }
   };
@@ -74,17 +129,22 @@ function ManageUsers({ onClose }) {
 
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/admin/users/${userId}`)
+    axios.get(`http://localhost:3001/admin/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
       .then((response) => {
         const userData = response.data.data;
-        setFormData({
-          username: userData.username,
-          phone: userData.phone,
-          email: userData.email,
-          role: userData.role,
-        });
-        setCurrentPic(userData.filename);
+        if (userData) {
+          setFormData({
+            username: userData.username || '',
+            email: userData.email || '',
+            phone: userData.phone || '',
+            role: userData.role || '',
+          });
+          setCurrentPic(userData.filename || null);
+        }
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
@@ -95,40 +155,6 @@ function ManageUsers({ onClose }) {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!adminId) {
-        console.error('Admin ID not available');
-        return;
-      }
-      const updatedFormData = new FormData();
-      updatedFormData.append('username', formData.username);
-      updatedFormData.append('phone', formData.phone);
-      updatedFormData.append('email', formData.email);
-      updatedFormData.append('role', formData.role);
-      if (userPicture) {
-        updatedFormData.append('filename', userPicture);
-      } else {
-        updatedFormData.append('filename', currentPic);
-      }
-      const response = await axios.put(
-        `http://localhost:3001/admin/users/${adminId}/${userId}`,
-        updatedFormData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-      console.log('User updated:', response.data);
-      onClose();
-    } catch (error) {
-      console.error('Error updating user:', error);
-    }
-  };
-
 
   return (
     <div>
@@ -152,7 +178,7 @@ function ManageUsers({ onClose }) {
                 className='trash-icon'
                 icon={faTrash}
                 style={{ color: "#000000" }}
-                onClick={() => deleteUser(user._id)}
+                onClick={() => deleteUser(adminId, user._id)}
               />
             </div>
           </li>
@@ -161,7 +187,7 @@ function ManageUsers({ onClose }) {
       {showPopup && (
         <form className='edit-user-form-popup' onSubmit={handleSubmit}>
           <p>Username</p>
-          <input type='text' name='username' placeholder='New Username' onChange={handleChange} value={formData.username}></input>
+          <input type='text' name='username' placeholder='New Username' onChange={handleChange} value={formData.username || ''}></input>
           <p>Email</p>
           <input type='text' name='email' placeholder='New Email' onChange={handleChange} value={formData.email}></input>
           <p>Phone</p>

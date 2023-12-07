@@ -1,23 +1,28 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateUser = (req, res, next) => {
-  const token = req.headers.authorization;
-  if (!token) {
+  const tokenHeader = req.headers.authorization;
+
+  if (!tokenHeader) {
     return res.status(403).json({ success: false, error: 'Token not provided in the Authorization header' });
   }
+
   try {
-    const decoded = jwt.verify(token.replace('Bearer ', ''), 'your_secret_key');
+    const decoded = jwt.verify(token, secretKey);
     req.user = decoded;
     next();
   } catch (error) {
-    console.error('Error decoding token:', error);
+    if (error.name === 'TokenExpiredError') {
+      return res.status(403).json({ success: false, error: 'Token has expired' });
+    }
     return res.status(403).json({ success: false, error: 'Invalid token' });
   }
+  
 };
 
 const isAdmin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
-    next(); 
+    next();
   } else {
     res.status(403).json({ success: false, error: 'Permission denied' });
   }

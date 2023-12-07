@@ -26,10 +26,19 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUserById = async (req, res) => {
   try {
+    
+    console.log('PUT route:', '/admin/users/:adminId/:userId');
+    console.log('req.params:', req.params);
+    console.log('req.body:', req.body);
+
     const { userData } = req.body;
     const admin = await Admin.findById(req.params.adminId);
+    console.log('Received PUT request for adminId:', req.params.adminId, 'userId:', req.params.userId);
     if (!admin || admin.role !== 'admin') {
       return res.status(403).json({ success: false, error: 'Permission denied' });
+    }
+    if (req.params.adminId !== userData.adminId) {
+      return res.status(403).json({ success: false, error: 'Permission denied - Admin IDs do not match' });
     }
     const user = await User.findByIdAndUpdate(req.params.userId, userData, {
       new: true,
@@ -39,16 +48,17 @@ exports.updateUserById = async (req, res) => {
       return res.status(404).json({ success: false, error: 'User not found' });
     }
     res.status(200).json({ success: true, data: user });
+    
   } catch (error) {
     console.error('Error updating user by ID:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
+
 exports.deleteUserById = async (req, res) => {
   try {
     const admin = await Admin.findById(req.params.adminId);
-
     if (!admin) {
       return res.status(404).json({ success: false, error: 'Admin not found' });
     }
@@ -64,3 +74,5 @@ exports.deleteUserById = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+

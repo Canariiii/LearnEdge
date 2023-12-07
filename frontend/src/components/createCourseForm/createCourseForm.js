@@ -26,7 +26,7 @@ const CreateCourseForm = () => {
         <input type="text" name="description"></input>
         <p>Course Picture</p>
         <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)} />
-        <label htmlFor='fileInput' className='fileLabel'>Search...</label>
+        <label htmlFor='fileInput' className='filelabel'>Search...</label>
         {coursePic && <img src={URL.createObjectURL(coursePic)} alt='Course preview' />}
         <button className='crate-course-button' type='submit'>Create</button>
       </form>
