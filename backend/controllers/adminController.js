@@ -1,78 +1,79 @@
 const Admin = require('../models/admin');
 const User = require('../models/user');
 
-exports.getAllUsers = async (req, res) => {
+exports.getAllAdmins = async (req, res) => {
   try {
-    const users = await User.find();
-    res.status(200).json({ success: true, data: users });
+    const admins = await Admin.find();
+    res.status(200).json({ success: true, data: admins });
   } catch (error) {
-    console.error('Error getting all users:', error);
+    console.error('Error getting all admins:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-exports.getUserById = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.userId);
-    if (!user) {
-      return res.status(404).json({ success: false, error: 'User not found' });
-    }
-    res.status(200).json({ success: true, data: user });
-  } catch (error) {
-    console.error('Error getting user by ID:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
-exports.updateUserById = async (req, res) => {
-  try {
-    
-    console.log('PUT route:', '/admin/users/:adminId/:userId');
-    console.log('req.params:', req.params);
-    console.log('req.body:', req.body);
-
-    const { userData } = req.body;
-    const admin = await Admin.findById(req.params.adminId);
-    console.log('Received PUT request for adminId:', req.params.adminId, 'userId:', req.params.userId);
-    if (!admin || admin.role !== 'admin') {
-      return res.status(403).json({ success: false, error: 'Permission denied' });
-    }
-    if (req.params.adminId !== userData.adminId) {
-      return res.status(403).json({ success: false, error: 'Permission denied - Admin IDs do not match' });
-    }
-    const user = await User.findByIdAndUpdate(req.params.userId, userData, {
-      new: true,
-      runValidators: true,
-    });
-    if (!user) {
-      return res.status(404).json({ success: false, error: 'User not found' });
-    }
-    res.status(200).json({ success: true, data: user });
-    
-  } catch (error) {
-    console.error('Error updating user by ID:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
-
-exports.deleteUserById = async (req, res) => {
+exports.getAdminById = async (req, res) => {
   try {
     const admin = await Admin.findById(req.params.adminId);
     if (!admin) {
       return res.status(404).json({ success: false, error: 'Admin not found' });
     }
-
-    const user = await User.findByIdAndDelete(req.params.userId);
-    if (!user) {
-      return res.status(404).json({ success: false, error: 'User not found' });
-    }
-
-    res.status(200).json({ success: true, data: {} });
+    res.status(200).json({ success: true, data: admin });
   } catch (error) {
-    console.error('Error deleting user by ID:', error);
+    console.error('Error getting admin by ID:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
+exports.updateAdminById = async (req, res) => {
+  try {
+    const { adminData } = req.body;
+    const adminId = req.params.adminId;
+    
+    console.log('Received PUT request for adminId:', adminId);
+    const admin = await Admin.findByIdAndUpdate(adminId, adminData, {
+      new: true,
+      runValidators: true,
+    });
+    
+    if (!admin) {
+      return res.status(404).json({ success: false, error: 'Admin not found' });
+    }
+    
+    res.status(200).json({ success: true, data: admin });
+    
+  } catch (error) {
+    console.error('Error updating admin by ID:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
 
+exports.deleteAdminById = async (req, res) => {
+  try {
+    const adminId = req.params.adminId;
+    
+    const admin = await Admin.findByIdAndDelete(adminId);
+    
+    if (!admin) {
+      return res.status(404).json({ success: false, error: 'Admin not found' });
+    }
+    
+    res.status(200).json({ success: true, data: {} });
+    
+  } catch (error) {
+    console.error('Error deleting admin by ID:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.createAdmin = async (req, res) => {
+  try {
+    const newAdminData = req.body;
+    const newAdmin = new Admin(newAdminData);
+    await newAdmin.save();
+
+    res.status(201).json({ success: true, data: newAdmin });
+  } catch (error) {
+    console.error('Error creating admin:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};

@@ -40,7 +40,8 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: false,
     match: /\.(jpg|jpeg|png|gif|webp)$/
-  }
+  },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 const Admin = mongoose.model('Admin', adminSchema);

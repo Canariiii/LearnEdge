@@ -35,7 +35,13 @@ function SignUp() {
     newUser.append('role', role);
     newUser.append('filename', filename);
     console.log("New user data:", newUser);
-    axios.post('http://localhost:3001/users', newUser, { withCredentials: true, crossDomain: true })
+    const token = localStorage.getItem('token');
+    axios.post('http://localhost:3001/users', newUser, {
+      withCredentials: true, crossDomain: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then(response => {
         console.log('SignUp Response:', response.data);
         const token = response.data.token;

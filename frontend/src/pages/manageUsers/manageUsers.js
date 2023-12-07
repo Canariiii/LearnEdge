@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './manageUsers.css';
 import Header from '../../components/header/header';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import adminUserService from '../../services/adminService'; 
 
 function ManageUsers({ onClose }) {
   const [users, setUsers] = useState([]);
@@ -33,14 +33,9 @@ function ManageUsers({ onClose }) {
 
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3001/admin/users', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUsers(response.data.data);
-      const adminUser = response.data.data.find((user) => user._id && user.role === 'admin');
+      const response = await adminUserService.getAllUsers();
+      setUsers(response.data);
+      const adminUser = response.data.find((user) => user._id && user.role === 'admin');
       if (adminUser) {
         setAdminId(adminUser._id);
         console.log('Admin ID:', adminUser._id);
@@ -58,13 +53,7 @@ function ManageUsers({ onClose }) {
         return;
       }
 
-      await axios.delete(`http://localhost:3001/admin/users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-
-      // Espera a que la solicitud DELETE se complete antes de actualizar la lista
+      await adminUserService.deleteUserById(adminId, userId);
       await fetchUsers();
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -82,11 +71,6 @@ function ManageUsers({ onClose }) {
         console.error('Admin ID not available');
         return;
       }
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Token not available');
-        return;
-      }
       const updatedFormData = new FormData();
       updatedFormData.append('username', formData.username);
       updatedFormData.append('email', formData.email);
@@ -97,18 +81,7 @@ function ManageUsers({ onClose }) {
       } else {
         updatedFormData.append('filename', currentPic);
       }
-      console.log('Token:', localStorage.getItem('token'));
-      const response = await axios.put(
-        `http://localhost:3001/admin/users/${adminId}/${userId}`,
-        updatedFormData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
+      const response = await adminUserService.updateUserById(adminId, userId, updatedFormData);
       console.log('User updated:', response.data);
       onClose();
     } catch (error) {
@@ -127,15 +100,10 @@ function ManageUsers({ onClose }) {
     setShowPopup(!showPopup);
   };
 
-
   useEffect(() => {
-    axios.get(`http://localhost:3001/admin/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    adminUserService.getUserById(userId)
       .then((response) => {
-        const userData = response.data.data;
+        const userData = response.data;
         if (userData) {
           setFormData({
             username: userData.username || '',
@@ -150,7 +118,6 @@ function ManageUsers({ onClose }) {
         console.error('Error fetching user data:', error);
       });
   }, [userId]);
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

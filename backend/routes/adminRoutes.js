@@ -1,15 +1,12 @@
-// adminRoutes.js
-
+// En tu archivo de rutas o controladores
 const express = require('express');
 const router = express.Router();
 const { authenticateUser, isAdmin } = require('../middleware/authMiddleware');
-const adminController = require('../controllers/adminController');
 
-router.use(authenticateUser);
-
-router.get('/admin/users', isAdmin, adminController.getAllUsers);
-router.get('/admin/users/:userId', isAdmin, adminController.getUserById);
-router.put('/admin/users/:adminId/:userId', isAdmin, adminController.updateUserById);
-router.delete('/admin/users/:userId', isAdmin, adminController.deleteUserById);
+// Ruta protegida
+router.get('/admin/users', authenticateUser, isAdmin, (req, res) => {
+  // Lógica para obtener y enviar los usuarios
+  res.send('Lista de usuarios administradores');
+});
 
 module.exports = router;
