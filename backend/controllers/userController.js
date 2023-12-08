@@ -56,7 +56,8 @@ exports.createUser = async (req, res) => {
         username,
         password,
         email,
-        phone
+        phone,
+        filename
       }); 
       await newAdmin.save();
       if (newUser.role === 'instructor') {

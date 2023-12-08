@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const adminRouter = express.Router();
 const User = require('../models/user');
 const {isAdmin } = require('../middleware/authMiddleware');
+const adminController = require('../controllers/adminController');
+const upload = require('../multer/upload');
 
-
-router.get('/users', async (req, res) => {
+adminRouter.get('/users', async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -14,7 +15,7 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/users/:userId', async (req, res) => {
+adminRouter.get('/users/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId);
@@ -28,7 +29,7 @@ router.get('/users/:userId', async (req, res) => {
   }
 });
 
-router.put('/users/:userId',isAdmin, async (req, res) => {
+adminRouter.put('/users/:userId',isAdmin, async (req, res) => {
   const userId = req.params.userId;
   const updatedUserData = req.body;
   try {
@@ -48,7 +49,7 @@ router.put('/users/:userId',isAdmin, async (req, res) => {
   }
 });
 
-router.delete('/users/:userId', isAdmin, async (req, res) => {
+adminRouter.delete('/users/:userId', isAdmin, async (req, res) => {
   const userId = req.params.userId;
 
   try {
@@ -65,4 +66,8 @@ router.delete('/users/:userId', isAdmin, async (req, res) => {
   }
 });
 
-module.exports = router;
+adminRouter.route('/')
+  .post(upload.single('filename'), adminController.createAdmin)
+  .get(adminController.getAllAdmins);
+
+module.exports = adminRouter;

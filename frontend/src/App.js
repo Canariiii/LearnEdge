@@ -12,7 +12,6 @@ import Manage from "./pages/manage/manage";
 import ManageUsers from "./pages/manageUsers/manageUsers";
 
 function App() {
-  // Supongamos que tienes la información del rol del usuario almacenada en localStorage
   const userRole = localStorage.getItem('role');
 
   return (
@@ -26,7 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/user-preferences-form" element={<UserPreferences />} />
         <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : ( <Navigate to="/home" />)} />
-        <Route path="/manage" element={<Manage />} />
+        <Route path="/manage" element={userRole === 'admin' ? <Manage /> : ( <Navigate to="/home" />)} />
         <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : ( <Navigate to="/home" />)} />
       </Routes>
     </BrowserRouter>
