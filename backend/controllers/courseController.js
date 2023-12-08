@@ -60,14 +60,14 @@ exports.getCourseById = async (req, res) => {
 
 exports.updateCourse = async (req, res) => {
   try {
-    if (!req.body || !req.body.users || !Array.isArray(req.body.users)) {
+    if (!req.body || !req.body.userId) {
       return res.status(400).json({ success: false, error: "Invalid request format" });
     }
 
-    const userIds = req.body.users.map(userId => mongoose.Types.ObjectId(userId));
+    const userId = mongoose.Types.ObjectId(req.body.userId);
     const course = await Course.findByIdAndUpdate(
       req.params._id,
-      { $addToSet: { enrolledStudents: { $each: userIds } } },
+      { $addToSet: { enrolledStudents: userId } },
       { new: true, runValidators: true }
     );
     if (!course) {

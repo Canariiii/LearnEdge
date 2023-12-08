@@ -37,21 +37,11 @@
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
-    top: 31.56%;
-    left: 42.97%;
-}
-
-.create-course-form-container p:nth-of-type(3) {
-    position: fixed;
-    font-family: 'Poppins', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
     left: 10%;
     top: 46.67%;
 }
 
-.create-course-form-container p:nth-of-type(4) {
+.create-course-form-container p:nth-of-type(3) {
     position: fixed;
     font-family: 'Poppins', sans-serif;
     font-style: normal;
@@ -75,18 +65,6 @@
 
 .create-course-form-container input:nth-of-type(2) {
     position: fixed;
-    top: 40.99%;
-    left: 42.97%;
-    width: 13.26%;
-    height: 5.67%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-color: black;
-}
-
-.create-course-form-container input:nth-of-type(3) {
-    position: fixed;
     top: 56%;
     left: 10%;
     width: 46.3%;
@@ -97,7 +75,7 @@
     border-color: black;
 }
 
-.create-course-form-container input:nth-of-type(4) {
+.create-course-form-container input:nth-of-type(3) {
     position: fixed;
     width: 0.1px;
     height: 0.1px;

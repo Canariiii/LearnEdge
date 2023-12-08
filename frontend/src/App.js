@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import './App.css';
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
@@ -12,6 +12,9 @@ import Manage from "./pages/manage/manage";
 import ManageUsers from "./pages/manageUsers/manageUsers";
 
 function App() {
+  // Supongamos que tienes la información del rol del usuario almacenada en localStorage
+  const userRole = localStorage.getItem('role');
+
   return (
     <BrowserRouter>
       <Routes>
@@ -22,9 +25,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/user-preferences-form" element={<UserPreferences />} />
-        <Route path="/create-course" element={<CreateCourse />} />
+        <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : ( <Navigate to="/home" />)} />
         <Route path="/manage" element={<Manage />} />
-        <Route path="/manage-users" element={<ManageUsers />} />
+        <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : ( <Navigate to="/home" />)} />
       </Routes>
     </BrowserRouter>
   );
