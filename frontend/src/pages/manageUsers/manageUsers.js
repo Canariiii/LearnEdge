@@ -3,7 +3,7 @@ import './manageUsers.css';
 import Header from '../../components/header/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-import adminUserService from '../../services/adminService'; 
+import adminUserService from '../../services/adminService';
 
 function ManageUsers({ onClose }) {
   const [users, setUsers] = useState([]);
@@ -16,8 +16,8 @@ function ManageUsers({ onClose }) {
   });
   const [userPicture, setUserPicture] = useState(null);
   const [currentPic, setCurrentPic] = useState(null);
-  const [adminId, setAdminId] = useState('');
   const [userId, setUserId] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const onChange = (file) => {
     if (!file) {
@@ -27,39 +27,36 @@ function ManageUsers({ onClose }) {
     setUserPicture(file);
   };
 
+  const fetchUsers = async () => {
+    try {
+      const response = await adminUserService.getAllUsers();
+      console.log('Respuesta del servidor:', response);
+      setUsers(Array.isArray(response.data) ? response.data : []);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error('Error al obtener usuarios:', error);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await adminUserService.getAllUsers();
-      setUsers(response.data);
-      const adminUser = response.data.find((user) => user._id && user.role === 'admin');
-      if (adminUser) {
-        setAdminId(adminUser._id);
-        console.log('Admin ID:', adminUser._id);
-      }
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  };
-
-  const deleteUser = async (adminId, userId) => {
+  const deleteUser = async (userId) => {
     try {
       const userExists = users.find(user => user._id === userId);
       if (!userExists) {
-        console.error('User not found:', userId);
+        console.error('Usuario no encontrado:', userId);
         return;
       }
-
-      await adminUserService.deleteUserById(adminId, userId);
+      await adminUserService.deleteUserById(userId);
       await fetchUsers();
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        console.error('User not found:', error.response.data.error);
+        console.error('Usuario no encontrado:', error.response.data.error);
       } else {
-        console.error('Error deleting user:', error);
+        console.error('Error al eliminar usuario:', error);
       }
     }
   };
@@ -67,10 +64,6 @@ function ManageUsers({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!adminId) {
-        console.error('Admin ID not available');
-        return;
-      }
       const updatedFormData = new FormData();
       updatedFormData.append('username', formData.username);
       updatedFormData.append('email', formData.email);
@@ -81,18 +74,47 @@ function ManageUsers({ onClose }) {
       } else {
         updatedFormData.append('filename', currentPic);
       }
-      const response = await adminUserService.updateUserById(adminId, userId, updatedFormData);
-      console.log('User updated:', response.data);
-      onClose();
+      const response = await adminUserService.updateUserById(userId, updatedFormData);
+      console.log('Usuario actualizado:', response.data);
+      if (typeof onClose === 'function') {
+        onClose();  
+      }
+      window.location.reload();
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error('Error al actualizar usuario:', error);
 
       if (error.response) {
-        console.error('Response data:', error.response?.data);
-        console.error('Response status:', error.response?.status);
-        console.error('Response headers:', error.response?.headers);
+        console.error('Datos de la respuesta:', error.response?.data);
+        console.error('Estado de la respuesta:', error.response?.status);
+        console.error('Encabezados de la respuesta:', error.response?.headers);
       }
     }
+  };
+
+  useEffect(() => {
+    if (userId && typeof userId === 'string' && userId.trim() !== '') {
+      console.log('UserId:', userId);
+      adminUserService.getUserById(userId)
+        .then((response) => {
+          const userData = response.data;
+          if (userData) {
+            setFormData({
+              username: userData.username || '',
+              email: userData.email || '',
+              phone: userData.phone || '',
+              role: userData.role || '',
+            });
+            setCurrentPic(userData.filename || null);
+          }
+        })
+        .catch((error) => {
+          console.error('Error al obtener datos del usuario:', error);
+        });
+    }
+  }, [userId]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const togglePopup = (userId) => {
@@ -100,57 +122,38 @@ function ManageUsers({ onClose }) {
     setShowPopup(!showPopup);
   };
 
-  useEffect(() => {
-    adminUserService.getUserById(userId)
-      .then((response) => {
-        const userData = response.data;
-        if (userData) {
-          setFormData({
-            username: userData.username || '',
-            email: userData.email || '',
-            phone: userData.phone || '',
-            role: userData.role || '',
-          });
-          setCurrentPic(userData.filename || null);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-      });
-  }, [userId]);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   return (
     <div>
       <Header />
       <h1 className='list-user-title'>Users</h1>
-      <ul className='list-users'>
-        {users.map(user => (
-          <li key={user._id}>
-            <div>
-              <img src={`http://localhost:3001/user-images/${user.filename}`} alt={user.username} />
-            </div>
-            <div>
-              <p>{user.username}</p>
-              <FontAwesomeIcon
-                className='edit-icon'
-                icon={faPenToSquare}
-                style={{ color: "#000000" }}
-                onClick={() => togglePopup(user._id)}
-              />
-              <FontAwesomeIcon
-                className='trash-icon'
-                icon={faTrash}
-                style={{ color: "#000000" }}
-                onClick={() => deleteUser(adminId, user._id)}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <ul className='list-users'>
+          {users.map(user => (
+            <li key={user._id}>
+              <div>
+                <img src={`http://localhost:3001/user-images/${user.filename}`} alt={user.username} />
+              </div>
+              <div>
+                <p>{user.username}</p>
+                <FontAwesomeIcon
+                  className='edit-icon'
+                  icon={faPenToSquare}
+                  style={{ color: "#000000" }}
+                  onClick={() => togglePopup(user._id)}
+                />
+                <FontAwesomeIcon
+                  className='trash-icon'
+                  icon={faTrash}
+                  style={{ color: "#000000" }}
+                  onClick={() => deleteUser(user._id)}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
       {showPopup && (
         <form className='edit-user-form-popup' onSubmit={handleSubmit}>
           <p>Username</p>

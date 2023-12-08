@@ -60,6 +60,7 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
         `http://localhost:3001/users/profile/${userId}`,
         updatedFormData
       );
+      window.location.reload();
       console.log('Preferences updated:', response.data);
     } catch (error) {
       console.error('Error updating preferences:', error);

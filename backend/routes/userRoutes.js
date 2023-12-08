@@ -6,6 +6,7 @@ const userRouter = express.Router();
 
 userRouter.post('/login', userController.login);
 userRouter.route('/token').post(userController.getUserFromToken);
+userRouter.put('/users/:userId', userController.updateUserById);
 
 userRouter.route('/')
   .post(upload.single('filename'), userController.createUser)
@@ -21,5 +22,6 @@ userRouter.route('/user-preferences-form/:_id')
 
 userRouter.route('/:_id')
   .delete(userController.deleteUser);
+
 
 module.exports = userRouter;

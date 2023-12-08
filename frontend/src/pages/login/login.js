@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import { EyeInvisibleOutlined, GoogleOutlined, FacebookOutlined, GithubOutlined, EyeOutlined } from '@ant-design/icons';
-import UserService from '../../services/loginService';
+import userService from '../../services/signUpService';
 
 function Login() {
   const [isChecked, setIsChecked] = useState(false);
@@ -22,11 +22,12 @@ function Login() {
   const handleSubmit = async () => {
     try {
       console.log('Logging in with:', { username, password });
-      const response = await UserService.login({ username, password });
+      const response = await userService.login({ username, password });
       console.log('Login response:', response);
       if (response.data.token && response.data.user) {
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('token', response.data.token);
+        console.log('Token almacenado en localStorage:', response.data.token);
         localStorage.setItem('role', response.data.user.role);
         navigate('/home');
       } else {

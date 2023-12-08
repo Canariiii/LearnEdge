@@ -2,14 +2,20 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const Instructor = require('../models/instructor');
 const Student = require('../models/student');
+const Admin = require('../models/admin'); 
+
+const jwtConfig = {
+  secretKey: process.env.JWT_SECRET ? Buffer.from(process.env.JWT_SECRET, 'base64') : 'your_secret_key',
+  algorithm: 'HS256',
+};
 
 const createToken = (user) => {
-  return jwt.sign({ _id: user._id, role: user.role }, 'your_secret_key', { algorithm: 'HS256' });
+  return jwt.sign({ _id: user._id, role: user.role }, jwtConfig.secretKey, { algorithm: jwtConfig.algorithm });
 };
 
 exports.getUserFromToken = async (req, res) => {
   try {
-    const decoded = jwt.verify(req.body.token, 'your_secret_key');
+    const decoded = jwt.verify(req.body.token, jwtConfig.secretKey);
     const userId = decoded._id;
     try {
       const user = await User.findById(userId);
@@ -32,6 +38,7 @@ exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
     newUser.filename = '';
+    
     if (!["student", "instructor", "admin"].includes(newUser.role)) {
       return res.status(400).json({ success: false, error: 'Invalid role' });
     }
@@ -39,7 +46,21 @@ exports.createUser = async (req, res) => {
     if (req.file) {
       newUser.filename = req.file.filename;
     }
+
     await newUser.save();
+
+    // Ahora, crea el documento del rol específico (Admin, Student, Instructor)
+    if (newUser.role === 'admin') {
+      const { username, password, email, phone } = req.body;
+      const newAdmin = new Admin({ 
+        user: newUser._id,
+        username,
+        password,
+        email,
+        phone
+      }); 
+      await newAdmin.save();
+    }
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {
@@ -119,6 +140,26 @@ exports.updateUser = async (req, res) => {
       return res.status(404).json({ success: false, error: 'User not found' });
     }
     res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.updateUserById = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const updateData = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+      new: true, // Devuelve el documento actualizado
+      runValidators: true, // Ejecuta las validaciones del esquema al actualizar
+    });
+
+    res.status(200).json({ success: true, data: updatedUser });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

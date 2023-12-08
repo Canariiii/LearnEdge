@@ -1,12 +1,68 @@
-// En tu archivo de rutas o controladores
 const express = require('express');
 const router = express.Router();
-const { authenticateUser, isAdmin } = require('../middleware/authMiddleware');
+const User = require('../models/user');
+const {isAdmin } = require('../middleware/authMiddleware');
 
-// Ruta protegida
-router.get('/admin/users', authenticateUser, isAdmin, (req, res) => {
-  // Lógica para obtener y enviar los usuarios
-  res.send('Lista de usuarios administradores');
+
+router.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    console.error('Error obteniendo la lista de usuarios:', error);
+    res.status(500).json({ error: 'Error obteniendo la lista de usuarios' });
+  }
+});
+
+router.get('/users/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error al obtener datos del usuario:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.put('/users/:userId',isAdmin, async (req, res) => {
+  const userId = req.params.userId;
+  const updatedUserData = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error actualizando el usuario por ID:', error);
+    res.status(500).json({ error: 'Error actualizando el usuario por ID' });
+  }
+});
+
+router.delete('/users/:userId', isAdmin, async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.json({ message: 'Usuario eliminado exitosamente' });
+  } catch (error) {
+    console.error('Error eliminando el usuario por ID:', error);
+    res.status(500).json({ error: 'Error eliminando el usuario por ID' });
+  }
 });
 
 module.exports = router;

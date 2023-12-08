@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/users';
 
-const signUpService = {
+const userService = {
   getUserById: (userId) => {
     return axios.get(`${API_URL}/${userId}`).then((response) => response.data);
   },
@@ -16,7 +16,7 @@ const signUpService = {
 
   login: async (userData) => {
     try {
-        console.log(`${API_URL}/login`, userData);
+      console.log(`${API_URL}/login`, userData);
       const response = await axios.post(`${API_URL}/login`, userData);
       return response.data;
     } catch (error) {
@@ -25,4 +25,4 @@ const signUpService = {
   },
 };
 
-export default signUpService;
+export default userService;

@@ -47,7 +47,6 @@ const UserProfile = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
-    localStorage.removeItem('adminId');
     navigate('/');
   };
 

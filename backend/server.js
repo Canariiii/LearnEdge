@@ -35,10 +35,10 @@ app.use(express.static(path.join(__dirname, '/')));
 app.use('/user-images', express.static(path.join(__dirname, 'public/images')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
+app.use('/admin', adminRoutes); 
 app.use('/users', userRouter);
 app.use('/students', studentRouter);
 app.use('/instructors', instructorRouter);
-app.use('/admin', adminRoutes);
 app.use('/courses', courseRoutes);
 app.use('/content', contentRoutes);
 

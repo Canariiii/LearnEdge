@@ -1,45 +1,49 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/admin/users';
+const API_URL = 'http://localhost:3001/users';
+const API_URL_ID = 'http://localhost:3001/users/profile';
+
 
 const adminUserService = {
   getAllUsers: async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`${API_URL}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const response = await axios.get(`${API_URL}`);
+      console.log('Respuesta del servidor (getAllUsers):', response.data);
       return response.data;
     } catch (error) {
       throw error;
     }
   },
-
+  
   getUserById: async (userId) => {
     try {
-      const response = await axios.get(`${API_URL}/${userId}`);
+      const url = `${API_URL_ID}/${userId}`;
+      console.log('URL de la solicitud:', url);
+      const response = await axios.get(url);
       return response.data;
     } catch (error) {
       throw error;
     }
   },
-
-  updateUserById: async (adminId, userId, userData) => {
+  
+  updateUserById: async (userId, userData) => {
     try {
-      const response = await axios.put(`${API_URL}/${adminId}/${userId}`, { userData });
+      const response = await axios.put(`${API_URL_ID}/${userId}`, userData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return response.data;
     } catch (error) {
       throw error;
     }
   },
+  
 
-  deleteUserById: async (adminId, userId) => {
+  deleteUserById: async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`${API_URL}/${adminId}/${userId}`, {
+      const response = await axios.delete(`${API_URL}/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
