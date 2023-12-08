@@ -59,8 +59,18 @@ exports.createUser = async (req, res) => {
         phone
       }); 
       await newAdmin.save();
+      if (newUser.role === 'instructor') {
+        const newInstructor = new Instructor({
+          user: newUser._id,
+          username,
+          password,
+          email,
+          phone,
+          filename
+        });
+        await newInstructor.save();
+      }
     }
-
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {

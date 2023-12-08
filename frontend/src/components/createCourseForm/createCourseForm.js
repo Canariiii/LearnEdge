@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import './createCourseForm.css';
 import instructorService from "../../services/instructorService";
 
-
-
 const CreateCourseForm = () => {
 
   const [coursePic, setCoursePic] = useState(null);
