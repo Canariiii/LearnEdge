@@ -73,9 +73,9 @@ function SignUp() {
         <input className='password-signup' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <input className='mobile-signup' type='text' placeholder='Mobile' value={mobile} onChange={handleMobileChange} />
         <select className='role-dropdown' value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value='role'></option>
           <option value='student'>student</option>
           <option value='instructor'>instructor</option>
-          <option value='admin'>admin</option>
         </select>
         <input className='set-pic' type='file' onChange={handleUserPic} />
         <Link to='/home'>

@@ -36,20 +36,19 @@ exports.getUserFromToken = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
+    const existingAdmin = await User.findOne({ role: 'admin' });
+    if (existingAdmin && req.body.role === 'admin') {
+      return res.status(400).json({ success: false, error: 'Admin already exists' });
+    }
     const newUser = new User(req.body);
     newUser.filename = '';
-    
     if (!["student", "instructor", "admin"].includes(newUser.role)) {
       return res.status(400).json({ success: false, error: 'Invalid role' });
     }
-
     if (req.file) {
       newUser.filename = req.file.filename;
     }
-
     await newUser.save();
-
-    // Ahora, crea el documento del rol específico (Admin, Student, Instructor)
     if (newUser.role === 'admin') {
       const { username, password, email, phone } = req.body;
       const newAdmin = new Admin({ 
@@ -61,6 +60,7 @@ exports.createUser = async (req, res) => {
       }); 
       await newAdmin.save();
     }
+
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {
@@ -68,6 +68,7 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
