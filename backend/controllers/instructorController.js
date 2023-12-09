@@ -1,9 +1,14 @@
 const Instructor = require('../models/instructor');
 const User = require('../models/user');
+const Course = require('../models/course');
 
 exports.createInstructor = async (req, res) => {
   try {
     const newInstructor = new Instructor(req.body);
+    newInstructor._id = req.body.user;
+    await newInstructor.save();
+    const courseId = req.body.courseId; 
+    newInstructor.currentCourses.push(courseId);
     await newInstructor.save();
     const user = await User.findByIdAndUpdate(req.body.user, { $set: { role: 'instructor' } });
     res.status(201).json({ success: true, data: newInstructor });
@@ -12,6 +17,7 @@ exports.createInstructor = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 exports.getInstructors = async (req, res) => {
   try {

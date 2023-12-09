@@ -77,7 +77,7 @@ exports.createUser = async (req, res) => {
         password: req.body.password,
         email: req.body.email,
         phone: req.body.phone,
-        role: 'student',
+        role: 'instructor',
         filename: req.body.filename,
         user: newUser._id,
       });
