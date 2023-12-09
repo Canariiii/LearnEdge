@@ -40,7 +40,6 @@ exports.createUser = async (req, res) => {
     if (existingAdmin && req.body.role === 'admin') {
       return res.status(400).json({ success: false, error: 'Admin already exists' });
     }
-    
     const newUser = new User(req.body);
     newUser.filename = '';
     if (!["student", "instructor", "admin"].includes(newUser.role)) {
@@ -69,11 +68,21 @@ exports.createUser = async (req, res) => {
         phone: req.body.phone,
         role: 'student',
         filename: req.body.filename,
-        user: newUser._id,  // Asocia al nuevo instructor con el usuario recién creado
+        user: newUser._id,
       });
       await newStudent.save();
+    } else if(newUser.role === 'instructor') {
+      const newInstructor = new Instructor({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        phone: req.body.phone,
+        role: 'student',
+        filename: req.body.filename,
+        user: newUser._id,
+      });
+      await newInstructor.save();
     }
-
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {

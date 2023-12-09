@@ -1,37 +1,25 @@
 import React, { useState } from "react";
 import './createCourseForm.css';
-import courseService from "../../services/courseService";
+import { createCourse } from '../../services/courseService'; // Ajusta la ruta según tu estructura de carpetas
 
 const CreateCourseForm = () => {
-
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [coursePic, setCoursePic] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+
+  const userId = localStorage.getItem('userId');
 
   const onChange = (file) => {
-    if (!file) {
-      setCoursePic(coursePic);
-      return;
-    }
     setCoursePic(file);
   };
-  
-  const createCourse = async () => {
+
+  const handleCreateCourse = async (e) => {
+    e.preventDefault();
     try {
-      const courseData = {
-        title,
-        description,
-        file: coursePic,
-      };
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Token de autenticación no encontrado');
-        return;
-      }
-      const response = await courseService.createCourse({ ...courseData, token });
-      console.log(response);
+      await createCourse(title, description, coursePic, userId);
+      console.log("Course created successfully");
     } catch (error) {
-      console.error('Error al crear el curso:', error);
+      console.error("Error creating course", error);
     }
   };
 
@@ -41,17 +29,17 @@ const CreateCourseForm = () => {
       <div className="create-course-line"></div>
       <form className="create-course-form-container">
         <p>Title</p>
-       <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <p>Description</p>
         <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
         <p>Course Picture</p>
-        <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)} />
+        <input type='file' id='fileInput' name='file' onChange={(event) => onChange(event.target.files[0] || null)} />
         <label htmlFor='fileInput' className='filelabel'>Search...</label>
         {coursePic && <img src={URL.createObjectURL(coursePic)} alt='Course preview' />}
-        <button className='crate-course-button' type='submit' onClick={createCourse}>Create</button>
+        <button className='create-course-button' type='submit' onClick={handleCreateCourse}>Create</button>
       </form>
     </div>
   );
-}
+};
 
 export default CreateCourseForm;

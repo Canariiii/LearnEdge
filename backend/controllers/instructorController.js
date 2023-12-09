@@ -5,10 +5,7 @@ exports.createInstructor = async (req, res) => {
   try {
     const newInstructor = new Instructor(req.body);
     await newInstructor.save();
-    
-    // Agregar el nuevo instructor al usuario
     const user = await User.findByIdAndUpdate(req.body.user, { $set: { role: 'instructor' } });
-    
     res.status(201).json({ success: true, data: newInstructor });
   } catch (error) {
     console.error('Error creating instructor:', error);

@@ -44,11 +44,11 @@ app.use('/content', contentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
+  console.error(err);
   if (err instanceof Multer.MulterError) {
-      res.status(400).json({ success: false, error: err.message });
+    res.status(400).json({ success: false, error: err.message });
   } else {
-      console.error(err.stack);
-      res.status(500).send('Something broke!');
+    res.status(500).json({ success: false, error: "Something broke!" });
   }
 });
 
