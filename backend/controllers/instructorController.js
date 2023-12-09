@@ -4,20 +4,25 @@ const Course = require('../models/course');
 
 exports.createInstructor = async (req, res) => {
   try {
-    const newInstructor = new Instructor(req.body);
-    newInstructor._id = req.body.user;
+    const newInstructor = new Instructor({
+      currentCourses: [],
+    });
     await newInstructor.save();
-    const courseId = req.body.courseId; 
-    newInstructor.currentCourses.push(courseId);
+    const newCourse = new Course({
+      title: req.body.courseTitle,  // Asegúrate de ajustar esto según tu modelo Course
+      description: req.body.courseDescription,
+      instructor: newInstructor._id,
+    });
+
+    await newCourse.save();
+    newInstructor.currentCourses.push(newCourse._id);
     await newInstructor.save();
-    const user = await User.findByIdAndUpdate(req.body.user, { $set: { role: 'instructor' } });
     res.status(201).json({ success: true, data: newInstructor });
   } catch (error) {
     console.error('Error creating instructor:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
 
 exports.getInstructors = async (req, res) => {
   try {
@@ -83,6 +88,16 @@ exports.deleteInstructor = async (req, res) => {
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
     console.error('Error deleting instructor:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.getActiveCoursesByInstructorId = async (req, res) => {
+  try {
+    const instructorId = req.params.instructorId;
+    const activeCourses = await Course.find({ instructor: instructorId }).populate('enrolledStudents');
+    res.status(200).json({ success: true, data: activeCourses });
+  } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };

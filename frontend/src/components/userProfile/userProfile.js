@@ -9,6 +9,8 @@ const UserProfile = () => {
   const [filename, setFilename] = useState(null);
   const [userId, setUserId] = useState('');
   const [userRole, setUserRole] = useState('');
+  const [activeCourses, setActiveCourses] = useState([]);
+  const [currentCourses, setCurrentCourses] = useState([]);
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
@@ -21,13 +23,17 @@ const UserProfile = () => {
             console.log('No image received.');
             setFilename('/assets/img/user.jpeg');
           }
+          const courses = response.data.data.currentCourses || [];
+        
+          // Maneja los cursos actuales del instructor
+          setCurrentCourses(courses);
         })
         .catch(error => {
           console.error('Error fetching user profile:', error);
         });
     }
   }, [userId]);
-
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -40,9 +46,18 @@ const UserProfile = () => {
   }, [navigate]);
 
   useEffect(() => {
-    showData();
-  }, [userId, showData]);
-
+    showData();// Nueva llamada para obtener cursos activos del instructor
+    if (userRole === 'instructor') {
+      axios.get(`http://localhost:3001/instructors/${userId}/currentCourses`)
+        .then(response => {
+          setActiveCourses(response.data.data);
+        })
+        .catch(error => {
+          console.error('Error fetching active courses:', error);
+        });
+    }
+  }, [userId, showData, userRole]);
+  
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
@@ -67,8 +82,18 @@ const UserProfile = () => {
         <button onClick={logOut}>Logout</button>
         <button onClick={goToUserPreferencesForm} >Preferences</button>
       </div>
-      {userRole === 'instructor' | userRole === 'student' && (
-        <p>Active courses</p>
+      {(userRole === 'instructor' || userRole === 'student') && (
+        <>
+        <p>Current courses</p>
+        <ul className='current-courses-instructor'>
+          {currentCourses.map(course => (
+            <li key={course._id}>
+              <h3>{course.title}</h3>
+              <img src={`http://localhost:3001/course-images/${course.filename}`} alt={`Course: ${course.title}`} />
+            </li>
+          ))}
+        </ul>
+      </>
       )}
       {userRole === 'admin' && (
         <button onClick={goToManage} className='manage-button'>Manage</button>

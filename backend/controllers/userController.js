@@ -200,3 +200,24 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+// En tu controlador que maneja la ruta GET /users/profile/:userId
+exports.getUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Obtén la información del usuario
+    const user = await User.findById(userId).populate('currentCourses');
+
+    // Verifica si el usuario es un instructor
+    if (user.role === 'instructor') {
+      // Si es un instructor, también obtenemos los cursos activos
+      const activeCourses = await Course.find({ instructor: userId });
+      user.activeCourses = activeCourses;
+    }
+
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
