@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import './createCourseForm.css';
-import instructorService from "../../services/instructorService";
+import courseService from "../../services/courseService";
 
 const CreateCourseForm = () => {
 
   const [coursePic, setCoursePic] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const onChange = (file) => {
     if (!file) {
@@ -13,15 +15,20 @@ const CreateCourseForm = () => {
     }
     setCoursePic(file);
   };
-
+  
   const createCourse = async () => {
     try {
       const courseData = {
-        title: 'Curso de prueba',
-        description: 'Descripción del curso',
+        title,
+        description,
         file: coursePic,
       };
-      const response = await instructorService.createCourse(courseData);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Token de autenticación no encontrado');
+        return;
+      }
+      const response = await courseService.createCourse({ ...courseData, token });
       console.log(response);
     } catch (error) {
       console.error('Error al crear el curso:', error);
@@ -34,9 +41,9 @@ const CreateCourseForm = () => {
       <div className="create-course-line"></div>
       <form className="create-course-form-container">
         <p>Title</p>
-        <input type="text" name="title"></input>
+       <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <p>Description</p>
-        <input type="text" name="description"></input>
+        <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
         <p>Course Picture</p>
         <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)} />
         <label htmlFor='fileInput' className='filelabel'>Search...</label>

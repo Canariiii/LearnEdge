@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Course = require('../models/course');
+const User = require('../models/user');
 
 const instructorSchema = new mongoose.Schema({
   username: {
@@ -42,18 +43,18 @@ const instructorSchema = new mongoose.Schema({
     required: false,
     match: /\.(jpg|jpeg|png|gif|webp)$/
   },
-  coursesTaught: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
-  }],
-  currentCourses: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
-  }],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
     unique: true,
-  }
+  },
+  coursesTaught: [{
+    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
+  }],
+  currentCourses: [{
+    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
+  }]
 });
 
 const Instructor = mongoose.model('Instructor', instructorSchema);

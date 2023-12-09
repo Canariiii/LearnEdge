@@ -5,6 +5,10 @@ const {isAdmin } = require('../middleware/authMiddleware');
 const adminController = require('../controllers/adminController');
 const upload = require('../multer/upload');
 
+adminRouter.route('/')
+  .post(upload.single('filename'), adminController.createAdmin)
+  .get(adminController.getAllAdmins);
+
 adminRouter.get('/users', async (req, res) => {
   try {
     const users = await User.find();
@@ -65,9 +69,5 @@ adminRouter.delete('/users/:userId', isAdmin, async (req, res) => {
     res.status(500).json({ error: 'Error eliminando el usuario por ID' });
   }
 });
-
-adminRouter.route('/')
-  .post(upload.single('filename'), adminController.createAdmin)
-  .get(adminController.getAllAdmins);
 
 module.exports = adminRouter;

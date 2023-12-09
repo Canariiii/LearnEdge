@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const student = require('../models/student');
+const instructor = require('../models/instructor');
 
 const courseSchema = new Schema({
   title: {
@@ -12,7 +14,7 @@ const courseSchema = new Schema({
   },
   filename: {
     type: String,
-    required: false,
+    required: true,
     match: /\.(jpg|jpeg|png|gif|webp)$/
   },
   content: {

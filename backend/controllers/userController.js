@@ -2,7 +2,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const Instructor = require('../models/instructor');
 const Student = require('../models/student');
-const Admin = require('../models/admin'); 
+const Admin = require('../models/admin');
 
 const jwtConfig = {
   secretKey: process.env.JWT_SECRET ? Buffer.from(process.env.JWT_SECRET, 'base64') : 'your_secret_key',
@@ -40,6 +40,7 @@ exports.createUser = async (req, res) => {
     if (existingAdmin && req.body.role === 'admin') {
       return res.status(400).json({ success: false, error: 'Admin already exists' });
     }
+    
     const newUser = new User(req.body);
     newUser.filename = '';
     if (!["student", "instructor", "admin"].includes(newUser.role)) {
@@ -51,27 +52,28 @@ exports.createUser = async (req, res) => {
     await newUser.save();
     if (newUser.role === 'admin') {
       const { username, password, email, phone } = req.body;
-      const newAdmin = new Admin({ 
+      const newAdmin = new Admin({
         user: newUser._id,
         username,
         password,
         email,
         phone,
-        filename
-      }); 
+        filename: req.body.filename,
+      });
       await newAdmin.save();
-      if (newUser.role === 'instructor') {
-        const newInstructor = new Instructor({
-          user: newUser._id,
-          username,
-          password,
-          email,
-          phone,
-          filename
-        });
-        await newInstructor.save();
-      }
+    } else if (newUser.role === 'student') {
+      const newStudent = new Student({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        phone: req.body.phone,
+        role: 'student',
+        filename: req.body.filename,
+        user: newUser._id,  // Asocia al nuevo instructor con el usuario recién creado
+      });
+      await newStudent.save();
     }
+
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
   } catch (error) {
@@ -79,7 +81,6 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;

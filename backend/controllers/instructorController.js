@@ -1,9 +1,14 @@
 const Instructor = require('../models/instructor');
+const User = require('../models/user');
 
 exports.createInstructor = async (req, res) => {
   try {
     const newInstructor = new Instructor(req.body);
     await newInstructor.save();
+    
+    // Agregar el nuevo instructor al usuario
+    const user = await User.findByIdAndUpdate(req.body.user, { $set: { role: 'instructor' } });
+    
     res.status(201).json({ success: true, data: newInstructor });
   } catch (error) {
     console.error('Error creating instructor:', error);
@@ -68,6 +73,9 @@ exports.deleteInstructor = async (req, res) => {
     if (instructor.role !== 'instructor') {
       return res.status(403).json({ success: false, error: 'Access denied. You are not an instructor.' });
     }
+
+    // Eliminar referencia al instructor en el usuario
+    await User.findByIdAndUpdate(instructor.user, { $unset: { role: 1 } });
 
     res.status(200).json({ success: true, data: {} });
   } catch (error) {

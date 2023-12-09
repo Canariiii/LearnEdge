@@ -108,7 +108,7 @@
     background-color: #f0f0f0;
 }
 
-.create-course-form-container button{
+.create-course-form-container button {
     position: fixed;
     left: 48.40%;
     top: 85.89%;
@@ -126,7 +126,11 @@
 .create-course-form-container img {
     position: fixed;
     height: 44%;
-  border-radius: 100%;
-  top: 43.22%;
-  left: 68.5%;
+    border-radius: 100%;
+    top: 43.22%;
+    left: 70%;
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 300px;
+    max-height: 300px;
 }

@@ -1,41 +1,46 @@
 const mongoose = require('mongoose');
 const Course = require('../models/course');
 const Content = require('../models/content');
+const jwt = require('jsonwebtoken');
 
 exports.createCourse = async (req, res) => {
   try {
-    const { title, description, filename, users, contentType, contentData } = req.body;
-    const file = req.file;
-    const newContent = new Content({
-      contentType,
-      contentData,
-    });
-    await newContent.save();
-    const instructorId = users.map(instructorId => mongoose.Types.ObjectId(instructorId));
-    const userIds = users.map(userId => mongoose.Types.ObjectId(userId));
+    const { title, description, filename } = req.body;
+
+    // Verifica si hay un token en los encabezados
+    const token = req.headers.authorization;
+
+    let instructorId;
+
+    if (token && token.startsWith('Bearer ')) {
+      // Si hay un token, verifica su validez
+      const tokenValue = token.split(' ')[1];
+      const decodedToken = jwt.verify(tokenValue, 'your_secret_key');
+
+      // Puedes acceder a información del usuario desde decodedToken si es necesario
+      // Aquí asumimos que el identificador del instructor está en el token, ajusta según tu lógica
+      instructorId = decodedToken.userId;
+    }
+
+    // Lógica para crear el curso (sin token requerido)
     const newCourse = new Course({
       title,
       description,
       filename,
       instructor: instructorId,
-      enrolledStudents: userIds,
-      content: newContent._id,
-      file: file ? file.filename : null,
     });
+
     await newCourse.save();
-    newContent.associatedCourse = newCourse._id;
-    await newContent.save();
+
     res.status(201).json({
       success: true,
-      data: {
-        newCourse,
-        newContent,
-      },
+      data: newCourse,
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 exports.getCourses = async (req, res) => {
   try {
