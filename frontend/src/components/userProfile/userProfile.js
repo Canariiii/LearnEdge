@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faX } from '@fortawesome/free-solid-svg-icons';
+import { deleteCourse } from '../../services/courseService';
+
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -31,7 +33,6 @@ const UserProfile = () => {
     }
   }, [userId]);
 
-
   const showInstructorCourses = useCallback(() => {
     if (userId && userId !== '') {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
@@ -40,7 +41,7 @@ const UserProfile = () => {
             const instructorId = response.data.data._id;
             axios.get(`http://localhost:3001/instructors/active-courses/${instructorId}`)
               .then(coursesResponse => {
-                console.log("Courses Response:", coursesResponse.data); // Agrega este log para depuración
+                console.log("Courses Response:", coursesResponse.data); 
                 setActiveCourses(coursesResponse.data.data);
               })
               .catch(error => {
@@ -53,6 +54,17 @@ const UserProfile = () => {
         });
     }
   }, [userId]);
+
+  const handleDeleteCourse = (courseId) => {
+    deleteCourse(courseId)
+      .then((response) => {
+        console.log("Course deleted successfully:", response);
+        showInstructorCourses();
+      })
+      .catch((error) => {
+        console.error("Error deleting course:", error);
+      });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -106,7 +118,7 @@ const UserProfile = () => {
                 <div>
                   <p>{course.title}</p>
                   <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} />
-                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} />
+                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
                 </div>
               </li>
             ))}

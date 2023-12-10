@@ -16,7 +16,7 @@ exports.createCourse = async (req, res) => {
       title,
       description,
       filename,
-      instructor: instructor.user, 
+      instructor: instructor.user,
     });
     await newCourse.save();
     instructor.currentCourses.push(newCourse._id);

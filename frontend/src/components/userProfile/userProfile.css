@@ -74,7 +74,7 @@
   font-size: 20px;
 }
 
-.instructor-courses{
+.instructor-courses {
   display: flex;
   position: absolute;
   left: 75.5%;
@@ -96,8 +96,10 @@
 }
 
 .instructor-active-courses img {
-  width: 42px;
-  height: 42px;
+  min-width: 42px;
+  max-width: 42px;
+  min-height: 42px;
+  max-height: 42px;
   border-radius: 50%;
   left: 2.5%;
   top: 0%;
@@ -131,7 +133,7 @@
 
 .edit-course {
   cursor: pointer;
-  font-size: 15px; 
+  font-size: 15px;
   display: flex;
   position: absolute;
   left: 80%;
@@ -140,7 +142,7 @@
 
 .delete-course {
   cursor: pointer;
-  font-size: 15px; 
+  font-size: 15px;
   display: flex;
   position: absolute;
   left: 90%;
