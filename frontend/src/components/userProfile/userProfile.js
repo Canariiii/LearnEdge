@@ -97,6 +97,10 @@ const UserProfile = () => {
     navigate('/manage');
   }
 
+  const goToEditCourse = () => {
+    navigate('/edit-course');
+  }
+
   return (
     <div className='user-container'>
       <img src={filename} alt='profilePic' />
@@ -117,7 +121,7 @@ const UserProfile = () => {
                 </div>
                 <div>
                   <p>{course.title}</p>
-                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} />
+                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
                   <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
                 </div>
               </li>

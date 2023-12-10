@@ -10,6 +10,7 @@ import Course from "./pages/courses/courses";
 import CreateCourse from "./pages/createCourse/createCourse";
 import Manage from "./pages/manage/manage";
 import ManageUsers from "./pages/manageUsers/manageUsers";
+import EdtiCourse from "./pages/editCourse/editCourse";
 
 function App() {
   const userRole = localStorage.getItem('role');
@@ -24,9 +25,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/user-preferences-form" element={<UserPreferences />} />
-        <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : ( <Navigate to="/home" />)} />
-        <Route path="/manage" element={userRole === 'admin' ? <Manage /> : ( <Navigate to="/home" />)} />
-        <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : ( <Navigate to="/home" />)} />
+        <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : (<Navigate to="/home" />)} />
+        <Route path="/edit-course" element={userRole === 'instructor' ? (<EdtiCourse />) : (<Navigate to="/home" />)} />
+        <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/home" />)} />
+        <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
       </Routes>
     </BrowserRouter>
   );
