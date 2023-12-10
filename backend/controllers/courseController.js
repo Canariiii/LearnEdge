@@ -6,22 +6,29 @@ const contentController = require('./contentController');
 
 exports.createCourse = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, contentId } = req.body;
     const { filename } = req.file;
     const instructorUserId = req.body.instructor;
     const instructor = await Instructor.findOne({ user: instructorUserId });
     if (!instructor) {
       return res.status(404).json({ success: false, error: 'Instructor not found' });
     }
+
     const newCourse = new Course({
       title,
       description,
       filename,
       instructor: instructor.user,
     });
+
+    if (contentId) {
+      newCourse.content.push(contentId);
+    }
+
     await newCourse.save();
     instructor.currentCourses.push(newCourse._id);
     await instructor.save();
+
     res.status(201).json({ success: true, data: { course: newCourse._id } });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -31,7 +38,7 @@ exports.createCourse = async (req, res) => {
 exports.getCourses = async (req, res) => {
   try {
     const courses = await Course.find().populate(['enrolledStudents', 'instructor']);
-    console.log(courses);  
+    console.log(courses);
     res.status(200).json({ success: true, data: courses });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -42,16 +49,15 @@ exports.getCourses = async (req, res) => {
 exports.getCourseById = async (req, res) => {
   try {
     const courseId = req.params.courseId;
-    const course = await Course.findById(courseId).populate({
-      path: 'content',
-      model: 'Content',
-    });
+    const { title, description } = req.body;
+    
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      { title, description },
+      { new: true }
+    ).populate('content');
 
-    if (!course) {
-      return res.status(404).json({ success: false, error: 'Course not found' });
-    }
-
-    res.status(200).json({ success: true, data: course });
+    res.status(200).json({ success: true, data: updatedCourse });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -68,7 +74,8 @@ exports.updateCourse = async (req, res) => {
         contentData: content.contentData,
       };
       if (content.contentId) {
-        console.log('contentId: ', contentId)
+        console.log('contentId: ', content.contentId);
+
         const updatedContent = await Content.findByIdAndUpdate(content.contentId, contentData, { new: true });
         contentId = updatedContent._id;
       } else {
@@ -88,47 +95,59 @@ exports.updateCourse = async (req, res) => {
   }
 };
 
+
 exports.updateCourseById = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, contentId } = req.body;
     const contentFile = req.file;
     const courseId = req.params.courseId;
 
-    const updatedCourse = await Course.findByIdAndUpdate(
-      courseId,
-      { title, description },
-      { new: true, runValidators: true }
-    );
+    let updatedCourse;
+
+    if (contentFile) {
+      const contentResponse = await contentController.updateOrAddContent({
+        contentType: 'file',
+        contentData: contentFile.filename,
+        courseId: courseId,
+      });
+
+      if (contentResponse.data.success) {
+        updatedCourse = await Course.findByIdAndUpdate(
+          courseId,
+          { title, description },
+          { new: true }
+        ).populate('content');
+
+        const newContentId = contentResponse.data.contentId;
+        updatedCourse.content.push(newContentId);
+        await updatedCourse.save();
+      } else {
+        console.error('Error creating/updating content:', contentResponse.data.error);
+        return res.status(500).json({ success: false, error: 'Error creating/updating content' });
+      }
+    } else {
+      updatedCourse = await Course.findByIdAndUpdate(
+        courseId,
+        { title, description },
+        { new: true }
+      ).populate(['content']);
+    }
 
     if (!updatedCourse) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
 
-    if (contentFile) {
-      const contentResponse = await contentController.updateOrAddContent({
-        contentType: 'file',  
-        contentData: req.file.filename,
-        courseId: updatedCourse._id,
-      });
-
-      console.log('Content updated or added:', contentResponse);
-
-      // Aquí actualiza el campo 'content' como un array
-      updatedCourse.content.push(contentResponse.data.contentId);
-
-      // Guarda el curso actualizado
-      await updatedCourse.save();
-    }
-
     res.status(200).json({ success: true, data: updatedCourse });
   } catch (error) {
+    console.error('Error updating course:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
+
 exports.deleteCourse = async (req, res) => {
   try {
-    const course = await Course.findByIdAndDelete(req.params._id);
+    const course = await Course.findByIdAndDelete(req.params.courseId);
     if (!course) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }

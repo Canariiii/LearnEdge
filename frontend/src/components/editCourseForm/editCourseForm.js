@@ -55,32 +55,25 @@ const EditCourseForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-
-      if (contentResponse.data.success) {
-        const contentData = contentResponse.data.data.content;
-        if (contentData && contentData.length > 0) {
-          const contentId = contentData[0]._id;
-          const updatedCourse = {
-            title: courseData.title,
-            description: courseData.description,
-            content: contentId,
-          };
-
-          const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
-          console.log("Course updated successfully:", courseResponse);
-
-          setCourseData({
-            title: courseResponse.data.data.title,
-            description: courseResponse.data.data.description,
-            content: contentId,
-          });
-        } else {
-          console.error('Error creating content: Content data is missing or empty');
-        }
+      const contentData = contentResponse.data.data.content;
+      if (contentResponse.data.success && contentData && contentData.length > 0) {
+        const contentId = contentData[0]._id;
+        const updatedCourse = {
+          title: courseData.title,
+          description: courseData.description,
+          content: contentId,
+        };
+        const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
+        console.log("PUT Response:", courseResponse);
+        console.log("Course updated successfully:", courseResponse);
+        setCourseData({
+          title: courseResponse.data.data.title,
+          description: courseResponse.data.data.description,
+          content: contentId,
+        });
       } else {
-        console.error('Error creating content:', contentResponse.data.error || 'Unknown error');
+        console.error('Error creating content:', contentResponse.data.error );
       }
-
     } catch (error) {
       console.error('Error updating course:', error);
       console.error('Error creating content:', error);

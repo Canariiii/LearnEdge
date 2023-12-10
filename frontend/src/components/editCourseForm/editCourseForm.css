@@ -136,7 +136,7 @@
   border-radius: 100%;
 }
 
-.edit-course-form button{
+.edit-course-form button:nth-of-type(1){
   display: flex;
   position: fixed;
   left: 45%;
@@ -153,4 +153,40 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 20px;
+}
+
+.edit-course-form button:nth-of-type(2){
+  display: flex;
+  position: fixed;
+  left: 50%;
+  top: 40.5%;
+  width: 5%;
+  height: 5%;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.edit-course-form select {
+  display: flex;
+  position: absolute;
+  left: 52.5%;
+  top: 40.5%;
+  width: 10%;
+  height: 5%;
+  background-color: black;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  border-radius: 5px;
 }

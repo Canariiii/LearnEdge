@@ -7,7 +7,6 @@ exports.createContent = async (req, res) => {
     const { contentType, contentData, courseId } = req.body;
     const newContent = new Content({ contentType, contentData, associatedCourse: courseId });
     const savedContent = await newContent.save(); // Guarda el contenido y obtén el objeto guardado
-    // Ahora actualiza el curso con el ID del contenido guardado
     await Course.findByIdAndUpdate(courseId, { $push: { contents: savedContent._id } });
 
     const contentId = savedContent._id;
@@ -41,22 +40,18 @@ exports.updateOrAddContent = async (req, res) => {
   try {
     const courseId = req.params.courseId;
     const { contentType, contentData } = req.body;
-
-    // Busca si hay contenido asociado a este curso
     const existingContent = await Content.findOne({ associatedCourse: courseId });
-
     if (existingContent) {
-      // Si existe, actualiza el contenido existente
       const updatedContent = await Content.findByIdAndUpdate(
         existingContent._id,
         { contentType, contentData },
         { new: true, runValidators: true }
       );
-      res.status(200).json({ success: true, data: updatedContent });
+      res.status(200).json({ success: true, data: { content: updatedContent } });
     } else {
-      // Si no existe, crea un nuevo contenido y lo asocia al curso
-      const newContentResponse = await exports.createContent({ contentType, contentData, courseId });
-      res.status(201).json(newContentResponse);
+      const newContent = new Content({ contentType, contentData, associatedCourse: courseId });
+      const savedContent = await newContent.save();
+      res.status(201).json({ success: true, data: { content: savedContent } });
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

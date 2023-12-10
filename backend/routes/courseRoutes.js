@@ -1,3 +1,4 @@
+// En courseRoutes
 const express = require('express');
 const courseController = require('../controllers/courseController');
 const upload = require('../multer/upload');
@@ -10,7 +11,7 @@ courseRouter.route('/')
 
 courseRouter.route('/:courseId')
   .get(courseController.getCourseById)
-  .put(courseController.updateCourseById)
+  .put(upload.single('file'), courseController.updateCourseById)
   .delete(courseController.deleteCourse); 
 
 courseRouter.route('/update/:courseId')
