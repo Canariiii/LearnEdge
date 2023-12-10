@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Course = require('../models/course');
 const Content = require('../models/content');
 const Instructor = require('../models/instructor');
+const contentController = require('./contentController');
 
 exports.createCourse = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ exports.createCourse = async (req, res) => {
 exports.getCourses = async (req, res) => {
   try {
     const courses = await Course.find().populate(['enrolledStudents', 'instructor']);
-    console.log(courses);  // Agrega este log para depuración
+    console.log(courses);  
     res.status(200).json({ success: true, data: courses });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -40,10 +41,16 @@ exports.getCourses = async (req, res) => {
 
 exports.getCourseById = async (req, res) => {
   try {
-    const course = await Course.findById(req.params._id);
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId).populate({
+      path: 'content',
+      model: 'Content',
+    });
+
     if (!course) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
+
     res.status(200).json({ success: true, data: course });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -52,19 +59,68 @@ exports.getCourseById = async (req, res) => {
 
 exports.updateCourse = async (req, res) => {
   try {
-    if (!req.body || !req.body.userId) {
-      return res.status(400).json({ success: false, error: "Invalid request format" });
+    const courseId = req.params.courseId;
+    const { title, description, content } = req.body;
+    let contentId;
+    if (content) {
+      const contentData = {
+        contentType: 'file',
+        contentData: content.contentData,
+      };
+      if (content.contentId) {
+        console.log('contentId: ', contentId)
+        const updatedContent = await Content.findByIdAndUpdate(content.contentId, contentData, { new: true });
+        contentId = updatedContent._id;
+      } else {
+        const newContent = new Content(contentData);
+        await newContent.save();
+        contentId = newContent._id;
+      }
     }
-    const userId = mongoose.Types.ObjectId(req.body.userId);
-    const course = await Course.findByIdAndUpdate(
-      req.params._id,
-      { $addToSet: { enrolledStudents: userId } },
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      { title, description },
+      { new: true }
+    ).populate('content');
+    res.status(200).json({ success: true, data: updatedCourse });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.updateCourseById = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    const contentFile = req.file;
+    const courseId = req.params.courseId;
+
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      { title, description },
       { new: true, runValidators: true }
     );
-    if (!course) {
+
+    if (!updatedCourse) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
-    res.status(200).json({ success: true, data: course });
+
+    if (contentFile) {
+      const contentResponse = await contentController.updateOrAddContent({
+        contentType: 'file',  
+        contentData: req.file.filename,
+        courseId: updatedCourse._id,
+      });
+
+      console.log('Content updated or added:', contentResponse);
+
+      // Aquí actualiza el campo 'content' como un array
+      updatedCourse.content.push(contentResponse.data.contentId);
+
+      // Guarda el curso actualizado
+      await updatedCourse.save();
+    }
+
+    res.status(200).json({ success: true, data: updatedCourse });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

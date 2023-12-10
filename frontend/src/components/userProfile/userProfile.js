@@ -97,10 +97,9 @@ const UserProfile = () => {
     navigate('/manage');
   }
 
-  const goToEditCourse = () => {
-    navigate('/edit-course');
+  const goToEditCourse = (courseId) => {
+    navigate(`/edit-course/${courseId}`);
   }
-
   return (
     <div className='user-container'>
       <img src={filename} alt='profilePic' />

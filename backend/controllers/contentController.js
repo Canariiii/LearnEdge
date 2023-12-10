@@ -2,16 +2,21 @@ const mongoose = require('mongoose');
 const Content = require('../models/content');
 const Course = require('../models/course');
 
-exports.createContent = async ({ contentType, contentData }) => {
+exports.createContent = async (req, res) => {
   try {
-    const newContent = new Content({ contentType, contentData });
-    await newContent.save();
-    const contentId = newContent._id;
-    return { success: true, data: { newContent, contentId } };
+    const { contentType, contentData, courseId } = req.body;
+    const newContent = new Content({ contentType, contentData, associatedCourse: courseId });
+    const savedContent = await newContent.save(); // Guarda el contenido y obtén el objeto guardado
+    // Ahora actualiza el curso con el ID del contenido guardado
+    await Course.findByIdAndUpdate(courseId, { $push: { contents: savedContent._id } });
+
+    const contentId = savedContent._id;
+    res.status(201).json({ success: true, data: { newContent, contentId } });
   } catch (error) {
-    return { success: false, error: error.message };
+    res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 exports.getContentAll = async (req, res) => {
   try {
@@ -32,22 +37,29 @@ exports.getContentByCourse = async (req, res) => {
   }
 };
 
-exports.updateContent = async (req, res) => {
+exports.updateOrAddContent = async (req, res) => {
   try {
-      const contentId = req.params.contentId;
-      const { contentType, contentData } = req.body;
-      const updatedContent = await Content.findByIdAndUpdate(
-          contentId,
-          { contentType, contentData },
-          { new: true, runValidators: true }
-      );
+    const courseId = req.params.courseId;
+    const { contentType, contentData } = req.body;
 
-      if (!updatedContent) {
-          return res.status(404).json({ success: false, error: 'Content not found' });
-      }
+    // Busca si hay contenido asociado a este curso
+    const existingContent = await Content.findOne({ associatedCourse: courseId });
+
+    if (existingContent) {
+      // Si existe, actualiza el contenido existente
+      const updatedContent = await Content.findByIdAndUpdate(
+        existingContent._id,
+        { contentType, contentData },
+        { new: true, runValidators: true }
+      );
       res.status(200).json({ success: true, data: updatedContent });
+    } else {
+      // Si no existe, crea un nuevo contenido y lo asocia al curso
+      const newContentResponse = await exports.createContent({ contentType, contentData, courseId });
+      res.status(201).json(newContentResponse);
+    }
   } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 

@@ -76,7 +76,7 @@
 
 .instructor-courses {
   display: flex;
-  position: absolute;
+  position: fixed;
   left: 75.5%;
   top: 22%;
   font-family: 'Poppins', sans-serif;

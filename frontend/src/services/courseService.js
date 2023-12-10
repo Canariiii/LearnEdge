@@ -54,9 +54,14 @@ const updateCourse = async (courseId, userId) => {
 const deleteCourse = async (courseId) => {
   try {
     const response = await axios.delete(`${API_URL}/${courseId}`);
-    return response.data;
+    if (response.data.success) {
+      console.log("Course deleted successfully:", response.data);
+    } else {
+      console.error("Error deleting course:", response.data.error);
+      throw new Error(response.data.error);
+    }
   } catch (error) {
-    console.error(`Error deleting course with ID ${courseId}`, error);
+    console.error("Error deleting course:", error);
     throw error;
   }
 };

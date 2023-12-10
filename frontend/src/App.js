@@ -26,7 +26,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/user-preferences-form" element={<UserPreferences />} />
         <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : (<Navigate to="/home" />)} />
-        <Route path="/edit-course" element={userRole === 'instructor' ? (<EdtiCourse />) : (<Navigate to="/home" />)} />
+        <Route path="/edit-course/:courseId" element={userRole === 'instructor' ? (<EdtiCourse />) : (<Navigate to="/home" />)} />
         <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/home" />)} />
         <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
       </Routes>

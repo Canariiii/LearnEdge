@@ -1,18 +1,18 @@
 const express = require('express');
-const contentRouter = express.Router();
 const contentController = require('../controllers/contentController');
+const upload = require('../multer/upload');
 
-contentRouter.route("/")
-  .post(contentController.createContent)
-  .get(contentController.getContentAll)
+const contentRouter = express.Router();
 
-// Ruta para obtener contenido por curso
+contentRouter
+  .route("/")
+  .post(upload.single('file'), contentController.createContent)
+  .get(contentController.getContentAll);
+
 contentRouter.get('/content/:courseId', contentController.getContentByCourse);
 
-// Ruta para actualizar contenido por su ID
-contentRouter.put('/:contentId', contentController.updateContent);
+contentRouter.put('/:courseId', contentController.updateOrAddContent);
 
-// Ruta para eliminar contenido por su ID
 contentRouter.delete('/:contentId', contentController.deleteContent);
 
 module.exports = contentRouter;
