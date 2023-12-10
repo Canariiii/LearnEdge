@@ -1,10 +1,15 @@
 const Instructor = require('../models/instructor');
 const User = require('../models/user');
 const Course = require('../models/course');
+const mongoose = require('mongoose');
 
 exports.createInstructor = async (req, res) => {
   try {
     const newInstructor = new Instructor({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      phone: req.body.phone,
       currentCourses: [],
     });
     await newInstructor.save();
@@ -95,9 +100,18 @@ exports.deleteInstructor = async (req, res) => {
 exports.getActiveCoursesByInstructorId = async (req, res) => {
   try {
     const instructorId = req.params.instructorId;
-    const activeCourses = await Course.find({ instructor: instructorId }).populate('enrolledStudents');
+
+    if (!mongoose.Types.ObjectId.isValid(instructorId)) {
+      return res.status(400).json({ success: false, error: 'Invalid instructorId' });
+    }
+
+    const insId = mongoose.Types.ObjectId(instructorId);
+    const activeCourses = await Course.find({ instructor: insId }).populate('enrolledStudents');
+
     res.status(200).json({ success: true, data: activeCourses });
   } catch (error) {
+    console.error('Error in getActiveCoursesByInstructorId:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
+

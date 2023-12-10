@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './userProfile.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faX } from '@fortawesome/free-solid-svg-icons';
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -10,7 +12,6 @@ const UserProfile = () => {
   const [userId, setUserId] = useState('');
   const [userRole, setUserRole] = useState('');
   const [activeCourses, setActiveCourses] = useState([]);
-  const [currentCourses, setCurrentCourses] = useState([]);
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
@@ -23,17 +24,36 @@ const UserProfile = () => {
             console.log('No image received.');
             setFilename('/assets/img/user.jpeg');
           }
-          const courses = response.data.data.currentCourses || [];
-        
-          // Maneja los cursos actuales del instructor
-          setCurrentCourses(courses);
         })
         .catch(error => {
           console.error('Error fetching user profile:', error);
         });
     }
   }, [userId]);
-  
+
+
+  const showInstructorCourses = useCallback(() => {
+    if (userId && userId !== '') {
+      axios.get(`http://localhost:3001/users/profile/${userId}`)
+        .then(response => {
+          if (response.data.data.role === 'instructor') {
+            const instructorId = response.data.data._id;
+            axios.get(`http://localhost:3001/instructors/active-courses/${instructorId}`)
+              .then(coursesResponse => {
+                console.log("Courses Response:", coursesResponse.data); // Agrega este log para depuración
+                setActiveCourses(coursesResponse.data.data);
+              })
+              .catch(error => {
+                console.error('Error fetching active courses:', error);
+              });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching user profile:', error);
+        });
+    }
+  }, [userId]);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -46,18 +66,10 @@ const UserProfile = () => {
   }, [navigate]);
 
   useEffect(() => {
-    showData();// Nueva llamada para obtener cursos activos del instructor
-    if (userRole === 'instructor') {
-      axios.get(`http://localhost:3001/instructors/${userId}/currentCourses`)
-        .then(response => {
-          setActiveCourses(response.data.data);
-        })
-        .catch(error => {
-          console.error('Error fetching active courses:', error);
-        });
-    }
-  }, [userId, showData, userRole]);
-  
+    showData();
+    showInstructorCourses();
+  }, [userId, showData, showInstructorCourses]);
+
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
@@ -82,18 +94,24 @@ const UserProfile = () => {
         <button onClick={logOut}>Logout</button>
         <button onClick={goToUserPreferencesForm} >Preferences</button>
       </div>
-      {(userRole === 'instructor' || userRole === 'student') && (
+      {userRole === 'instructor' && activeCourses.length > 0 && (
         <>
-        <p>Current courses</p>
-        <ul className='current-courses-instructor'>
-          {currentCourses.map(course => (
-            <li key={course._id}>
-              <h3>{course.title}</h3>
-              <img src={`http://localhost:3001/course-images/${course.filename}`} alt={`Course: ${course.title}`} />
-            </li>
-          ))}
-        </ul>
-      </>
+          <p className='instructor-courses'>Active Courses</p>
+          <ul className='instructor-active-courses'>
+            {activeCourses.map(course => (
+              <li key={course._id}>
+                <div>
+                  <img src={`http://localhost:3001/user-images/${course.filename}`} alt={course.title} />
+                </div>
+                <div>
+                  <p>{course.title}</p>
+                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} />
+                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
       {userRole === 'admin' && (
         <button onClick={goToManage} className='manage-button'>Manage</button>

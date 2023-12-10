@@ -8,18 +8,15 @@ exports.createCourse = async (req, res) => {
     const { title, description } = req.body;
     const { filename } = req.file;
     const instructorUserId = req.body.instructor;
-
     const instructor = await Instructor.findOne({ user: instructorUserId });
-
     if (!instructor) {
       return res.status(404).json({ success: false, error: 'Instructor not found' });
     }
-
     const newCourse = new Course({
       title,
       description,
       filename,
-      instructor: instructor._id,
+      instructor: instructor.user, 
     });
     await newCourse.save();
     instructor.currentCourses.push(newCourse._id);

@@ -13,4 +13,7 @@ instructorRouter.route('/:_id')
   .put(upload.single('filename'), instructorController.updateInstructor)
   .delete(instructorController.deleteInstructor);
 
+instructorRouter.route('/active-courses/:instructorId')
+  .get(instructorController.getActiveCoursesByInstructorId);
+
 module.exports = instructorRouter;

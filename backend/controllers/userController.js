@@ -49,6 +49,8 @@ exports.createUser = async (req, res) => {
       newUser.filename = req.file.filename;
     }
     await newUser.save();
+    const userId = newUser._id;
+
     if (newUser.role === 'admin') {
       const { username, password, email, phone } = req.body;
       const newAdmin = new Admin({
@@ -81,7 +83,9 @@ exports.createUser = async (req, res) => {
         filename: req.body.filename,
         user: newUser._id,
       });
+
       await newInstructor.save();
+      newRoleUser = newInstructor;
     }
     const token = createToken(newUser);
     res.status(201).json({ success: true, data: { user: newUser, token } });
@@ -201,19 +205,21 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// En tu controlador que maneja la ruta GET /users/profile/:userId
 exports.getUserProfile = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
 
-    // Obtén la información del usuario
     const user = await User.findById(userId).populate('currentCourses');
 
-    // Verifica si el usuario es un instructor
     if (user.role === 'instructor') {
-      // Si es un instructor, también obtenemos los cursos activos
-      const activeCourses = await Course.find({ instructor: userId });
-      user.activeCourses = activeCourses;
+      const instructor = await Instructor.findOne({ user: userId });
+
+      if (instructor) {
+        const activeCourses = await Course.find({ instructor: instructor._id });
+        user.activeCourses = activeCourses;
+      } else {
+        console.error('Instructor not found for the given user ID:', userId);
+      }
     }
 
     res.status(200).json({ success: true, data: user });
@@ -221,3 +227,4 @@ exports.getUserProfile = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+

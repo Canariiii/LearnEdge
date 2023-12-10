@@ -9,13 +9,11 @@ const createCourse = async (title, description, file, instructor) => {
     formData.append("description", description);
     formData.append("file", file);
     formData.append("instructor", instructor);
-
     const response = await axios.post(API_URL, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("Error creating course", error);
