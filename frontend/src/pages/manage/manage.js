@@ -10,7 +10,7 @@ function Manage() {
       <Link to={"/manage-users"}>
       <button className="manage-users" type="submit">Users</button>
       </Link>
-      <Link>
+      <Link to={"/manage-courses"}>
       <button className="manage-courses" type="submit">Courses</button>
       </Link>
     </div>

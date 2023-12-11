@@ -12,6 +12,7 @@ import Manage from "./pages/manage/manage";
 import ManageUsers from "./pages/manageUsers/manageUsers";
 import EdtiCourse from "./pages/editCourse/editCourse";
 import UploadContent from "./pages/uploadContent/uploadContent";
+import ManageCourses from "./pages/manageCourses/manageCourses";
 
 function App() {
   const userRole = localStorage.getItem('role');
@@ -31,6 +32,7 @@ function App() {
         <Route path="/upload-content" element={userRole === 'instructor' ? (<UploadContent />) : (<Navigate to="/home" />)} />
         <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/home" />)} />
         <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
+        <Route path="/manage-courses" element={userRole === 'admin' ? (<ManageCourses />) : (<Navigate to="/home" />)} />
       </Routes>
     </BrowserRouter>
   );
