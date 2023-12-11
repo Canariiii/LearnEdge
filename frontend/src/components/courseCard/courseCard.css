@@ -1,57 +1,81 @@
-.card-container {
+.courses-list {
   display: flex;
-  flex-direction: row;
-  position: absolute;
-  left: 9.65%;
-  top: 32.67%;
-  width: 18.33%;
-  height: 28.67%;
-  background-color: white;
-  border: 1px solid #000000;
-  border-radius: 15px;
-  justify-content: space-between;
+  position: fixed;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  list-style: none;
+  top: 24.67%;
+  left: 0;
+  width: 98%;
 }
 
-
-.card-image {
-  display: flex;
+.courses-list li {
   position: relative;
-  left: 0%;
-  top: 0%;
-  width: 100%;
-  height: 50.67%;
-  border: 1px solid #000000;
-  border-radius: 15px 15px 0px 0px;
-}
-
-.card-content {
   display: flex;
-  position: absolute;
-  left: 1%;
-  top: 55%;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  width: calc(25% - 20px);
+  height: 258px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 
-.card-title {
-  font-size: 18px;
+.courses-list li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 100%;
+  height: 50%;
+  border-radius: 15px 15px 0 0;
+}
+
+.courses-list img {
+  position: absolute;
+  width: 100.7%;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+  top: 0;
+  left: -0.3%;
+}
+
+.courses-list p {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 8px;
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
+  color: #333;
+  margin: 10px 0;
 }
 
-.card-button {
-  position: absolute;
-  top: 160%;
-  left: 90%;
-  width: 200%;
-  height: 150%;
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  background-color: #000000;
-  color: white;
-  border-radius: 10px;
+.courses-list span {
+  width: 100%;
+  text-align: center;
+  color: #777;
+}
+
+.courses-list button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: black;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.courses-list button:hover {
+  background-color: black;
 }

@@ -1,7 +1,7 @@
 .course-text{
     color: black;
     display: flex;
-    position: absolute;
+    position: fixed;
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;

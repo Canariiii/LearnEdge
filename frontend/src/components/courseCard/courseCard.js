@@ -1,21 +1,48 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { getCourses } from '../../services/courseService';
 import './courseCard.css';
 
-const CourseCard = ({ course }) => {
-  const { _id, title, filename } = course;
+const CoursesList = () => {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await getCourses();
+        console.log('Respuesta del servidor:', response);
+        setCourses(Array.isArray(response.data) ? response.data : []);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error('Error al obtener cursos:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   return (
-    <div className="card-container">
-      {filename && <img className="card-image" src={`http://localhost:3001/user-images/${filename}`} alt={title} />}
-      <div className="card-content">
-        <div className="card-title">{title}</div>
-        <Link to={`/course/${_id}`}>
-          <button className="card-button">Join</button>
-        </Link>
-      </div>
+    <div>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <ul className='courses-list'>
+          {courses.map(course => (
+            <li key={course._id}>
+              <div>
+                <img src={`http://localhost:3001/user-images/${course.filename}`} alt={course.title}></img>
+              </div>
+              <div>
+                <p>{course.title}</p>
+                <button>Join</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
 
-export default CourseCard;
+export default CoursesList;
