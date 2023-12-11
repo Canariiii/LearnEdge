@@ -66,10 +66,21 @@ const deleteCourse = async (courseId) => {
   }
 };
 
+const deleteCourseById = async (courseId) => {
+  try {
+    const response = await axios.delete(`${API_URL}/${courseId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting course with ID ${courseId}`, error);
+    throw error;
+  }
+};
+
 export {
   createCourse,
   getCourses,
   getCourseById,
   updateCourse,
   deleteCourse,
+  deleteCourseById,
 };
