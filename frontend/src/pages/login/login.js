@@ -48,7 +48,7 @@ function Login() {
 
   return (
     <div className='login-container'>
-      <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img logo' />
+      <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img logo'  />
       <img src={process.env.PUBLIC_URL + '/assets/img/background.jpg'} alt='background' className='background-img' />
       <p className='welcome'>Welcome Back .!</p>
       <div className='line-login'></div>

@@ -15,7 +15,7 @@ const NavBar = () => {
   }, [location.pathname]);
   return (
     <header className="navbar">
-      <img className='logo-img-home' src="/assets/img/logo.png" alt="" height={50} />
+      <img className='logo-img-home' src="/assets/img/logo.png" alt="logo" height={50} />
       <div className='navbar-container'>
         <nav className="navbar">
           <ul className="nav-links">

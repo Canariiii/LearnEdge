@@ -10,7 +10,6 @@ const CoursesList = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [userRole, setUserRole] = useState('');
-  const [courses, setCourses] = useState([]);
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
@@ -23,16 +22,6 @@ const CoursesList = () => {
         });
     }
   }, [userId]);
-
-  const fetchCourses = useCallback(() => {
-    axios.get('http://localhost:3001/courses')
-      .then(response => {
-        setCourses(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching courses:', error);
-      });
-  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -47,8 +36,7 @@ const CoursesList = () => {
 
   useEffect(() => {
     showData();
-    fetchCourses();
-  }, [userId, showData, fetchCourses]);
+  }, [userId, showData]);
 
   return (
     <div>
@@ -57,12 +45,7 @@ const CoursesList = () => {
           <Button className='create-course'>Create Course</Button>
         )}
       </Link>
-
-      <div className="course-cards">
-        {courses.map(course => (
-          <CourseCard key={course._id} course={course} />
-        ))}
-      </div>
+      <CourseCard />
     </div>
   );
 };

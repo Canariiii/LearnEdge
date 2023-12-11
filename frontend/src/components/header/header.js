@@ -48,23 +48,22 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div>
-        <img src={'/assets/img/logoBlack.png'} alt="Logo" className="logo" onClick={goToHome} />
+      <div className="logo-container">
+        <img src={'/assets/img/logoBlack.png'} alt="Logo" className="logo-header" onClick={goToHome} />
       </div>
-      <div className='line-header'></div>
       <div>
         <ul className='home-container'>
           <li className='li-home'><a href='/home'>Home</a></li>
           <li className='li-courses'><a href='/courses'>Courses</a></li>
           <li className='li-my-courses'>My Courses</li>
-          <Link to={'/profile'}>
-            <img className='user-pic' src={filename} alt='pic' ></img>
-          </Link>
         </ul>
       </div>
       <FontAwesomeIcon className='bell-icon' icon={faBell} />
-      <div className='right-line-header'></div>
-      <div className='line-bottom-header'></div>
+      <div className="user-pic-container">
+        <Link to={'/profile'}>
+          <img src={filename} alt='pic' ></img>
+        </Link>
+      </div>
     </header>
   );
 }

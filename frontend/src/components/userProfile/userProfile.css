@@ -186,6 +186,7 @@
   .button-container button:nth-of-type(1) {
     top: 85%;
     width: 30%;
+    z-index: 100;
   }
 
   .button-container button:nth-of-type(2) {
@@ -198,5 +199,37 @@
     top: 85%;
     left: 66%;
     width: 30%;
+  }
+
+  .upload-content {
+    top: 85%;
+    left: 66%;
+    width: 30%;
+  }
+
+  .instructor-courses {
+    position: absolute;
+    left: 27.5%;
+    top: 45%;
+    overflow-y: visible;
+  }
+
+  .instructor-active-courses {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 5%;
+    top: 49%;
+    z-index: 99;
+  }
+
+  .instructor-active-courses img {
+    position: absolute;
+    left: 5%;
+  }
+
+  .instructor-active-courses p {
+    position: relative;
+    overflow-y: visible;
   }
 }
