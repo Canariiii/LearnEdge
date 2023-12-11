@@ -14,7 +14,7 @@ exports.createInstructor = async (req, res) => {
     });
     await newInstructor.save();
     const newCourse = new Course({
-      title: req.body.courseTitle,  // Asegúrate de ajustar esto según tu modelo Course
+      title: req.body.courseTitle,  
       description: req.body.courseDescription,
       instructor: newInstructor._id,
     });
@@ -86,10 +86,7 @@ exports.deleteInstructor = async (req, res) => {
     if (instructor.role !== 'instructor') {
       return res.status(403).json({ success: false, error: 'Access denied. You are not an instructor.' });
     }
-
-    // Eliminar referencia al instructor en el usuario
     await User.findByIdAndUpdate(instructor.user, { $unset: { role: 1 } });
-
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
     console.error('Error deleting instructor:', error);

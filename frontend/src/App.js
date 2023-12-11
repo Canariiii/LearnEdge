@@ -11,6 +11,7 @@ import CreateCourse from "./pages/createCourse/createCourse";
 import Manage from "./pages/manage/manage";
 import ManageUsers from "./pages/manageUsers/manageUsers";
 import EdtiCourse from "./pages/editCourse/editCourse";
+import UploadContent from "./pages/uploadContent/uploadContent";
 
 function App() {
   const userRole = localStorage.getItem('role');
@@ -27,6 +28,7 @@ function App() {
         <Route path="/user-preferences-form" element={<UserPreferences />} />
         <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : (<Navigate to="/home" />)} />
         <Route path="/edit-course/:courseId" element={userRole === 'instructor' ? (<EdtiCourse />) : (<Navigate to="/home" />)} />
+        <Route path="/upload-content" element={userRole === 'instructor' ? (<UploadContent />) : (<Navigate to="/home" />)} />
         <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/home" />)} />
         <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
       </Routes>

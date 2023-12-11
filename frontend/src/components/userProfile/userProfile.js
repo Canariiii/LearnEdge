@@ -14,7 +14,7 @@ const UserProfile = () => {
   const [userId, setUserId] = useState('');
   const [userRole, setUserRole] = useState('');
   const [activeCourses, setActiveCourses] = useState([]);
-
+  
   const showData = useCallback(() => {
     if (userId && userId !== '') {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
@@ -100,6 +100,11 @@ const UserProfile = () => {
   const goToEditCourse = (courseId) => {
     navigate(`/edit-course/${courseId}`);
   }
+
+  const goToUploadCont = () => {
+    navigate('/upload-content');
+  }
+
   return (
     <div className='user-container'>
       <img src={filename} alt='profilePic' />
@@ -126,6 +131,7 @@ const UserProfile = () => {
               </li>
             ))}
           </ul>
+          <button className='upload-content' onClick={goToUploadCont}>Upload Content</button>
         </>
       )}
       {userRole === 'admin' && (

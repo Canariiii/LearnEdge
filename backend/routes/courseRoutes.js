@@ -17,4 +17,5 @@ courseRouter.route('/:courseId')
 courseRouter.route('/update/:courseId')
   .put(upload.single('file'), courseController.updateCourseById);
 
+
 module.exports = courseRouter;

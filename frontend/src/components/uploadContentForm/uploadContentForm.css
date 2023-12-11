@@ -1,0 +1,45 @@
+.upload-container p {
+    display: flex;
+    position: absolute;
+    left: 10%;
+    top: 25%;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.upload-container button {
+    display: flex;
+    position: fixed;
+    left: 30%;
+    top: 80%;
+    width: 20%;
+    height: 10%;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.fileLabel-content {
+    box-sizing: border-box;
+    position: absolute;
+    left: 10%;
+    top: 40.5%;
+    width: 20%;
+    height: 5%;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }

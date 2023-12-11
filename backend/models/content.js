@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 const Course = require('./course');
+const User = require('./user'); // Importa el modelo de usuario
 
 const contentSchema = new mongoose.Schema({
   contentType: {
     type: String,
-    required: true
+    required: true,
   },
   contentData: {
     type: String,
-    required: true
+    required: true,
   },
-  associatedCourse: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course'
-  }
+    ref: 'User',
+    required: true,
+  },
 });
 
 const Content = mongoose.model('Content', contentSchema);

@@ -4,18 +4,16 @@ const Course = require('../models/course');
 
 exports.createContent = async (req, res) => {
   try {
-    const { contentType, contentData, courseId } = req.body;
-    const newContent = new Content({ contentType, contentData, associatedCourse: courseId });
-    const savedContent = await newContent.save(); // Guarda el contenido y obtén el objeto guardado
-    await Course.findByIdAndUpdate(courseId, { $push: { contents: savedContent._id } });
+    const { contentType, contentData } = req.body;
+    const userId = req.body.user;
+    const newContent = new Content({ contentType, contentData, user: userId });
+    const savedContent = await newContent.save();
 
-    const contentId = savedContent._id;
-    res.status(201).json({ success: true, data: { newContent, contentId } });
+    res.status(201).json({ success: true, data: { newContent } });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
 
 exports.getContentAll = async (req, res) => {
   try {

@@ -8,78 +8,82 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const EditCourseForm = () => {
   const { courseId } = useParams();
   const [showPopup, setShowPopup] = useState(false);
-
   const [courseData, setCourseData] = useState({
     title: "",
-    content: null,
-    description: ""
+    description: "",
+    selectedContent: null,
   });
+  const [contents, setContents] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/courses/${courseId}`)
       .then(response => {
-        const { title, description } = response.data.data;
+        const { title, description, content } = response.data.data;
         setCourseData({
           title,
           description,
-          content: null,
+          selectedContent: content?._id || "", // Usar cadena vacía si content no tiene _id
         });
       })
       .catch(error => {
         console.error('Error fetching course details:', error);
       });
   }, [courseId]);
+  
+  useEffect(() => {
+    axios.get(`http://localhost:3001/content`)
+      .then(response => {
+        setContents(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching content list:', error);
+      });
+  }, []);
 
   const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
     setCourseData({
       ...courseData,
-      content: e.target.files[0] || null,
+      selectedContent: selectedFile,
     });
   };
 
+  const handleContentChange = (e) => {
+    const selectedContentId = e.target.value;
+    console.log('contentId: ', selectedContentId);
+    setCourseData((prevData) => ({
+      ...prevData,
+      selectedContent: selectedContentId,
+    }));
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const formData = new FormData();
-      formData.append('title', courseData.title);
-      formData.append('description', courseData.description);
-      if (courseData.content) {
-        formData.append('courseId', courseId);
-        formData.append('contentType', 'file');
-        formData.append('contentData', courseData.content.name);
-        formData.append('file', courseData.content);
-      }
-      const contentResponse = await axios.post('http://localhost:3001/content', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const updatedCourse = {
+        title: courseData.title,
+        description: courseData.description,
+        contentId: courseData.selectedContent, 
+      };
+  
+      console.log(courseData.selectedContent);
+  
+      const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
+  
+      console.log("Course updated successfully:", courseResponse);
+  
+      setCourseData({
+        title: courseResponse.data.data.title,
+        description: courseResponse.data.data.description,
+        selectedContent: courseResponse.data.data.content?._id || "", 
       });
-      const contentData = contentResponse.data.data.content;
-      if (contentResponse.data.success && contentData && contentData.length > 0) {
-        const contentId = contentData[0]._id;
-        const updatedCourse = {
-          title: courseData.title,
-          description: courseData.description,
-          content: contentId,
-        };
-        const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
-        console.log("PUT Response:", courseResponse);
-        console.log("Course updated successfully:", courseResponse);
-        setCourseData({
-          title: courseResponse.data.data.title,
-          description: courseResponse.data.data.description,
-          content: contentId,
-        });
-      } else {
-        console.error('Error creating content:', contentResponse.data.error );
-      }
     } catch (error) {
       console.error('Error updating course:', error);
-      console.error('Error creating content:', error);
     }
   };
-
+  
+  
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
@@ -91,9 +95,19 @@ const EditCourseForm = () => {
       <form className="edit-course-form" onSubmit={handleSubmit}>
         <p>Title</p>
         <input type="text" name="title" placeholder="New Title" value={courseData.title} onChange={(e) => setCourseData({ ...courseData, title: e.target.value })} />
-        <p>Content</p>
-        <input type="file" id='fileInput' name="content" onChange={handleFileChange} />
-        <label htmlFor='fileInput' className='fileLabel-content'>Search...</label>
+        <select
+          id="contentDropdown"
+          name="content"
+          value={courseData.selectedContent || ""}
+          onChange={handleContentChange}
+        >
+          <option value="" disabled>Select Content</option>
+          {contents.map(content => (
+            <option key={content._id} value={content._id}>
+              {content.contentData}
+            </option>
+          ))}
+        </select>
         <p>Description</p>
         <input type="text" name="description" placeholder="New Description" value={courseData.description} onChange={(e) => setCourseData({ ...courseData, description: e.target.value })} />
         <p>Change Course Pic</p>
