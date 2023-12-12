@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getCourses, joinCourse } from '../../services/courseService';
 import './courseCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -24,14 +26,11 @@ const CoursesList = () => {
 
   const handleJoinCourse = async (courseId) => {
     try {
-      // Obtén el studentId de tu lógica de autenticación o cualquier otra fuente
-      const studentId = '6578df24916b260bca8bec08';  // Reemplaza esto con la lógica real para obtener el studentId
-
+      const studentId = localStorage.getItem('userId');  
       const response = await joinCourse(courseId, studentId);
-
       if (response.success) {
         console.log('Successfully joined the course!');
-        // Puedes realizar alguna acción adicional aquí, como actualizar el estado de los cursos o redirigir al usuario
+        navigate(`/course/${courseId}`);
       } else {
         console.error('Failed to join the course.');
       }
