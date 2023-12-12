@@ -31,7 +31,7 @@ exports.createCourse = async (req, res) => {
 exports.getCourses = async (req, res) => {
   try {
     const courses = await Course.find().populate(['enrolledStudents', 'instructor']);
-    console.log(courses);  
+    console.log(courses);
     res.status(200).json({ success: true, data: courses });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -79,14 +79,16 @@ exports.updateCourse = async (req, res) => {
 };
 
 exports.updateCourseById = async (req, res) => {
+  console.log(req.file);
   try {
     const { title, description, instructorId } = req.body;
     const courseId = req.params.courseId;
     const contentId = req.body.contentId;
     const instructor = req.body.instructorId;
+    const filename = req.file.filename;
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
-      { title, description, content: contentId, instructor: instructorId }, 
+      { title, description, filename, content: contentId, instructor: instructorId },
       { new: true }
     ).populate('content').populate('instructor');
     if (!updatedCourse) {

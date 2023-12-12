@@ -2,12 +2,12 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/courses';
 
-const createCourse = async (title, description, file, instructor) => {
+const createCourse = async (title, description, filename, instructor) => {
   try {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("file", file);
+    formData.append("file", filename);
     formData.append("instructor", instructor);
     const response = await axios.post(API_URL, formData, {
       headers: {

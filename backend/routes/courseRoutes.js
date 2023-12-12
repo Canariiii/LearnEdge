@@ -6,12 +6,12 @@ const upload = require('../multer/upload');
 const courseRouter = express.Router();
 
 courseRouter.route('/')
-  .post(upload.single('file'), courseController.createCourse)
+  .post(upload.single('filename'), courseController.createCourse)
   .get(courseController.getCourses);
 
 courseRouter.route('/:courseId')
   .get(courseController.getCourseById)
-  .put(upload.single('file'), courseController.updateCourseById)
+  .put(upload.single('filename'), courseController.updateCourseById)
   .delete(courseController.deleteCourse); 
 
 courseRouter.route('/update/:courseId')
