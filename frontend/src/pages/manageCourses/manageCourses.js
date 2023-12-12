@@ -13,6 +13,7 @@ function ManageCourses({ onClose }) {
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
+    filename: '',
     selectedContent: null,
     selectedInstructor: null,
   });
@@ -29,6 +30,10 @@ function ManageCourses({ onClose }) {
       return;
     }
     setCoursePicture(file);
+    setCourseData((prevData) => ({
+      ...prevData,
+      filename: file.name,
+    }));
   };
 
   const fetchCourses = async () => {
@@ -58,7 +63,7 @@ function ManageCourses({ onClose }) {
     const selectedInstructorId = e.target.value;
     try {
       const response = await axios.get(`http://localhost:3001/instructors/${selectedInstructorId}`);
-      const selectedInstructor = response.data.data 
+      const selectedInstructor = response.data.data
       console.log(selectedInstructor);
       setCourseData((prevData) => ({
         ...prevData,
@@ -94,6 +99,7 @@ function ManageCourses({ onClose }) {
       const updatedCourse = {
         title: courseData.title,
         description: courseData.description,
+        filename: courseData.filename,
         contentId: courseData.selectedContent,
         instructorId: courseData.selectedInstructor,
       };
@@ -140,7 +146,6 @@ function ManageCourses({ onClose }) {
           description: courseData.description || '',
           content: courseData.content,
           instructor: courseData.instructor,
-          filename: coursePicture
         });
         setCurrentPic(courseData.filename || null);
       }
@@ -240,7 +245,7 @@ function ManageCourses({ onClose }) {
               </option>
             ))}
           </select>
-          <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)}></input>
+          <input type='file' id='fileInput' value={courseData.filename} onChange={(event) => onChange(event.target.files[0] || null)}></input>
           <label htmlFor='fileInput' className='file-label-courses-form'>Search...</label>
           <button type='submit'>Save Course</button>
         </form>

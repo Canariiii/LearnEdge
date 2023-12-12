@@ -131,8 +131,10 @@ const UserProfile = () => {
               </li>
             ))}
           </ul>
-          <button className='upload-content' onClick={goToUploadCont}>Upload Content</button>
         </>
+      )}
+      {userRole === 'instructor' && (
+        <button className='upload-content' onClick={goToUploadCont}>Upload Content</button>
       )}
       {userRole === 'admin' && (
         <button onClick={goToManage} className='manage-button'>Manage</button>
