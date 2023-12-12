@@ -60,51 +60,34 @@ exports.getCourseById = async (req, res) => {
 exports.updateCourse = async (req, res) => {
   try {
     const courseId = req.params.courseId;
-    const { title, description, content } = req.body;
-    let contentId;
-
-    if (content) {
-      const contentData = {
-        contentType: 'file',
-        contentData: content.contentData,
-      };
-
-      if (content.contentId) {
-        // Si contentId está presente en la solicitud, actualiza el contenido existente
-        console.log('contentId:', content.contentId);
-        const updatedContent = await Content.findByIdAndUpdate(content.contentId, contentData, { new: true });
-        contentId = updatedContent._id;
-      } else {
-        // Si contentId no está presente, crea un nuevo contenido
-        const newContent = new Content(contentData);
-        await newContent.save();
-        contentId = newContent._id;
-      }
+    const { title, description, contentId, filename } = req.body;
+    const courseIdData = await Course.findById(courseId);
+    const instructorUserId = courseIdData.instructor;
+    const instructor = await Instructor.findOne({ user: instructorUserId });
+    if (!instructor) {
+      return res.status(404).json({ success: false, error: 'Instructor not found' });
     }
-
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
-      { title, description, content: contentId }, 
+      { title, description, content: contentId, instructor: instructor._id, filename },
       { new: true }
-    ).populate('content');
-
+    ).populate('content').populate('instructor');
     res.status(200).json({ success: true, data: updatedCourse });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-
 exports.updateCourseById = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, instructorId } = req.body;
     const courseId = req.params.courseId;
     const contentId = req.body.contentId;
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
-      { title, description, content: contentId }, 
+      { title, description, content: contentId, instructor: instructorId }, 
       { new: true }
-    ).populate('content');
+    ).populate('content').populate('instructor');
     if (!updatedCourse) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
@@ -113,8 +96,6 @@ exports.updateCourseById = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
-
 
 exports.deleteCourse = async (req, res) => {
   try {

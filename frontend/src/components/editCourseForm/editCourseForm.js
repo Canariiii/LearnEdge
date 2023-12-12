@@ -22,7 +22,7 @@ const EditCourseForm = () => {
         setCourseData({
           title,
           description,
-          selectedContent: content?._id || "", // Usar cadena vacía si content no tiene _id
+          selectedContent: content?._id || "", 
         });
       })
       .catch(error => {

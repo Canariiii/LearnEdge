@@ -36,8 +36,158 @@
 
 .list-courses {
     list-style: none;
-  padding: 0;
-  position: absolute;
-  left: 6.39%;
-  top: 30%;
+    padding: 0;
+    position: absolute;
+    left: 6.39%;
+    top: 30%;
+}
+
+.edit-course-form-popup {
+    box-sizing: border-box;
+    position: absolute;
+    width: 50.76%;
+    height: 80.44%;
+    left: 25.97%;
+    top: 16.78%;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 7px;
+}
+
+.edit-course-form-popup p:nth-of-type(1) {
+    position: absolute;
+    left: 3.2vw;
+    top: 3vw;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.edit-course-form-popup p:nth-of-type(2) {
+    position: absolute;
+    left: 3.2vw;
+    top: 10vw;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.edit-course-form-popup p:nth-of-type(3) {
+    position: absolute;
+    left: 3.2vw;
+    top: 17vw;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.edit-course-form-popup p:nth-of-type(4) {
+    position: absolute;
+    left: 3.2vw;
+    top: 24vw;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.edit-course-form-popup input:nth-of-type(1) {
+    position: absolute;
+    background: transparent;
+    border: 1px solid #000000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    top: 6.5vw;
+    left: 3.2vw;
+    width: 44vw;
+    height: 3vw;
+}
+
+.edit-course-form-popup input:nth-of-type(2) {
+    position: absolute;
+    background: transparent;
+    border: 1px solid #000000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    top: 13.5vw;
+    left: 3.2vw;
+    width: 44vw;
+    height: 3vw;
+}
+
+.edit-course-form-popup input:nth-of-type(3) {
+    position: fixed;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.edit-course-form-popup select:nth-of-type(1) {
+    position: absolute;
+    background: transparent;
+    border: 1px solid #000000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    top: 20.5vw;
+    left: 3.2vw;
+    width: 44vw;
+    height: 3vw;
+}
+
+.edit-course-form-popup select:nth-of-type(2) {
+    position: absolute;
+    background: transparent;
+    border: 1px solid #000000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    top: 27.5vw;
+    left: 3.2vw;
+    width: 44vw;
+    height: 3vw;
+}
+
+.file-label-courses-form {
+    box-sizing: border-box;
+    position: absolute;
+    width: 40vw;
+    height: 3vw;
+    left: 10%;
+    top: 75%;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.edit-course-form-popup button {
+    position: absolute;
+  left: 35%;
+  top: 85%;
+  width: 30%;
+  height: 10%;
+  border-radius: 20px;
+  border-color: black;
+  background-color: black;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
 }

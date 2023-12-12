@@ -1,23 +1,24 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import './manageCourses.css';
 import { deleteCourseById, getCourses } from '../../services/courseService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import adminUserService from '../../services/adminService';
+import axios from 'axios';
 
-function ManageCourses() {
+function ManageCourses({ onClose }) {
   const [courses, setCourses] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [formData, setFormData] = useState({
+  const [courseData, setCourseData] = useState({
     title: '',
     description: '',
-    filename: '',
     selectedContent: null,
-    selectedUser: null
-  })
+    selectedInstructor: null,
+  });
   const [contents, setContents] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [userId, setUserId] = useState('');
+  const [instructors, setInstructors] = useState('');
+  const [courseId, setCourseId] = useState('');
   const [coursePicture, setCoursePicture] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPic, setCurrentPic] = useState(null);
@@ -33,22 +34,41 @@ function ManageCourses() {
   const fetchCourses = async () => {
     try {
       const response = await getCourses();
-      console.log('Respuesta del servidor:', response);
       setCourses(Array.isArray(response.data) ? response.data : []);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error('Error al obtener cursos:', error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
+  const handleContentChange = (e) => {
+    const selectedContentId = e.target.value;
+    setCourseData((prevData) => ({
+      ...prevData,
+      selectedContent: selectedContentId,
+    }));
+  };
+
+  const handleInstructorChange = (e) => {
+    const selectedInstructorId = e.target.value;
+    const selectedInstructor = instructors.find((instructor) => instructor.user === selectedInstructorId);
+    console.log(selectedInstructor);
+    setCourseData((prevData) => ({
+      ...prevData,
+      selectedInstructor: selectedInstructorId,
+      instructorName: selectedInstructor ? selectedInstructor.username : "",
+    }));
+  };
+
+
   const deleteCourse = async (courseId) => {
     try {
-      const courseExist = courses.find(course => course._id === courseId);
+      const courseExist = courses.find((course) => course._id === courseId);
       if (!courseExist) {
         console.error('Usuario no encontrado:', courseId);
         return;
@@ -62,12 +82,98 @@ function ManageCourses() {
         console.error('Error al eliminar usuario:', error);
       }
     }
-  }
-
-  const togglePopup = (userId) => {
-    setUserId(userId);
-    setShowPopup(!showPopup);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedCourse = {
+        title: courseData.title,
+        description: courseData.description,
+        contentId: courseData.selectedContent,
+        instructorId: courseData.selectedInstructor,
+      };
+      const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, {
+        ...updatedCourse,
+        instructorId: courseData.selectedInstructor,
+      });
+      console.log("Course updated successfully:", courseResponse);
+      setCourseData({
+        title: courseResponse.data.data.title,
+        description: courseResponse.data.data.description,
+        filename: coursePicture,
+        selectedContent: courseResponse.data.data.content?._id || "",
+        selectedInstructor: courseResponse.data.data.instructor?._id || "",
+      });
+
+    } catch (error) {
+      console.error('Error updating course:', error);
+    }
+  };
+  useEffect(() => {
+    if (courseId && typeof courseId === 'string' && courseId.trim() !== '') {
+      adminUserService.getCourseById(courseId)
+        .then((response) => {
+          const courseData = response.data;
+          if (courseData) {
+            setCourseData({
+              title: courseData.title || '',
+              description: courseData.description || '',
+            });
+            setCurrentPic(courseData.filename || null);
+          }
+        })
+        .catch((error) => {
+          console.error('Error al obtener datos del usuario:', error);
+        });
+    }
+  }, [courseId]);
+
+  const handleChange = (e) => {
+    setCourseData({ ...courseData, [e.target.name]: e.target.value });
+  };
+
+  const togglePopup = async (courseId) => {
+    setCourseId(courseId);
+    setShowPopup(!showPopup);
+    try {
+      const response = await adminUserService.getCourseById(courseId);
+      const courseData = response.data;
+      if (courseData) {
+        setCourseData({
+          title: courseData.title || '',
+          description: courseData.description || '',
+          content: courseData.content,
+          instructor: courseData.instructor,
+        });
+        setCurrentPic(courseData.filename || null);
+      }
+    } catch (error) {
+      console.error('Error al obtener datos del curso:', error);
+    }
+  };
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/content`)
+      .then(response => {
+        setContents(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching content list:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/instructors`)
+      .then(response => {
+        setInstructors(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching instructor list:', error);
+      });
+  }, []);
+
+
 
   return (
     <div>
@@ -100,6 +206,48 @@ function ManageCourses() {
             </li>
           ))}
         </ul>
+      )}
+      {showPopup && (
+        <form className='edit-course-form-popup' onSubmit={handleSubmit}>
+          <p>Title</p>
+          <input
+            type='text'
+            name='title'
+            placeholder='New Title'
+            value={courseData.title}
+            onChange={handleChange}
+          />
+          <p>Description</p>
+          <input
+            type='text'
+            name='description'
+            placeholder='New Description'
+            value={courseData.description}
+            onChange={handleChange}
+          />
+          <p>Content</p>
+          <option value="" disabled></option>
+          <select id="contentDropdown" name="content" value={courseData.selectedContent || ""} onChange={handleContentChange}>
+            <option value="" disabled>Select Content</option>
+            {contents.map(content => (
+              <option key={content._id} value={content._id}>
+                {content.contentData}
+              </option>
+            ))}
+          </select>
+          <p>Instructor</p>
+          <select id="instructorDropdown" name="instructor" value={courseData.selectedInstructor || ""} onChange={handleInstructorChange}>
+            <option value="" disabled>Select Instructor</option>
+            {instructors.map(instructor => (
+              <option key={instructor.user} value={instructor.user}>
+                {instructor.username}
+              </option>
+            ))}
+          </select>
+          <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)}></input>
+          <label htmlFor='fileInput' className='file-label-courses-form'>Search...</label>
+          <button type='submit'>Save Course</button>
+        </form>
       )}
     </div>
   );
