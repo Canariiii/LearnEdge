@@ -83,6 +83,7 @@ exports.updateCourseById = async (req, res) => {
     const { title, description, instructorId } = req.body;
     const courseId = req.params.courseId;
     const contentId = req.body.contentId;
+    const instructor = req.body.instructorId;
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
       { title, description, content: contentId, instructor: instructorId }, 

@@ -54,17 +54,21 @@ function ManageCourses({ onClose }) {
     }));
   };
 
-  const handleInstructorChange = (e) => {
+  const handleInstructorChange = async (e) => {
     const selectedInstructorId = e.target.value;
-    const selectedInstructor = instructors.find((instructor) => instructor.user === selectedInstructorId);
-    console.log(selectedInstructor);
-    setCourseData((prevData) => ({
-      ...prevData,
-      selectedInstructor: selectedInstructorId,
-      instructorName: selectedInstructor ? selectedInstructor.username : "",
-    }));
+    try {
+      const response = await axios.get(`http://localhost:3001/instructors/${selectedInstructorId}`);
+      const selectedInstructor = response.data.data 
+      console.log(selectedInstructor);
+      setCourseData((prevData) => ({
+        ...prevData,
+        selectedInstructor: selectedInstructorId,
+        instructorName: selectedInstructor ? selectedInstructor.username : "",
+      }));
+    } catch (error) {
+      console.error('Error al obtener datos del instructor:', error);
+    }
   };
-
 
   const deleteCourse = async (courseId) => {
     try {
@@ -94,18 +98,9 @@ function ManageCourses({ onClose }) {
         instructorId: courseData.selectedInstructor,
       };
       const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, {
-        ...updatedCourse,
-        instructorId: courseData.selectedInstructor,
+        ...updatedCourse
       });
       console.log("Course updated successfully:", courseResponse);
-      setCourseData({
-        title: courseResponse.data.data.title,
-        description: courseResponse.data.data.description,
-        filename: coursePicture,
-        selectedContent: courseResponse.data.data.content?._id || "",
-        selectedInstructor: courseResponse.data.data.instructor?._id || "",
-      });
-
     } catch (error) {
       console.error('Error updating course:', error);
     }
@@ -145,6 +140,7 @@ function ManageCourses({ onClose }) {
           description: courseData.description || '',
           content: courseData.content,
           instructor: courseData.instructor,
+          filename: coursePicture
         });
         setCurrentPic(courseData.filename || null);
       }
@@ -239,7 +235,7 @@ function ManageCourses({ onClose }) {
           <select id="instructorDropdown" name="instructor" value={courseData.selectedInstructor || ""} onChange={handleInstructorChange}>
             <option value="" disabled>Select Instructor</option>
             {instructors.map(instructor => (
-              <option key={instructor.user} value={instructor.user}>
+              <option key={instructor._id} value={instructor._id}>
                 {instructor.username}
               </option>
             ))}
