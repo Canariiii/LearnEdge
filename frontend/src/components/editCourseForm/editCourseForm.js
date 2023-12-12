@@ -66,13 +66,9 @@ const EditCourseForm = () => {
         description: courseData.description,
         contentId: courseData.selectedContent, 
       };
-  
       console.log(courseData.selectedContent);
-  
       const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
-  
       console.log("Course updated successfully:", courseResponse);
-  
       setCourseData({
         title: courseResponse.data.data.title,
         description: courseResponse.data.data.description,

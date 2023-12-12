@@ -44,9 +44,6 @@ const studentSchema = new mongoose.Schema({
   },
   joinCourses: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'Course'
-  }],
-  courseList: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'Course'
   }]
 });
 

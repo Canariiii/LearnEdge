@@ -55,10 +55,13 @@ exports.getStudentById = async (req, res) => {
 exports.updateStudent = async (req, res) => {
   try {
     const updatedStudent = req.body;
-    const student = await Student.findByIdAndUpdate(req.params._id, updatedStudent, {
+    const studentId = req.params._id;
+
+    const student = await Student.findByIdAndUpdate(studentId, updatedStudent, {
       new: true,
       runValidators: true,
     }).populate('joinedCourses');
+
     if (!student) {
       return res.status(404).json({ success: false, error: 'Estudiante no encontrado' });
     }

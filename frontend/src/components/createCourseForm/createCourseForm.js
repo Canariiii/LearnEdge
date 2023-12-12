@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './createCourseForm.css';
-import { createCourse } from '../../services/courseService'; // Ajusta la ruta según tu estructura de carpetas
+import { createCourse } from '../../services/courseService'; 
 
 const CreateCourseForm = () => {
   const [title, setTitle] = useState("");

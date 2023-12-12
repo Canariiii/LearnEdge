@@ -12,10 +12,13 @@ courseRouter.route('/')
 courseRouter.route('/:courseId')
   .get(courseController.getCourseById)
   .put(upload.single('filename'), courseController.updateCourseById)
-  .delete(courseController.deleteCourse); 
+  .delete(courseController.deleteCourse);
 
 courseRouter.route('/update/:courseId')
   .put(upload.single('file'), courseController.updateCourseById);
+
+courseRouter.route('/join/:courseId')
+  .post(courseController.joinCourse);
 
 
 module.exports = courseRouter;

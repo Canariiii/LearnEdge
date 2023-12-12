@@ -6,13 +6,14 @@ import SignUp from "./pages/signup/signup";
 import Signuplogin from "./pages/signuplogin/signuplogin";
 import Profile from "./pages/profile/profile";
 import UserPreferences from "./pages/userPreferences/userPreferences";
-import Course from "./pages/courses/courses";
+import Courses from "./pages/courses/courses";
 import CreateCourse from "./pages/createCourse/createCourse";
 import Manage from "./pages/manage/manage";
 import ManageUsers from "./pages/manageUsers/manageUsers";
 import EdtiCourse from "./pages/editCourse/editCourse";
 import UploadContent from "./pages/uploadContent/uploadContent";
 import ManageCourses from "./pages/manageCourses/manageCourses";
+import Course from "./pages/course/course";
 
 function App() {
   const userRole = localStorage.getItem('role');
@@ -22,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Signuplogin />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/courses" element={<Course />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
@@ -33,6 +34,7 @@ function App() {
         <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/home" />)} />
         <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
         <Route path="/manage-courses" element={userRole === 'admin' ? (<ManageCourses />) : (<Navigate to="/home" />)} />
+        <Route path="/course/:courseId" element={<Course />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,6 +3,7 @@ const Course = require('../models/course');
 const Content = require('../models/content');
 const Instructor = require('../models/instructor');
 const contentController = require('./contentController');
+const Student = require('../models/student'); 
 
 exports.createCourse = async (req, res) => {
   try {
@@ -17,7 +18,7 @@ exports.createCourse = async (req, res) => {
       title,
       description,
       filename,
-      instructor: instructor.user,
+      instructor: instructor._id, 
     });
     await newCourse.save();
     instructor.currentCourses.push(newCourse._id);
@@ -59,13 +60,16 @@ exports.getCourseById = async (req, res) => {
 
 exports.updateCourse = async (req, res) => {
   try {
-    const courseId = req.params.courseId;
-    const { title, description, contentId, filename } = req.body;
+    const courseId = req.params.id;
+    const { title, description, contentId, instructorId, filename } = req.body;
     const courseIdData = await Course.findById(courseId);
     const instructorUserId = courseIdData.instructor;
     const instructor = await Instructor.findOne({ user: instructorUserId });
     if (!instructor) {
       return res.status(404).json({ success: false, error: 'Instructor not found' });
+    }
+    if (filename === undefined) {
+      return res.status(400).json({ success: false, error: "filename is required" });
     }
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
@@ -85,16 +89,40 @@ exports.updateCourseById = async (req, res) => {
     const courseId = req.params.courseId;
     const contentId = req.body.contentId;
     const instructor = req.body.instructorId;
-    const filename = req.file.filename;
+    const filename = req.file.filename; 
+
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
       { title, description, filename, content: contentId, instructor: instructorId },
       { new: true }
     ).populate('content').populate('instructor');
+
     if (!updatedCourse) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
+
     res.status(200).json({ success: true, data: updatedCourse });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
+exports.joinCourse = async (req, res) => {
+  try {
+    const { studentId } = req.body;  
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ success: false, error: 'Course not found' });
+    }
+    if (course.enrolledStudents.includes(studentId)) {
+      return res.status(400).json({ success: false, error: 'Student is already enrolled in the course' });
+    }
+    course.enrolledStudents.push(studentId);
+    await course.save();
+    const student = await Student.findByIdAndUpdate(studentId, { $addToSet: { joinedCourses: courseId } }, { new: true });
+    res.status(200).json({ success: true, data: { course, student } });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

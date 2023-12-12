@@ -3,7 +3,7 @@ import Header from "../../components/header/header";
 import './courses.css';
 import CoursesList from "../../components/coursesList/coursesList";
 
-function Course() {
+function Courses() {
   return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ function Course() {
   );
 }
 
-export default Course;
+export default Courses;

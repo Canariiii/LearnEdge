@@ -7,8 +7,9 @@ const createCourse = async (title, description, filename, instructor) => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("file", filename);
+    formData.append("filename", filename);  // Asegúrate de que el nombre del campo coincida con el esperado en el servidor
     formData.append("instructor", instructor);
+
     const response = await axios.post(API_URL, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -76,6 +77,16 @@ const deleteCourseById = async (courseId) => {
   }
 };
 
+const joinCourse = async (courseId, studentId) => {
+  try {
+    const response = await axios.post(`http://localhost:3001/courses/join/${courseId}`, { studentId });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 export {
   createCourse,
   getCourses,
@@ -83,4 +94,5 @@ export {
   updateCourse,
   deleteCourse,
   deleteCourseById,
+  joinCourse
 };

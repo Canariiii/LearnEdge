@@ -13,28 +13,34 @@ function ManageCourses({ onClose }) {
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
-    filename: '',
     selectedContent: null,
     selectedInstructor: null,
+    filename: '',
   });
   const [contents, setContents] = useState([]);
   const [instructors, setInstructors] = useState('');
   const [courseId, setCourseId] = useState('');
-  const [coursePicture, setCoursePicture] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [coursePicture, setCoursePicture] = useState(null);
   const [currentPic, setCurrentPic] = useState(null);
 
-  const onChange = (file) => {
+  const onChange = (event) => {
+    if (!event || !event.target) {
+      console.error('Event or event.target is undefined');
+      return;
+    }
+    const file = event.target.files[0];
     if (!file) {
-      setCoursePicture(currentPic);
+      console.error('No file selected');
       return;
     }
     setCoursePicture(file);
     setCourseData((prevData) => ({
       ...prevData,
-      filename: file.name,
+      filename: file.name || '',
     }));
   };
+
 
   const fetchCourses = async () => {
     try {
@@ -96,21 +102,26 @@ function ManageCourses({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedCourse = {
-        title: courseData.title,
-        description: courseData.description,
-        filename: courseData.filename,
-        contentId: courseData.selectedContent,
-        instructorId: courseData.selectedInstructor,
-      };
-      const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, {
-        ...updatedCourse
-      });
+      const updatedCourse = new FormData();
+      updatedCourse.append('title', courseData.title || '');
+      updatedCourse.append('description', courseData.description || '');
+      updatedCourse.append('contentId', courseData.selectedContent || '');
+      updatedCourse.append('instructorId', courseData.selectedInstructor || '');
+      if (courseData.filename) {
+        updatedCourse.append('filename', courseData.filename);
+      }
+      const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
+      console.log(courseData);
+      if (typeof onClose === 'function') {
+        onClose();
+      }
       console.log("Course updated successfully:", courseResponse);
     } catch (error) {
-      console.error('Error updating course:', error);
+      console.error('Error updating course:', error.response ? error.response.data : error);
+      console.error('Error updating course:', error.response || error);
     }
   };
+
   useEffect(() => {
     if (courseId && typeof courseId === 'string' && courseId.trim() !== '') {
       adminUserService.getCourseById(courseId)
@@ -120,6 +131,8 @@ function ManageCourses({ onClose }) {
             setCourseData({
               title: courseData.title || '',
               description: courseData.description || '',
+              contentId: courseData.selectedContent,
+              instructorId: courseData.selectedInstructor,
             });
             setCurrentPic(courseData.filename || null);
           }
@@ -132,8 +145,10 @@ function ManageCourses({ onClose }) {
 
   const handleChange = (e) => {
     setCourseData({ ...courseData, [e.target.name]: e.target.value });
+    if (e.target.name === 'filename' && e.target.value !== undefined) {
+      setCourseData({ ...courseData, filename: e.target.value });
+    }
   };
-
   const togglePopup = async (courseId) => {
     setCourseId(courseId);
     setShowPopup(!showPopup);
@@ -144,8 +159,8 @@ function ManageCourses({ onClose }) {
         setCourseData({
           title: courseData.title || '',
           description: courseData.description || '',
-          content: courseData.content,
-          instructor: courseData.instructor,
+          selectedContent: courseData.selectedContent,
+          selectedInstructor: courseData.selectedInstructor,
         });
         setCurrentPic(courseData.filename || null);
       }
@@ -173,8 +188,6 @@ function ManageCourses({ onClose }) {
         console.error('Error fetching instructor list:', error);
       });
   }, []);
-
-
 
   return (
     <div>
@@ -245,7 +258,7 @@ function ManageCourses({ onClose }) {
               </option>
             ))}
           </select>
-          <input type='file' id='fileInput' value={courseData.filename} onChange={(event) => onChange(event.target.files[0] || null)}></input>
+          <input type='file' id='fileInput' onChange={onChange}></input>
           <label htmlFor='fileInput' className='file-label-courses-form'>Search...</label>
           <button type='submit'>Save Course</button>
         </form>
