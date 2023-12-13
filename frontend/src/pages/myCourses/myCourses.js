@@ -30,7 +30,7 @@ function MyCourses() {
       axios.get(`http://localhost:3001/users/profile/${userId}`)
         .then(response => {
           if (response.data.data.role === 'instructor') {
-            const instructorId = response.data.data._id;
+            const instructorId = response.data.data._id; // Change 'user' to '_id'
             axios.get(`http://localhost:3001/instructors/active-courses/${instructorId}`)
               .then(coursesResponse => {
                 console.log("Courses Response:", coursesResponse.data);
@@ -46,6 +46,7 @@ function MyCourses() {
         });
     }
   }, [userId]);
+  
 
   const handleDeleteCourse = (courseId) => {
     deleteCourse(courseId)
@@ -78,7 +79,7 @@ function MyCourses() {
     navigate(`/edit-course/${courseId}`);
   }
 
-  return(
+  return (
     <div>
       <Header />
       <h1 className="my-courses-title">Active Courses</h1>
@@ -93,8 +94,8 @@ function MyCourses() {
                 </div>
                 <div>
                   <p>{course.title}</p>
-                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
-                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
+                  <FontAwesomeIcon className='edit-course-courses' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)} />
+                  <FontAwesomeIcon className='delete-course-courses' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
                 </div>
               </li>
             ))}

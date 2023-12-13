@@ -11,11 +11,11 @@
 
 .list-courses li {
     display: flex;
-    position: relative;
+    position: sticky;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
-    width: 870%;
+    width: 920%;
 }
 
 .list-courses img {

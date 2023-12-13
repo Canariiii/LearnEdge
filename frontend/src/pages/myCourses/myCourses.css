@@ -15,7 +15,7 @@
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
-  width: 950%;
+  width: 1000%;
 }
 
 .instructor-active-courses img {
@@ -49,13 +49,13 @@
 .edit-course-courses {
   cursor: pointer;
   font-size: 15px; 
-  left: 80%;
-  position: fixed;
+  left: 90%;
+  position: absolute;
 }
 
 .delete-course-courses {
   cursor: pointer;
   font-size: 15px; 
-  left: 85%;
-  position: fixed;
+  left: 95%;
+  position: absolute;
 }
