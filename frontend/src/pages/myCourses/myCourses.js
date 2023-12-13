@@ -33,7 +33,7 @@ function MyCourses() {
             const instructorId = response.data.data._id;
             axios.get(`http://localhost:3001/instructors/active-courses/${instructorId}`)
               .then(coursesResponse => {
-                console.log("Courses Response:", coursesResponse.data); 
+                console.log("Courses Response:", coursesResponse.data);
                 setActiveCourses(coursesResponse.data.data);
               })
               .catch(error => {
@@ -83,7 +83,8 @@ function MyCourses() {
       <Header />
       <h1 className="my-courses-title">Active Courses</h1>
       {userRole === 'instructor' && activeCourses.length > 0 && (
-        <>
+        <div>
+          <p className='instructor-courses'>Active Courses</p>
           <ul className='instructor-active-courses'>
             {activeCourses.map(course => (
               <li key={course._id}>
@@ -92,13 +93,13 @@ function MyCourses() {
                 </div>
                 <div>
                   <p>{course.title}</p>
-                  <FontAwesomeIcon className='edit-course-courses' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
-                  <FontAwesomeIcon className='delete-course-courses' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
+                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
+                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
                 </div>
               </li>
             ))}
           </ul>
-        </>
+        </div>
       )}
     </div>
   );

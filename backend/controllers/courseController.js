@@ -21,6 +21,7 @@ exports.createCourse = async (req, res) => {
       instructor: instructor._id, 
     });
     await newCourse.save();
+    console.log(instructorUserId);
     instructor.currentCourses.push(newCourse._id);
     await instructor.save();
     res.status(201).json({ success: true, data: { course: newCourse._id } });
@@ -51,7 +52,6 @@ exports.getCourseById = async (req, res) => {
     if (!course) {
       return res.status(404).json({ success: false, error: 'Course not found' });
     }
-
     res.status(200).json({ success: true, data: course });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

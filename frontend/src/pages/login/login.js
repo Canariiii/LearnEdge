@@ -23,7 +23,6 @@ function Login() {
     try {
       console.log('Logging in with:', { username, password });
       const response = await userService.login({ username, password });
-      console.log('Login response:', response);
       if (response.data.token && response.data.user) {
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('token', response.data.token);

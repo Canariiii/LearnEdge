@@ -61,7 +61,7 @@ const Header = () => {
       <FontAwesomeIcon className='bell-icon' icon={faBell} />
       <div className="user-pic-container">
         <Link to={'/profile'}>
-          <img src={filename} alt='pic' ></img>
+          <img className='user-header-pic' src={filename} alt='pic' ></img>
         </Link>
       </div>
     </header>
