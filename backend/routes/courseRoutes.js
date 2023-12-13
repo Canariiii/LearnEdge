@@ -1,4 +1,3 @@
-// En courseRoutes
 const express = require('express');
 const courseController = require('../controllers/courseController');
 const upload = require('../multer/upload');

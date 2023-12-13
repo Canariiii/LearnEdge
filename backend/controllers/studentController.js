@@ -51,7 +51,6 @@ exports.updateStudent = async (req, res) => {
   try {
     const updatedStudent = req.body;
     const studentId = req.params._id;
-    
     const student = await Student.findByIdAndUpdate(studentId, updatedStudent, {
       new: true,
       runValidators: true,
@@ -67,6 +66,34 @@ exports.updateStudent = async (req, res) => {
     }
     res.status(200).json({ success: true, data: student });
   } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.joinCourse = async (req, res) => {
+  try {
+    const { studentId } = req.body;
+    const courseId = req.params.courseId;
+    console.log('Student ID:', studentId);
+    console.log('Course ID:', courseId);
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ success: false, error: 'Course not found' });
+    }
+    if (course.enrolledStudents.includes(studentId)) {
+      return res.status(400).json({ success: false, error: 'Student is already enrolled in the course' });
+    }
+    course.enrolledStudents.push(studentId);
+    await course.save();
+    const student = await Student.findByIdAndUpdate(
+      studentId,
+      { $addToSet: { joinCourses: mongoose.Types.ObjectId(courseId) } },
+      { new: true }
+    ).populate('joinCourses');
+    console.log('Updated Student:', student);
+    res.status(200).json({ success: true, data: { course, student } });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, error: error.message });
   }
 };

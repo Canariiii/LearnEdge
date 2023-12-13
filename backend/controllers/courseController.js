@@ -107,10 +107,9 @@ exports.updateCourseById = async (req, res) => {
   }
 };
 
-
 exports.joinCourse = async (req, res) => {
   try {
-    const { studentId } = req.body;
+    const { studentId } = req.body.user;
     const courseId = req.params.courseId;
     console.log('Student ID:', studentId);
     console.log('Course ID:', courseId);
