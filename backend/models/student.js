@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Course = require('../models/course');
+const User = require('../models/user');
 
 const studentSchema = new mongoose.Schema({
   username: {
@@ -41,6 +42,11 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: false,
     match: /\.(jpg|jpeg|png|gif|webp)$/
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   joinCourses: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'Course'

@@ -18,7 +18,7 @@ courseRouter.route('/update/:courseId')
   .put(upload.single('file'), courseController.updateCourseById);
 
 courseRouter.route('/join/:courseId')
-  .post(courseController.joinCourse);
+  .post(upload.single('filename'), courseController.joinCourse);
 
 
 module.exports = courseRouter;

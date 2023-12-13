@@ -5,12 +5,7 @@ exports.createStudent = async (req, res) => {
   try {
     const newStudent = new Student(req.body);
     await newStudent.save();
-    const allCourses = await Course.find(); 
-    const courseList = allCourses.map(course => ({
-      title: course.title,
-      filename: course.filename
-    }));
-    res.status(201).json({ success: true, data: { newStudent: { ...newStudent.toObject(), courseList } } });
+    res.status(201).json({ success: true, data: { newStudent: { ...newStudent.toObject() } } });
   } catch (error) {
     console.error('Error al crear estudiante:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -56,20 +51,20 @@ exports.updateStudent = async (req, res) => {
   try {
     const updatedStudent = req.body;
     const studentId = req.params._id;
-
+    
     const student = await Student.findByIdAndUpdate(studentId, updatedStudent, {
       new: true,
       runValidators: true,
     }).populate('joinedCourses');
-
     if (!student) {
       return res.status(404).json({ success: false, error: 'Estudiante no encontrado' });
     }
-
     if (student.role !== 'student') {
       return res.status(403).json({ success: false, error: 'Acceso denegado. No eres un estudiante.' });
     }
-
+    if (!updatedStudent.user) {
+      return res.status(400).json({ success: false, error: 'Campo user no proporcionado' });
+    }
     res.status(200).json({ success: true, data: student });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

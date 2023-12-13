@@ -110,8 +110,10 @@ exports.updateCourseById = async (req, res) => {
 
 exports.joinCourse = async (req, res) => {
   try {
-    const { studentId } = req.body;  
+    const { studentId } = req.body;
     const courseId = req.params.courseId;
+    console.log('Student ID:', studentId);
+    console.log('Course ID:', courseId);
     const course = await Course.findById(courseId);
     if (!course) {
       return res.status(404).json({ success: false, error: 'Course not found' });
@@ -126,8 +128,10 @@ exports.joinCourse = async (req, res) => {
       { $addToSet: { joinCourses: mongoose.Types.ObjectId(courseId) } },
       { new: true }
     ).populate('joinCourses');
+    console.log('Updated Student:', student);
     res.status(200).json({ success: true, data: { course, student } });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, error: error.message });
   }
 };

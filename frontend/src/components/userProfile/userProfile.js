@@ -2,9 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './userProfile.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faX } from '@fortawesome/free-solid-svg-icons';
-import { deleteCourse } from '../../services/courseService';
 
 
 const UserProfile = () => {
@@ -13,7 +10,6 @@ const UserProfile = () => {
   const [filename, setFilename] = useState(null);
   const [userId, setUserId] = useState('');
   const [userRole, setUserRole] = useState('');
-  const [activeCourses, setActiveCourses] = useState([]);
   
   const showData = useCallback(() => {
     if (userId && userId !== '') {
@@ -33,39 +29,6 @@ const UserProfile = () => {
     }
   }, [userId]);
 
-  const showInstructorCourses = useCallback(() => {
-    if (userId && userId !== '') {
-      axios.get(`http://localhost:3001/users/profile/${userId}`)
-        .then(response => {
-          if (response.data.data.role === 'instructor') {
-            const instructorId = response.data.data._id;
-            axios.get(`http://localhost:3001/instructors/active-courses/${instructorId}`)
-              .then(coursesResponse => {
-                console.log("Courses Response:", coursesResponse.data); 
-                setActiveCourses(coursesResponse.data.data);
-              })
-              .catch(error => {
-                console.error('Error fetching active courses:', error);
-              });
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching user profile:', error);
-        });
-    }
-  }, [userId]);
-
-  const handleDeleteCourse = (courseId) => {
-    deleteCourse(courseId)
-      .then((response) => {
-        console.log("Course deleted successfully:", response);
-        showInstructorCourses();
-      })
-      .catch((error) => {
-        console.error("Error deleting course:", error);
-      });
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -79,8 +42,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     showData();
-    showInstructorCourses();
-  }, [userId, showData, showInstructorCourses]);
+  }, [userId, showData]);
 
   const logOut = () => {
     localStorage.removeItem('token');
@@ -97,10 +59,6 @@ const UserProfile = () => {
     navigate('/manage');
   }
 
-  const goToEditCourse = (courseId) => {
-    navigate(`/edit-course/${courseId}`);
-  }
-
   const goToUploadCont = () => {
     navigate('/upload-content');
   }
@@ -114,25 +72,6 @@ const UserProfile = () => {
         <button onClick={logOut}>Logout</button>
         <button onClick={goToUserPreferencesForm} >Preferences</button>
       </div>
-      {userRole === 'instructor' && activeCourses.length > 0 && (
-        <>
-          <p className='instructor-courses'>Active Courses</p>
-          <ul className='instructor-active-courses'>
-            {activeCourses.map(course => (
-              <li key={course._id}>
-                <div>
-                  <img src={`http://localhost:3001/user-images/${course.filename}`} alt={course.title} />
-                </div>
-                <div>
-                  <p>{course.title}</p>
-                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
-                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
       {userRole === 'instructor' && (
         <button className='upload-content' onClick={goToUploadCont}>Upload Content</button>
       )}

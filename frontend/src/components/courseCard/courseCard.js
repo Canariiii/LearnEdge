@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getCourses, joinCourse } from '../../services/courseService';
+import { getCourses } from '../../services/courseService';
 import './courseCard.css';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
+import axios from 'axios';
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [student, setStudent] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,14 +27,13 @@ const CoursesList = () => {
 
   const handleJoinCourse = async (courseId) => {
     try {
-      const studentId = localStorage.getItem('userId');  
-      const response = await joinCourse(courseId, studentId);
-      if (response.success) {
+      const studentId = localStorage.getItem('userId');  // Asegúrate de que este valor es correcto
+      const response = await axios.put(`http://localhost:3001/students/${studentId}`, {
+        joinCourses: [courseId],
+      });
+
+      if (response.data.success) {
         message.success('Successfully joined the course!');
-        setStudent(prevStudent => ({
-          ...prevStudent,
-          joinCourses: [...prevStudent.joinCourses, courseId]
-        }));
         navigate(`/course/${courseId}`);
       } else {
         console.error('Failed to join the course.');
@@ -52,7 +51,7 @@ const CoursesList = () => {
         <p>Cargando...</p>
       ) : (
         <ul className='courses-list'>
-          {courses.map(course => (
+          {courses.map((course) => (
             <li key={course._id}>
               <div>
                 <img src={`http://localhost:3001/user-images/${course.filename}`} alt={course.title}></img>

@@ -14,6 +14,7 @@ import EdtiCourse from "./pages/editCourse/editCourse";
 import UploadContent from "./pages/uploadContent/uploadContent";
 import ManageCourses from "./pages/manageCourses/manageCourses";
 import Course from "./pages/course/course";
+import MyCourses from "./pages/myCourses/myCourses";
 
 function App() {
   const userRole = localStorage.getItem('role');
@@ -35,6 +36,7 @@ function App() {
         <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
         <Route path="/manage-courses" element={userRole === 'admin' ? (<ManageCourses />) : (<Navigate to="/home" />)} />
         <Route path="/course/:courseId" element={<Course />} />
+        <Route path="/my-courses" element={<MyCourses />} />
       </Routes>
     </BrowserRouter>
   );
