@@ -15,7 +15,7 @@ const courseSchema = new Schema({
   filename: {
     type: String,
     required: true,
-    match: /\.(jpg|jpeg|png|gif|webp)$/
+    match: /\.(jpg|jpeg|png|gif|webp|mp4)$/
   },
   content: {
     type: mongoose.Schema.Types.ObjectId,

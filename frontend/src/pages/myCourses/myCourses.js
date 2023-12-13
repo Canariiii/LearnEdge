@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faX } from '@fortawesome/free-solid-svg-icons';
+import './myCourses.css';
 
 function MyCourses() {
   const [userId, setUserId] = useState('');
@@ -80,9 +81,9 @@ function MyCourses() {
   return(
     <div>
       <Header />
+      <h1 className="my-courses-title">Active Courses</h1>
       {userRole === 'instructor' && activeCourses.length > 0 && (
         <>
-          <p className='instructor-courses'>Active Courses</p>
           <ul className='instructor-active-courses'>
             {activeCourses.map(course => (
               <li key={course._id}>
@@ -91,8 +92,8 @@ function MyCourses() {
                 </div>
                 <div>
                   <p>{course.title}</p>
-                  <FontAwesomeIcon className='edit-course' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
-                  <FontAwesomeIcon className='delete-course' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
+                  <FontAwesomeIcon className='edit-course-courses' icon={faPenToSquare} style={{ color: "#000000" }} onClick={() => goToEditCourse(course._id)}/>
+                  <FontAwesomeIcon className='delete-course-courses' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
                 </div>
               </li>
             ))}

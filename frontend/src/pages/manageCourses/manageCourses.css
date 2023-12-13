@@ -15,7 +15,7 @@
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
-    width: 970%;
+    width: 870%;
 }
 
 .list-courses img {
@@ -177,17 +177,17 @@
 
 .edit-course-form-popup button {
     position: absolute;
-  left: 35%;
-  top: 85%;
-  width: 30%;
-  height: 10%;
-  border-radius: 20px;
-  border-color: black;
-  background-color: black;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 20px;
+    left: 35%;
+    top: 85%;
+    width: 30%;
+    height: 10%;
+    border-radius: 20px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
 }

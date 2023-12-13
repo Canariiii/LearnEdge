@@ -39,6 +39,7 @@ function ManageCourses({ onClose }) {
       ...prevData,
       filename: file.name || '',
     }));
+    console.log(file);
   };
 
 
@@ -108,13 +109,12 @@ function ManageCourses({ onClose }) {
       updatedCourse.append('contentId', courseData.selectedContent || '');
       updatedCourse.append('instructorId', courseData.selectedInstructor || '');
       if (courseData.filename) {
-        updatedCourse.append('filename', courseData.filename);
+        updatedCourse.append('file', coursePicture, courseData.filename);
+      } else {
+        updatedCourse.append('file', currentPic);
       }
       const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
       console.log(courseData);
-      if (typeof onClose === 'function') {
-        onClose();
-      }
       console.log("Course updated successfully:", courseResponse);
     } catch (error) {
       console.error('Error updating course:', error.response ? error.response.data : error);

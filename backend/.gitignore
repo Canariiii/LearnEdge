@@ -2,6 +2,7 @@
 
 # dependencies
 public/images/
+public/videos/
 node_modules/
 /.pnp
 .pnp.js

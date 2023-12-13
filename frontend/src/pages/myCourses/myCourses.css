@@ -1,0 +1,61 @@
+.my-courses-title {
+  display: flex;
+  position: absolute;
+  left: 6.39%;
+  top: 17%;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+}
+
+.instructor-active-courses li {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  width: 950%;
+}
+
+.instructor-active-courses img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.instructor-active-courses p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  width: 10%;
+}
+
+.instructor-active-courses span {
+  width: 38%;
+}
+
+.instructor-active-courses {
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  left: 6.39%;
+  top: 30%;
+}
+
+.edit-course-courses {
+  cursor: pointer;
+  font-size: 15px; 
+  left: 80%;
+  position: fixed;
+}
+
+.delete-course-courses {
+  cursor: pointer;
+  font-size: 15px; 
+  left: 85%;
+  position: fixed;
+}

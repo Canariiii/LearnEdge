@@ -101,18 +101,16 @@ const adminUserService = {
       const formData = new FormData();
       formData.append("title", courseData.title);
       formData.append("description", courseData.description);
+      formData.append("contentId", courseData.contentId);
+      formData.append("instructorId", courseData.instructorId);
       if (courseData.filename) {
         formData.append("filename", courseData.filename);
       }
-  
-      formData.append("instructor", courseData.instructor);
-  
       const response = await axios.put(`${API_URL_COURSE}/${courseId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
       return response.data;
     } catch (error) {
       console.error(`Error updating course with ID ${courseId}`, error);

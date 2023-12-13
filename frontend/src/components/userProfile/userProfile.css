@@ -74,63 +74,6 @@
   font-size: 20px;
 }
 
-.instructor-courses {
-  display: flex;
-  position: fixed;
-  left: 75.5%;
-  top: 22%;
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 25px;
-}
-
-.instructor-active-courses li {
-  display: flex;
-  position: relative;
-  align-items: center;
-  padding: 10px 0;
-  margin-bottom: 20%;
-  border-bottom: 1px solid black;
-  width: 470%;
-}
-
-.instructor-active-courses img {
-  min-width: 42px;
-  max-width: 42px;
-  min-height: 42px;
-  max-height: 42px;
-  border-radius: 50%;
-  left: 2.5%;
-  top: 0%;
-  object-fit: cover;
-  position: absolute;
-  margin-right: 10px;
-}
-
-.instructor-active-courses p {
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 25px;
-  margin: 0;
-  width: 10%;
-  position: relative;
-  left: 105%;
-}
-
-.instructor-active-courses span {
-  width: 38%;
-}
-
-.instructor-active-courses {
-  list-style: none;
-  padding: 0;
-  position: absolute;
-  left: 70.39%;
-  top: 30%;
-}
-
 .edit-course {
   cursor: pointer;
   font-size: 15px;
@@ -205,31 +148,5 @@
     top: 85%;
     left: 66%;
     width: 30%;
-  }
-
-  .instructor-courses {
-    position: absolute;
-    left: 27.5%;
-    top: 45%;
-    overflow-y: visible;
-  }
-
-  .instructor-active-courses {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    left: 5%;
-    top: 49%;
-    z-index: 99;
-  }
-
-  .instructor-active-courses img {
-    position: absolute;
-    left: 5%;
-  }
-
-  .instructor-active-courses p {
-    position: relative;
-    overflow-y: visible;
   }
 }
