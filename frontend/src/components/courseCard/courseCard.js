@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { getCourses, joinCourse } from '../../services/courseService';
 import './courseCard.css';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [student, setStudent] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await getCourses();
-        console.log('Respuesta del servidor:', response);
         setCourses(Array.isArray(response.data) ? response.data : []);
         setLoading(false);
       } catch (error) {
@@ -29,13 +30,19 @@ const CoursesList = () => {
       const studentId = localStorage.getItem('userId');  
       const response = await joinCourse(courseId, studentId);
       if (response.success) {
-        console.log('Successfully joined the course!');
+        message.success('Successfully joined the course!');
+        setStudent(prevStudent => ({
+          ...prevStudent,
+          joinCourses: [...prevStudent.joinCourses, courseId]
+        }));
         navigate(`/course/${courseId}`);
       } else {
         console.error('Failed to join the course.');
+        message.error('Failed to join the course.');
       }
     } catch (error) {
       console.error('Error joining the course:', error);
+      message.error('Failed to join the course.');
     }
   };
 

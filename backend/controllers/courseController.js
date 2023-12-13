@@ -121,7 +121,11 @@ exports.joinCourse = async (req, res) => {
     }
     course.enrolledStudents.push(studentId);
     await course.save();
-    const student = await Student.findByIdAndUpdate(studentId, { $addToSet: { joinedCourses: courseId } }, { new: true });
+    const student = await Student.findByIdAndUpdate(
+      studentId,
+      { $addToSet: { joinCourses: mongoose.Types.ObjectId(courseId) } },
+      { new: true }
+    ).populate('joinCourses');
     res.status(200).json({ success: true, data: { course, student } });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
