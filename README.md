@@ -58,14 +58,14 @@
 
   ### Built With
 
-  This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+  This is the technologies that i had to use for this project, company chose.
 
   * [![Express][Express.js]][Express-url]
   * [![React][React.js]][React-url]
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  [Express.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+  [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
   [Express-url]: https://expressjs.com/
   [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
   [React-url]: https://reactjs.org/
