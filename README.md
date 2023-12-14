@@ -32,6 +32,7 @@
     <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#postman">PostMan</a></li>
     <li><a href="#frontend">Frontend</a></li>
+    <li><a href="#appguide">App Guide</a></li>
   </ol>
 </details>
 
@@ -127,9 +128,37 @@ Once we have everything install in our backend, we can continue with the fronten
        npm install
     ```
 
-### User Guide
+### App Guide
 
-<h2>Log In and Sign Up</h2>
+<h2>Log In and Sign Up Guide</h2>
+
+Users will be able to create their account as both roles students and instructors. They won't be able to create account as admin because that won't be a wise thing to do. User if they want to be admin the actual admin is the one that can change the roles of others.
+
+<h2>Users Guide</h2>
+
+As I say before users are allowed to creat two of three of the roles (student and instructors).
+
+If users create their account as students they will be able to join courses and see the content inside of them. Students can join multiple courses at the time not only one. Every user dispite their role can do their own CRUD of their profile. Student also will have their own Active Course page where shows a list of the courses that they are on and there is where they will be able to exit the course.
+
+If users choose to be instructors they will be able not only to create courses but upload content as well. Like students, instructors have an Active Course where they can erease the courses that their are instructor of and edit them.
+
+The admin user which at first theres only one is able to manage both users and courses.
+
+<h2>Courses Guide</h2>
+
+Like I say before to create courses the user must have the role of instructor.
+
+To create a course the instructor need to enter some parematers such as the title, description and a filename(a course picture).
+
+To add content to their course the instructor need to create a content first unless they already have content created. Once the content is uploaded the instructor needs to go to the course that they want to add that content in and do a update of that course.
+
+<h2>Content Guide</h2>
+
+To create content the instructor needs to go to his personal profile page and clic on the Upload Content button and just fill the form which is only an input type file choose the content and post it.
+
+<h2>Admin Guide</h2>
+
+The users with admin role will be able to manage everything on the app. To make that happen in their personal page there's a manage button that takes to the Users CRUD and Courses CRUD. Once there the admins can choose if they want to manage the users or the courses.
 
 ### User Manual
 
