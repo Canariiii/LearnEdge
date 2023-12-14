@@ -9,9 +9,7 @@
 <!-- Logo -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="frontend/public/assets/img/logo.png" alt="Logo" width="120" height="100">
-  </a>
+  <img src="frontend/public/assets/img/logo.png" alt="Logo" width="120" height="100">
   <p align="center">
     Welcome to my company project!
   </p>
@@ -27,15 +25,8 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -49,8 +40,8 @@
   LearnEdge is a Online Course app.
   Design for Mitca Studios.
 
-  Why i choose this project:
-  * The reason i chose this kind of project is because the company that i'm on works with projects for education so i thought what's better than a Online Course app :smile:
+  Why I choose this project:
+  * The reason I chose this kind of project is because the company that i'm on works with projects for education so I thought what's better than a Online Course app :smile:
 
   The idea of the project is simple the users are able to create their accounts as a students or teachers and depend in what role you choose you will be able to create courses and add content to them (teacher) or join courses and see their content (students) 
 
@@ -58,7 +49,7 @@
 
   ### Built With
 
-  This is the technologies that i had to use for this project, company chose.
+  This is the technologies that I had to use for this project, company chose.
 
   * [![Express][Express.js]][Express-url]
   * [![React][React.js]][React-url]
@@ -67,6 +58,12 @@
 
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+  ### Built With
+
+  For this project I have followed the Roadmap from Git(Projects) as our theacher request.
+  <img src="backend/public/img/Roadmap.png">
+
 
   [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
   [Express-url]: https://expressjs.com/
