@@ -26,7 +26,7 @@
       </ul>
     </li>
     <li><a href="#roadmap">RoadMap</a></li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#figma">Figma</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -62,7 +62,13 @@
   ### RoadMap
 
   For this project I have followed the Roadmap from Git(Projects) as our theacher request.
+  <br></br>
   <img src="backend/public/img/Roadmap.png">
+
+  ### Figma
+
+  The mockup has been made in Figma.
+  <a href="https://www.figma.com/file/avrlJiOeIneXq5CDVriOe9/Mitca?type=design&node-id=0-1&mode=design&t=VaqrBnWqjKm7dp3e-0"></a>
 
 
   [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
