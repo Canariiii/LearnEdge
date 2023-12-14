@@ -27,8 +27,8 @@
     </li>
     <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#figma">Figma</a></li>
-    <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#backend">Backend</a></li>
+    <li><a href="#diagrams">Diagrams</a></li>
     
   </ol>
 </details>
@@ -70,20 +70,7 @@
   
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  ### Diagrams
-
-  <h1>Tree Diagram</h1>
-  <img src="backend/public/img/treeDiagram.png"></img>
-  <h2>Data Model</h2>
-  <p>
-    In this project the main CRUD is made in the model Courses because every single class has something to do with it. As a nonSql database our AED teacher told us to do no more than 2 levels.
-  </p>
-  <h2>User Case<h2>
-  <img src="backend/public/img/useCase.png"></img>
-  
-  <p> <p align="right">(<a href="#readme-top">back to top</a>)</p></p>
-
-  ### Backend
+  ## Backend
 
   Let's start installing our project. First backend.
   
@@ -103,6 +90,19 @@
      ```sh
        npm install
      ```
+    
+  ### Diagrams
+
+  <h1>Tree Diagram</h1>
+  <img src="backend/public/img/treeDiagram.png"></img>
+  <h2>Data Model</h2>
+  <p>
+    In this project the main CRUD is made in the model Courses because every single class has something to do with it. As a nonSql database our AED teacher told us to do no more than 2 levels.
+  </p>
+  <h2>User Case<h2>
+  <img src="backend/public/img/useCase.png"></img>
+  
+  <p> <p align="right">(<a href="#readme-top">back to top</a>)</p></p>
 
   [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
   [Express-url]: https://expressjs.com/
