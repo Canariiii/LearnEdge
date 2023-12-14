@@ -64,6 +64,7 @@ exports.createUser = async (req, res) => {
       await newAdmin.save();
     } else if (newUser.role === 'student') {
       const newStudent = new Student({
+        _id: newUser._id,
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
@@ -75,12 +76,13 @@ exports.createUser = async (req, res) => {
       await newStudent.save();
     } else if(newUser.role === 'instructor') {
       const newInstructor = new Instructor({
+        _id: newUser._id,
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
         phone: req.body.phone,
         role: 'instructor',
-        filename: req.body.filename,
+        filename: newUser.filename,
         user: newUser._id,
       });
 

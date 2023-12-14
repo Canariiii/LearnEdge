@@ -3,6 +3,11 @@ const Course = require('../models/course');
 const User = require('../models/user');
 
 const instructorSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   username: {
     type: String,
     required: true
