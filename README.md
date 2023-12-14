@@ -30,6 +30,7 @@
     <li><a href="#backend">Backend</a></li>
     <li><a href="#installmongodb">Install MongoDB</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
+    <li><a href="#usermanual">User Manual</a></li>
     <li><a href="#postman">PostMan</a></li>
     <li><a href="#frontend">Frontend</a></li>
     <li><a href="#appguide">App Guide</a></li>
@@ -186,7 +187,9 @@ The main branch is called "<a href="https://github.com/Canariiii/LearnEdge">main
 
 ## Demo
 
-For users to test the user admin is called ("ADMIN") and his password is ("josejose")
+For users to test the user admin is called ("ADMIN") and his password is ("josejose").
+
+To test the other roles follow the <a href="#usermanual">user manual</a>.
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
