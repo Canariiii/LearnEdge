@@ -27,6 +27,7 @@
     </li>
     <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#figma">Figma</a></li>
+    <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -69,7 +70,17 @@
 
   The mockup has been made in <a href="https://www.figma.com/file/avrlJiOeIneXq5CDVriOe9/Mitca?type=design&node-id=0-1&mode=design&t=VaqrBnWqjKm7dp3e-0">Figma.</a>
   
+  ### Diagrams
 
+  <h1>Tree Diagram</h1>
+  <img src="backend/public/img/treeDiagram.png"></img>
+  <h2>Data Model</h2>
+  <p>
+    In this project the main CRUD is made in the model Courses because every single class has something to do with it. As a nonSql database our AED teacher told us to do no more than 2 levels.
+  </p>
+  <br></br>
+  <h2>User Case<h2>
+  <img src="backend/public/img/useCase.png"></img>
 
   [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
   [Express-url]: https://expressjs.com/
