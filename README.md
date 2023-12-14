@@ -31,6 +31,7 @@
     <li><a href="#installmongodb">Install MongoDB</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#postman">PostMan</a></li>
+    <li><a href="#frontend">Frontend</a></li>
   </ol>
 </details>
 
@@ -128,7 +129,7 @@ Once we have everything install in our backend, we can continue with the fronten
 
 ### User Guide
 
-<h1>Log In and Sign Up</h1>
+<h2>Log In and Sign Up</h2>
 
 ### User Manual
 
