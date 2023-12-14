@@ -25,7 +25,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -59,7 +59,7 @@
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  ### Built With
+  ### RoadMap
 
   For this project I have followed the Roadmap from Git(Projects) as our theacher request.
   <img src="backend/public/img/Roadmap.png">
