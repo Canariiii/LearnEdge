@@ -41,6 +41,7 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
+</details>
 
   <!-- ABOUT THE PROJECT -->
   ## About The Project
@@ -54,4 +55,17 @@
   The idea of the project is simple the users are able to create their accounts as a students or teachers and depend in what role you choose you will be able to create courses and add content to them (teacher) or join courses and see their content (students) 
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
-</details>
+
+  ### Built With
+
+  This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+  * [![Next][Next.js]][Next-url]
+  * [![React][React.js]][React-url]
+
+  <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+  [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+  [Next-url]: https://nextjs.org/
+  [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+  [React-url]: https://reactjs.org/
