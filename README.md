@@ -81,7 +81,7 @@
   <h2>User Case<h2>
   <img src="backend/public/img/useCase.png"></img>
   
-  <p align="right">(<a href="#readme-top">back to top</a>)</p>
+  <p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
 
   ### Backend
 
@@ -99,7 +99,7 @@
      ```sh
         cd learnedge/backend/
      ```
-  4. npm
+  4. Install NPM packages
      ```sh
        npm install
      ```
