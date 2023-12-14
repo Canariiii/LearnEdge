@@ -9,7 +9,7 @@
 <!-- Logo -->
 <br />
 <div align="center">
-  <img src="frontend/public/assets/img/logo.png" alt="Logo" width="120" height="100">
+  <img src="frontend/public/assets/img/logo.png" alt="Logo" width="150" height="100">
   <p align="center">
     Welcome to my company project!
   </p>
@@ -28,9 +28,9 @@
     <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#figma">Figma</a></li>
     <li><a href="#backend">Backend</a></li>
+    <li><a href="#installmongodb">Install MongoDB</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#postman">PostMan</a></li>
-    <li><a href=""#installmongodb>Install MongoDB</a></li>
   </ol>
 </details>
 
@@ -112,6 +112,27 @@ To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/
 Here's is a link to see al the end-points working with <a href="https://documenter.getpostman.com/view/30153359/2s9YkkfNm5">PostMan</a> tool.
 
 <p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
+
+## Frontend
+
+Once we have everything install in our backend, we can continue with the frontend.
+
+1. Go to the dir backend/    
+    ```sh
+       cd learnedge/frontend/
+    ```
+2. Install NPM packages
+    ```sh
+       npm install
+    ```
+
+### User Guide
+
+<h1>Log In and Sign Up</h1>
+
+### User Manual
+
+Here is the user manual.
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
