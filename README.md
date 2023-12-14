@@ -30,7 +30,7 @@
     <li><a href="#backend">Backend</a></li>
     <li><a href="#installmongodb">Install MongoDB</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
-    <li><a href="#usermanual">User Manual</a></li>
+    <li><a href="#user-manual">User Manual</a></li>
     <li><a href="#postman">PostMan</a></li>
     <li><a href="#frontend">Frontend</a></li>
     <li><a href="#appguide">App Guide</a></li>
