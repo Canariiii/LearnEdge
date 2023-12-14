@@ -29,7 +29,7 @@
     <li><a href="#figma">Figma</a></li>
     <li><a href="#backend">Backend</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
-    
+    <li><a href="#postman">PostMan</a></li>
   </ol>
 </details>
 
@@ -102,7 +102,7 @@ Let's start installing our project. First backend.
   
 <p> <p align="right">(<a href="#readme-top">back to top</a>)</p></p>
 
-### Postman
+### PostMan
 
 Here's is a link to see al the end-points working with <a href="https://web.postman.co/documentation/30153359-832fe406-1524-4aef-a660-0d19af13ca2f/publish?workspaceId=42486148-2393-49f2-81bc-848c0fb2eb6c#content">PostMan</a> tool.
 
