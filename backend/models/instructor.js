@@ -48,7 +48,6 @@ const instructorSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  coursesTaught: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
   currentCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
 });
 
