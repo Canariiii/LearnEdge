@@ -164,6 +164,12 @@ The users with admin role will be able to manage everything on the app. To make 
 
 Here is the user manual.
 
+### Icons and Components
+
+The icons used in the app are from <a href="https://ant.design/components/icon">Ant Design</a> and <a href="https://fontawesome.com/icons">FontAwesome</A>.
+
+Components used are from <a href="https://ant.design/components/overview">Ant Design</a>.
+
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
