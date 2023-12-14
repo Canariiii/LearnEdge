@@ -30,6 +30,7 @@
     <li><a href="#backend">Backend</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#postman">PostMan</a></li>
+    <li><a href=""#installmongodb>Install MongoDB</a></li>
   </ol>
 </details>
 
@@ -89,7 +90,11 @@ Let's start installing our project. First backend.
     ```sh
        npm install
     ```
-    
+
+### Install MongoDB
+
+To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/installation/">website</a>
+
 ### Diagrams
 <h1>Tree Diagram</h1>
 <img src="backend/public/img/treeDiagram.png"></img>
