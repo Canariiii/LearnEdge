@@ -81,7 +81,7 @@
   <h2>User Case<h2>
   <img src="backend/public/img/useCase.png"></img>
   
-  <p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
+  <p> <p align="right">(<a href="#readme-top">back to top</a>)</p></p>
 
   ### Backend
 
