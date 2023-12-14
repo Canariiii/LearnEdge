@@ -87,11 +87,22 @@
 
   Let's start installing our project. First backend.
   
-  * npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
+  1. npm
+     ```sh
+       npm install npm@latest -g
+     ```
+  2. Clone the repo
+     ```sh
+       git clone https://github.com/Canariiii/LearnEdge
+     ```
+  3. cd    
+     ```sh
+        cd backend/
+     ```
+  4. npm
+     ```sh
+       npm install
+     ```
 
   [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
   [Express-url]: https://expressjs.com/
