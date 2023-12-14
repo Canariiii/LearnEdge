@@ -95,9 +95,9 @@
      ```sh
        git clone https://github.com/Canariiii/LearnEdge
      ```
-  3. cd    
+  3. Go to the dir backend/    
      ```sh
-        cd backend/
+        cd learnedge/backend/
      ```
   4. npm
      ```sh
