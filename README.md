@@ -108,14 +108,16 @@ To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/
 </p>
 <h2>User Case<h2>
 <img src="backend/public/img/useCase.png"></img>
+
+
   
-<p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## PostMan
 
 Here's is a link to see al the end-points working with <a href="https://documenter.getpostman.com/view/30153359/2s9YkkfNm5">PostMan</a> tool.
 
-<p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Frontend
 
@@ -172,7 +174,7 @@ The icons used in the app are from <a href="https://ant.design/components/icon">
 
 Components used are from <a href="https://ant.design/components/overview">Ant Design</a>.
 
-<p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Repository
 
@@ -180,9 +182,11 @@ I have been working with develop branch and issue branches, each issue branch de
 
 The main branch is called "<a href="https://github.com/Canariiii/LearnEdge">main</a>".
 
-<p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Demo
 
+For users to test the user admin is called ("ADMIN") and his password is ("josejose")
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
