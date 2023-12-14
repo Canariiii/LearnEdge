@@ -28,10 +28,8 @@
     <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#figma">Figma</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#backend">Backend</a></li>
+    
   </ol>
 </details>
 
@@ -84,6 +82,16 @@
   <img src="backend/public/img/useCase.png"></img>
   
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+  ### Backend
+
+  Let's start installing our project. First backend.
+  
+  * npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
 
   [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
   [Express-url]: https://expressjs.com/
