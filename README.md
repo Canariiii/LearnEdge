@@ -72,7 +72,7 @@
   [Express-url]: https://expressjs.com/
   [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
   [React-url]: https://reactjs.org/
-  [Mongoose-ODM]: https://img.shields.io/badge/mongoose-FFA500?style=for-the-badge&logo=express&logoColor=white
+  [Mongoose-ODM]: https://img.shields.io/badge/mongoose-FFA500?style=for-the-badge&logo=mongoose&logoColor=white
   [Mongoose-url]: https://mongoosejs.com/
   [Mongodb]: https://img.shields.io/badge/mongodb-47A248?style=for-the-badge&logo=mongodb&logoColor=white
   [Mongodb-url]: https://www.mongodb.com/
