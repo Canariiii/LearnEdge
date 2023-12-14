@@ -1,0 +1,6 @@
+.course-data-container {
+    display: flex;
+    position: absolute;
+    left: 10%;
+    top: 30%;
+}
