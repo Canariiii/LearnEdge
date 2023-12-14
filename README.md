@@ -55,10 +55,10 @@ The idea of the project is simple the users are able to create their accounts as
 
 This is the technologies that I had to use for this project, company chose.
 
-* [![Express][Express.js]][Express-url]
-* [![React][React.js]][React-url]
-* [![Mongoose-ODM][Mongoose-ODM]][Mongoose-url]
-* [![Mongodb][Mongodb]][Mongodb-url]
+[![Express][Express.js]][Express-url]
+[![React][React.js]][React-url]
+[![Mongoose-ODM][Mongoose-ODM]][Mongoose-url]
+[![Mongodb][Mongodb]][Mongodb-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -189,7 +189,13 @@ The main branch is called "<a href="https://github.com/Canariiii/LearnEdge">main
 
 For users to test the user admin is called ("ADMIN") and his password is ("josejose").
 
-To test the other roles follow the <a href="#usermanual">user manual</a>.
+To test the other roles follow the <a href="#user-manual">user manual</a>.
+
+## Ussability and Accesibility
+
+Here I'm gonna explain how and why i design this app.
+
+I tried to make it minimalist and easy to understand for everyone. 
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
