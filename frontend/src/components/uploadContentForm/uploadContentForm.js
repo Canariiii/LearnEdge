@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import './uploadContentForm.css';
+import { message } from 'antd';
 
 const UploadContentForm = () => {
   const [content, setContent] = useState(null);
@@ -14,7 +15,7 @@ const UploadContentForm = () => {
     try {
       const userId = localStorage.getItem('userId');
       const formData = new FormData();
-      formData.append('user', userId); 
+      formData.append('user', userId);
       formData.append('contentType', 'file');
       formData.append('contentData', content.name);
       formData.append('file', content);
@@ -27,7 +28,9 @@ const UploadContentForm = () => {
 
       if (response.data.success) {
         console.log("Content uploaded successfully:", response.data.data);
+        message.success('Content uploaded');
       } else {
+        message.error('Error on the upload', response.data.error);
         console.error('Error uploading content:', response.data.error || 'Unknown error');
       }
     } catch (error) {

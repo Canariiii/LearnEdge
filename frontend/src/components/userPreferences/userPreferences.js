@@ -3,6 +3,8 @@ import axios from 'axios';
 import './userPreferences.css';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { message } from 'antd';
+
 
 const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose }) => {
   const [formData, setFormData] = useState({
@@ -60,9 +62,11 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
         `http://localhost:3001/users/profile/${userId}`,
         updatedFormData
       );
+      message.success('Successfully updated!');
       window.location.reload();
       console.log('Preferences updated:', response.data);
     } catch (error) {
+      message.error('Error on the update!', error);
       console.error('Error updating preferences:', error);
     }
   };
@@ -82,10 +86,6 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
         <input type='text' name='email' onChange={handleChange} placeholder='new email'></input>
         <p>Phone</p>
         <input type='text' name='phone' onChange={handleChange} placeholder='new phone'></input>
-        <p>Password</p>
-        <input type='text' placeholder='new password' ></input>
-        <p>Repeat Password</p>
-        <input type='text' placeholder='repeat password'></input>
         <p>Change Avatar</p>
         <FontAwesomeIcon icon={faPlus} className='plus-icon' onClick={togglePopup} />
         <button className='save-changes-button' type='submit'>Save Changes</button>
