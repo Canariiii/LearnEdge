@@ -3,7 +3,7 @@ const Course = require('../models/course');
 const Content = require('../models/content');
 const Instructor = require('../models/instructor');
 const contentController = require('./contentController');
-const Student = require('../models/student'); 
+const Student = require('../models/student');
 
 exports.createCourse = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ exports.createCourse = async (req, res) => {
       title,
       description,
       filename,
-      instructor: instructor.user, 
+      instructor: instructor.user,
     });
     await newCourse.save();
     console.log(instructorUserId);
@@ -89,7 +89,7 @@ exports.updateCourseById = async (req, res) => {
     const courseId = req.params.courseId;
     const contentId = req.body.contentId;
     const instructor = req.body.instructorId;
-    const filename = req.file.filename; 
+    const filename = req.file.filename;
 
     const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
@@ -109,10 +109,8 @@ exports.updateCourseById = async (req, res) => {
 
 exports.joinCourse = async (req, res) => {
   try {
-    const { studentId } = req.body.user;
+    const { studentId } = req.body;
     const courseId = req.params.courseId;
-    console.log('Student ID:', studentId);
-    console.log('Course ID:', courseId);
     const course = await Course.findById(courseId);
     if (!course) {
       return res.status(404).json({ success: false, error: 'Course not found' });
@@ -124,16 +122,15 @@ exports.joinCourse = async (req, res) => {
     await course.save();
     const student = await Student.findByIdAndUpdate(
       studentId,
-      { $addToSet: { joinCourses: mongoose.Types.ObjectId(courseId) } },
+      { $addToSet: { joinCourses: courseId } },
       { new: true }
-    ).populate('joinCourses');
-    console.log('Updated Student:', student);
+    );
     res.status(200).json({ success: true, data: { course, student } });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
 
 exports.deleteCourse = async (req, res) => {
   try {

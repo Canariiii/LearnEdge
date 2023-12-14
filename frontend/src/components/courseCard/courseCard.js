@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getCourses } from '../../services/courseService';
+import { getCourses, joinCourse } from '../../services/courseService';
 import './courseCard.css';
-import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { updateStudentCourses } from '../../services/studentService';
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -27,12 +28,10 @@ const CoursesList = () => {
 
   const handleJoinCourse = async (courseId) => {
     try {
-      const studentId = localStorage.getItem('userId');  // Asegúrate de que este valor es correcto
-      const response = await axios.put(`http://localhost:3001/students/${studentId}`, {
-        joinCourses: [courseId],
-      });
-
-      if (response.data.success) {
+      const studentId = localStorage.getItem('userId');
+      await updateStudentCourses(studentId, courseId);
+      const response = await joinCourse(courseId, studentId);
+      if (response.success) {
         message.success('Successfully joined the course!');
         navigate(`/course/${courseId}`);
       } else {

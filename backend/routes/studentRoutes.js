@@ -14,4 +14,7 @@ studentRouter.route('/:_id')
   .put(upload.single('filename'), studentController.updateStudent)
   .delete(studentController.deleteStudent);
 
+studentRouter.route('/:studentId/update-courses')
+  .put(upload.single('filename'), studentController.updateStudentCourses);
+
 module.exports = studentRouter;

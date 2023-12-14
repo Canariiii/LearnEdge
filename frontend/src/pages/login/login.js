@@ -29,7 +29,7 @@ function Login() {
         localStorage.setItem('role', response.data.user.role);
         const userRole = localStorage.getItem('role');
         console.log('UserRole:', userRole);
-        navigate('/home');
+        navigate('/courses');
       } else {
         console.error('Token or user information is missing:', response);
       }
@@ -41,7 +41,7 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/home');
+      navigate('/login');
     }
   }, [navigate]);
 

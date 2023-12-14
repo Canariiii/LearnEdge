@@ -53,7 +53,6 @@ const Header = () => {
       </div>
       <div>
         <ul className='home-container'>
-          <li className='li-home'><a href='/home'>Home</a></li>
           <li className='li-courses'><a href='/courses'>Courses</a></li>
           <li className='li-my-courses'><a href='/my-courses'>My Courses</a></li>
         </ul>

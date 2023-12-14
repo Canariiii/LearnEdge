@@ -78,7 +78,7 @@ function SignUp() {
           <option value='instructor'>instructor</option>
         </select>
         <input className='set-pic' type='file' onChange={handleUserPic} />
-        <Link to='/home'>
+        <Link to='/login'>
           <button className='signup-button' onClick={handleSignUp}>Signup</button>
         </Link>
         <p className='already-signup'>Already registered ? <a href='/login'>Login</a></p>

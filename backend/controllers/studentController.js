@@ -61,9 +61,6 @@ exports.updateStudent = async (req, res) => {
     if (student.role !== 'student') {
       return res.status(403).json({ success: false, error: 'Acceso denegado. No eres un estudiante.' });
     }
-    if (!updatedStudent.user) {
-      return res.status(400).json({ success: false, error: 'Campo user no proporcionado' });
-    }
     res.status(200).json({ success: true, data: student });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -113,3 +110,21 @@ exports.deleteStudent = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+exports.updateStudentCourses = async (req, res) => {
+  try {
+    const studentId = req.params.studentId;
+    const courseId = req.body.courseId;
+
+    const updatedStudent = await Student.findByIdAndUpdate(
+      studentId,
+      { $push: { joinCourses: courseId } },
+      { new: true }
+    );
+
+    res.status(200).json({ success: true, data: updatedStudent });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+

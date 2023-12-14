@@ -60,7 +60,7 @@ body .logo-header {
 .li-courses {
   display: flex;
   position: fixed;
-  left: 36.88%;
+  left: 25.88%;
   top: 4.5%;
   font-family: 'Poppins', sans-serif;
   font-weight: normal;
@@ -69,7 +69,7 @@ body .logo-header {
 .li-my-courses {
   display: flex;
   position: fixed;
-  left: 51.32%;
+  left: 40%;
   top: 4.5%;
   font-family: 'Poppins', sans-serif;
   font-weight: normal;

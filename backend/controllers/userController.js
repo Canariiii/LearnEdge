@@ -219,6 +219,15 @@ exports.getUserProfile = async (req, res) => {
         user.activeCourses = activeCourses;
       } else {
         console.error('Instructor not found for the given user ID:', userId);
+      } 
+      if (user.role === 'student') {
+        specificUserData = await Student.findOne({ user: userId });
+      }
+      if (specificUserData) {
+        const activeCourses = await Course.find({ instructor: specificUserData._id });
+        user.activeCourses = activeCourses;
+      } else {
+        console.error('Usuario específico no encontrado para el ID de usuario dado:', userId);
       }
     }
 
