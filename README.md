@@ -49,8 +49,7 @@
   Design for Mitca Studios.
 
   Why i choose this project:
-  * The reason i chose this kind of project is because the company that i'm on works with projects for education so i thought
-  * what's better than a Online Course app :smile:
+  * The reason i chose this kind of project is because the company that i'm on works with projects for education so i thought what's better than a Online Course app :smile:
 
   The idea of the project is simple the users are able to create their accounts as a students or teachers and depend in what role you choose you will be able to create courses and add content to them (teacher) or join courses and see their content (students) 
 
