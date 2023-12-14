@@ -94,11 +94,11 @@ Let's start installing our project. First backend.
        npm install
     ```
 
-### Install MongoDB
+## Install MongoDB
 
 To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/installation/">website</a>
 
-### Diagrams
+## Diagrams
 <h1>Tree Diagram</h1>
 <img src="backend/public/img/treeDiagram.png"></img>
 <h2>Data Model</h2>
@@ -110,7 +110,7 @@ To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/
   
 <p><p align="right">(<a href="#readme-top">back to top</a>)</p></p>
 
-### PostMan
+## PostMan
 
 Here's is a link to see al the end-points working with <a href="https://documenter.getpostman.com/view/30153359/2s9YkkfNm5">PostMan</a> tool.
 
@@ -129,7 +129,7 @@ Once we have everything install in our backend, we can continue with the fronten
        npm install
     ```
 
-### App Guide
+## App Guide
 
 <h2>Log In and Sign Up Guide</h2>
 
@@ -161,11 +161,11 @@ To create content the instructor needs to go to his personal profile page and cl
 
 The users with admin role will be able to manage everything on the app. To make that happen in their personal page there's a manage button that takes to the Users CRUD and Courses CRUD. Once there the admins can choose if they want to manage the users or the courses.
 
-### User Manual
+## User Manual
 
 Here is the user manual.
 
-### Icons and Components
+## Icons and Components
 
 The icons used in the app are from <a href="https://ant.design/components/icon">Ant Design</a> and <a href="https://fontawesome.com/icons">FontAwesome</A>.
 
