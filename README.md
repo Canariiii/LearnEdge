@@ -46,7 +46,7 @@
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  ### Built With
+  ## Built With
 
   This is the technologies that I had to use for this project, company chose.
 
@@ -58,13 +58,13 @@
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  ### RoadMap
+  ## RoadMap
 
   For this project I have followed the Roadmap from Git(Projects) as our theacher request.
   <br></br>
   <img src="backend/public/img/Roadmap.png">
 
-  ### Figma
+  ## Figma
 
   The mockup has been made in <a href="https://www.figma.com/file/avrlJiOeIneXq5CDVriOe9/Mitca?type=design&node-id=0-1&mode=design&t=VaqrBnWqjKm7dp3e-0">Figma.</a>
   
