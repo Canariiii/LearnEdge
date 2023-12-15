@@ -34,9 +34,10 @@
     <li><a href="#user-manual">User Manual</a></li>
     <li><a href="#postman">PostMan</a></li>
     <li><a href="#frontend">Frontend</a></li>
-    <li><a href="#appguide">App Guide</a></li>
+    <li><a href="#app-guide">App Guide</a></li>
     <li><a href="#icons-and-components">Icons and Components</a></li>
     <li><a href="#repository">Repository</a></li>
+    <li><a href="#technologies-comparison">Technologies Comparison</a></li>
     <li><a href="#ussability-and-accesibility">Ussability and Accesibility</a></li>
     <li><a href="#thoughts-and-conclussions">Thoughts and conclussions</a></li>
   </ol>
@@ -200,6 +201,57 @@ I have been working with develop branch and issue branches, each issue branch de
 The main branch is called "<a href="https://github.com/Canariiii/LearnEdge">main</a>".
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Technologies Comparison
+
+<h3>Application Web</h3>
+
+Advantages:
+
+   * Universal Access: The application can be accessed from any web browser, making it easily accessible for users across different devices and platforms.
+   * Centralized Updates: Updates are implemented on the server, ensuring that users always get the latest version without the need to download or install anything.
+   * Simplified Development: Traditional web development often involves widely known technologies and skills, making it easier to find developers and resources.
+
+Disadvantages:
+
+   * Connection Dependency: Most web applications require an internet  connection to function properly.
+   * Limited Offline Experience: Offline functionality may be limited, depending on the nature of the application and how it's implemented.
+
+
+
+<h3>Hibryd Application</h3>
+
+Advantages:
+
+   * Multiplatform Compatibility: Hybrid applications can run on different platforms, such as iOS and Android, using a shared codebase.
+   * Access to Device Features: They can leverage specific device features like the camera or GPS.
+
+Disadvantages:
+
+   * Limited Performance: Compared to native applications, hybrids may experience slightly lower performance.
+   * Framework Dependency: Hybrid apps may depend on frameworks that can change or become obsolete, impacting long-term sustainability.
+
+<h3>Progressive Application Web (PWA) </h3>
+
+Advantages:
+
+   * Works Offline: PWAs can function even when there's no internet connection, enhancing the user experience.
+   * Automatic Updates: They update automatically when there's a connection, ensuring users always have the latest version.
+   * Storeless Installation: PWAs can be installed directly from the browser without the need for an app store.
+
+Disadvantages:
+
+   * Functionality Limitations: Some device features may not be accessible to PWAs compared to native apps.
+
+Comparison with React, Express, Mongoose, and MongoDB:
+
+   * React: It's a JavaScript library for building user interfaces. It can be used in web and hybrid applications and is compatible with PWA development.
+
+   * Express: It's a Node.js framework commonly used to build web applications and servers. It can be part of a traditional web app or a PWA.
+
+   * Mongoose: It's an Object Document Mapper (ODM) library for MongoDB and Node.js, facilitating interaction with MongoDB databases.
+
+   * MongoDB: It's a NoSQL database that integrates well with Node.js. It can be used in web and hybrid applications.
 
 ## Demo
 
