@@ -167,7 +167,7 @@ The users with admin role will be able to manage everything on the app. To make 
 
 ## User Manual
 
-Here is the user manual.
+Here is the user <a href="backend/public/img/Usual-Manual-LearnEdge.pdf">manual</a>.
 
 ## Icons and Components
 
