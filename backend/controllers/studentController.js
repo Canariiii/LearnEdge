@@ -116,30 +116,33 @@ exports.updateStudentCourses = async (req, res) => {
   try {
     const studentId = req.params.studentId;
     const courseId = req.body.courseId;
-
+    const shouldRemove = req.body.remove || false; 
+    let updateQuery;
+    if (shouldRemove) {
+      updateQuery = { $pull: { joinCourses: courseId } };
+    } else {
+      updateQuery = { $addToSet: { joinCourses: courseId } };
+    }
     const updatedStudent = await Student.findByIdAndUpdate(
       studentId,
-      { $push: { joinCourses: courseId } },
+      updateQuery,
       { new: true }
     );
-
     res.status(200).json({ success: true, data: updatedStudent });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
+
 exports.getActiveCoursesStudent = async (req, res) => {
   try {
     const studentId = req.params.studentId;
-
     if (!mongoose.Types.ObjectId.isValid(studentId)) {
       return res.status(400).json({ success: false, error: 'Invalid studentId' });
     }
-
     const activeCourses = await Course.find({ enrolledStudents: mongoose.Types.ObjectId(studentId) });
     console.log('Active Courses:', activeCourses);
-
     res.status(200).json({ success: true, data: activeCourses });
   } catch (error) {
     console.error('Error in getActiveCoursesByInstructorId:', error);

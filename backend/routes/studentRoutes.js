@@ -15,7 +15,7 @@ studentRouter.route('/:_id')
   .delete(studentController.deleteStudent);
 
 studentRouter.route('/:studentId/update-courses')
-  .put(upload.single('filename'), studentController.updateStudentCourses);
+  .put(studentController.updateStudentCourses);
 
 studentRouter.route('/active-courses/:studentId')
   .get(studentController.getActiveCoursesStudent);

@@ -82,6 +82,25 @@ function MyCourses() {
       });
   };
 
+  const leaveCourse = async (courseId) => {
+    try {
+      // Filtra los cursos activos y actualiza el estado
+      setActiveCourses((prevCourses) => prevCourses.filter((course) => course._id !== courseId));
+  
+      // Si el usuario es un estudiante, actualiza joinCourses en el backend sin eliminar el curso
+      if (userRole === 'student') {
+        const updatedStudent = await axios.put(
+          `http://localhost:3001/students/${userId}/update-courses`,
+          { courseId, remove: true } // Añade un parámetro para indicar que se debe quitar el curso
+        );
+        console.log('Updated Student:', updatedStudent.data.data);
+      }
+    } catch (error) {
+      console.error('Error leaving course:', error);
+    }
+  };
+  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -141,7 +160,7 @@ function MyCourses() {
                 <div>
                   <p>{course.title}</p>
                   <button onClick={() => goToCourse(course._id)}>Continue Course</button>
-                  <FontAwesomeIcon className='delete-course-courses' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
+                  <FontAwesomeIcon className='delete-course-courses' icon={faX} style={{ color: "#000000", }} onClick={() => leaveCourse(course._id)} />
                 </div>
               </li>
             ))}
