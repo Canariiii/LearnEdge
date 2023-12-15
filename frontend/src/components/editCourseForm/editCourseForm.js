@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../../components/header/header';
-import './editCourseForm.css';
-import { deleteCourseById, getCourses } from '../../services/courseService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-import adminUserService from '../../services/adminService';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { message } from 'antd';
+import './editCourseForm.css';
+import { getCourseById } from "../../services/courseService";
 
-function EditCourseForm({ onClose }) {
-  const [courses, setCourses] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
+const EditCourseForm = () => {
+  const { courseId } = useParams();
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
@@ -19,9 +14,7 @@ function EditCourseForm({ onClose }) {
     filename: '',
   });
   const [contents, setContents] = useState([]);
-  const [instructors, setInstructors] = useState('');
-  const [courseId, setCourseId] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [instructors, setInstructors] = useState([]);
   const [coursePicture, setCoursePicture] = useState(null);
   const [currentPic, setCurrentPic] = useState(null);
 
@@ -43,29 +36,40 @@ function EditCourseForm({ onClose }) {
     console.log(file);
   };
 
-
-  const fetchCourses = async () => {
-    try {
-      const response = await getCourses();
-      setCourses(Array.isArray(response.data) ? response.data : []);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error('Error al obtener cursos:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchCourses();
+    axios.get(`http://localhost:3001/instructors`)
+      .then(response => {
+        setInstructors(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching instructor list:', error);
+      });
   }, []);
 
-  const handleContentChange = (e) => {
-    const selectedContentId = e.target.value;
-    setCourseData((prevData) => ({
-      ...prevData,
-      selectedContent: selectedContentId,
-    }));
-  };
+  useEffect(() => {
+    axios.get(`http://localhost:3001/courses/${courseId}`)
+      .then(response => {
+        const { title, description, content } = response.data.data;
+        setCourseData({
+          title,
+          description,
+          selectedContent: content?._id || "",
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching course details:', error);
+      });
+  }, [courseId]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/content`)
+      .then(response => {
+        setContents(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching content list:', error);
+      });
+  }, []);
 
   const handleInstructorChange = async (e) => {
     const selectedInstructorId = e.target.value;
@@ -83,23 +87,14 @@ function EditCourseForm({ onClose }) {
     }
   };
 
-  const deleteCourse = async (courseId) => {
-    try {
-      const courseExist = courses.find((course) => course._id === courseId);
-      if (!courseExist) {
-        console.error('Usuario no encontrado:', courseId);
-        return;
-      }
-      await deleteCourseById(courseId);
-      await fetchCourses();
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        console.error('Usuario no encontrado:', error.response.data.error);
-      } else {
-        console.error('Error al eliminar usuario:', error);
-      }
-    }
+  const handleContentChange = (e) => {
+    const selectedContentId = e.target.value;
+    setCourseData((prevData) => ({
+      ...prevData,
+      selectedContent: selectedContentId,
+    }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -116,10 +111,8 @@ function EditCourseForm({ onClose }) {
       }
       const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
       console.log(courseData);
-      message.success('Course updated!');
       console.log("Course updated successfully:", courseResponse);
     } catch (error) {
-      message.error('Error updating course!', error.response ? error.response.data : error);
       console.error('Error updating course:', error.response ? error.response.data : error);
       console.error('Error updating course:', error.response || error);
     }
@@ -127,7 +120,7 @@ function EditCourseForm({ onClose }) {
 
   useEffect(() => {
     if (courseId && typeof courseId === 'string' && courseId.trim() !== '') {
-      adminUserService.getCourseById(courseId)
+      getCourseById(courseId)
         .then((response) => {
           const courseData = response.data;
           if (courseData) {
@@ -152,108 +145,37 @@ function EditCourseForm({ onClose }) {
       setCourseData({ ...courseData, filename: e.target.value });
     }
   };
-  const togglePopup = async (courseId) => {
-    setCourseId(courseId);
-    setShowPopup(!showPopup);
-    try {
-      const response = await adminUserService.getCourseById(courseId);
-      const courseData = response.data;
-      if (courseData) {
-        setCourseData({
-          title: courseData.title || '',
-          description: courseData.description || '',
-          selectedContent: courseData.selectedContent,
-          selectedInstructor: courseData.selectedInstructor,
-        });
-        setCurrentPic(courseData.filename || null);
-      }
-    } catch (error) {
-      console.error('Error al obtener datos del curso:', error);
-    }
-  };
-
-  useEffect(() => {
-    axios.get(`http://localhost:3001/content`)
-      .then(response => {
-        setContents(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching content list:', error);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios.get(`http://localhost:3001/instructors`)
-      .then(response => {
-        setInstructors(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching instructor list:', error);
-      });
-  }, []);
 
   return (
-    <div>
-      <Header />
-      <h1 className='courses-list-title'>Courses</h1>
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
-        <ul className='list-courses'>
-          {courses.map(course => (
-            <li key={course._id}>
-              <div>
-                <img src={`http://localhost:3001/user-images/${course.filename}`} alt={course.username} />
-              </div>
-              <div>
-                <p>{course.title}</p>
-                <FontAwesomeIcon
-                  className='edit-icon'
-                  icon={faPenToSquare}
-                  style={{ color: "#000000" }}
-                  onClick={() => togglePopup(course._id)}
-                />
-                <FontAwesomeIcon
-                  className='trash-icon'
-                  icon={faTrash}
-                  style={{ color: "#000000" }}
-                  onClick={() => deleteCourse(course._id)}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-      {showPopup && (
-        <form className='edit-course-form-popup' onSubmit={handleSubmit}>
-          <p>Title</p>
-          <input
-            type='text'
-            name='title'
-            placeholder='New Title'
-            value={courseData.title}
-            onChange={handleChange}
-          />
-          <p>Description</p>
-          <input
-            type='text'
-            name='description'
-            placeholder='New Description'
-            value={courseData.description}
-            onChange={handleChange}
-          />
-          <p>Content</p>
-          <option value="" disabled></option>
-          <select id="contentDropdown" name="content" value={courseData.selectedContent || ""} onChange={handleContentChange}>
-            <option value="" disabled>Select Content</option>
-            {contents.map(content => (
-              <option key={content._id} value={content._id}>
-                {content.contentData}
-              </option>
-            ))}
-          </select>
-          <p>Instructor</p>
-          <select id="instructorDropdown" name="instructor" value={courseData.selectedInstructor || ""} onChange={handleInstructorChange}>
+    <form className='edit-course-form-popup' onSubmit={handleSubmit}>
+      <p>Title</p>
+      <input
+        type='text'
+        name='title'
+        placeholder='New Title'
+        value={courseData.title}
+        onChange={handleChange}
+      />
+      <p>Description</p>
+      <input
+        type='text'
+        name='description'
+        placeholder='New Description'
+        value={courseData.description}
+        onChange={handleChange}
+      />
+      <p>Content</p>
+      <option value="" disabled></option>
+      <select id="contentDropdown" name="content" value={courseData.selectedContent || ""} onChange={handleContentChange}>
+        <option value="" disabled>Select Content</option>
+        {contents.map(content => (
+          <option key={content._id} value={content._id}>
+            {content.contentData}
+          </option>
+        ))}
+      </select>
+      <p>Instructor</p>
+      <select id="instructorDropdown" name="instructor" value={courseData.selectedInstructor || ""} onChange={handleInstructorChange}>
             <option value="" disabled>Select Instructor</option>
             {instructors.map(instructor => (
               <option key={instructor._id} value={instructor._id}>
@@ -261,12 +183,10 @@ function EditCourseForm({ onClose }) {
               </option>
             ))}
           </select>
-          <input type='file' id='fileInput' onChange={onChange}></input>
-          <label htmlFor='fileInput' className='file-label-courses-form'>Search...</label>
-          <button type='submit'>Save Course</button>
-        </form>
-      )}
-    </div>
+      <input type='file' id='fileInput' onChange={onChange}></input>
+      <label htmlFor='fileInput' className='file-label-courses-form'>Search...</label>
+      <button type='submit'>Save Course</button>
+    </form>
   );
 }
 
