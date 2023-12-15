@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import './editCourseForm.css';
 import { getCourseById } from "../../services/courseService";
+import { message } from 'antd';
 
 const EditCourseForm = () => {
   const { courseId } = useParams();
@@ -111,8 +112,10 @@ const EditCourseForm = () => {
       }
       const courseResponse = await axios.put(`http://localhost:3001/courses/update/${courseId}`, updatedCourse);
       console.log(courseData);
+      message.success('Course updated!');
       console.log("Course updated successfully:", courseResponse);
     } catch (error) {
+      message.error('Error updating course:', error.response ? error.response.data : error);
       console.error('Error updating course:', error.response ? error.response.data : error);
       console.error('Error updating course:', error.response || error);
     }
