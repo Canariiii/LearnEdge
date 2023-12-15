@@ -28,13 +28,13 @@
     <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#figma">Figma</a></li>
     <li><a href="#backend">Backend</a></li>
-    <li><a href="#installmongodb">Install MongoDB</a></li>
+    <li><a href="#install-mongodb">Install MongoDB</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
     <li><a href="#user-manual">User Manual</a></li>
     <li><a href="#postman">PostMan</a></li>
     <li><a href="#frontend">Frontend</a></li>
     <li><a href="#appguide">App Guide</a></li>
-    <li><a href="#iconsandcomponents">Icons and Components</a></li>
+    <li><a href="#icons-and-components">Icons and Components</a></li>
     <li><a href="#repository">Repository</a></li>
   </ol>
 </details>
