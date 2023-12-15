@@ -9,7 +9,7 @@
 <!-- Logo -->
 <br />
 <div align="center">
-  <img src="frontend/public/assets/img/logo.png" alt="Logo" width="150" height="100">
+  <img src="frontend/public/assets/img/logo.png" alt="Logo" width="200" height="150">
   <p align="center">
     Welcome to my company project!
   </p>
@@ -27,6 +27,7 @@
     </li>
     <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#figma">Figma</a></li>
+    <li><a href="#requirements">Requirements</a></li>
     <li><a href="#backend">Backend</a></li>
     <li><a href="#install-mongodb">Install MongoDB</a></li>
     <li><a href="#diagrams">Diagrams</a></li>
@@ -36,6 +37,8 @@
     <li><a href="#appguide">App Guide</a></li>
     <li><a href="#icons-and-components">Icons and Components</a></li>
     <li><a href="#repository">Repository</a></li>
+    <li><a href="#ussability-and-accesibility">Ussability and Accesibility</a></li>
+    <li><a href="#thoughts-and-conclussions">Thoughts and conclussions</a></li>
   </ol>
 </details>
 
@@ -60,12 +63,12 @@ This is the technologies that I had to use for this project, company chose.
 [![Mongoose-ODM][Mongoose-ODM]][Mongoose-url]
 [![Mongodb][Mongodb]][Mongodb-url]
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## RoadMap
 
-For this project I have followed the Roadmap from Git(Projects) as our theacher request.
+For this project I have followed the Roadmap from Git(Projects) as our theacher request, SCRUMS with our DAD teacher and instead of following the Roadmap given us at the beginning i follow my own which was doing one table and one frontend at a time.
+
 <br></br>
 <img src="backend/public/img/Roadmap.png">
 
@@ -74,6 +77,15 @@ For this project I have followed the Roadmap from Git(Projects) as our theacher 
 The mockup has been made in <a href="https://www.figma.com/file/avrlJiOeIneXq5CDVriOe9/Mitca?type=design&node-id=0-1&mode=design&t=VaqrBnWqjKm7dp3e-0">Figma.</a>
   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Requirements
+
+In order be able to use this app you will need the follow app: 
+
+ * Visual Studio Code
+ * MongoDB Api
+ * NodeJS
+ * Git
 
 ## Backend
 
@@ -105,7 +117,11 @@ To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/
 <img src="backend/public/img/treeDiagram.png"></img>
 <h2>Data Model</h2>
 <p>
-  In this project the main CRUD is made in the model Courses because every single class has something to do with it. As a nonSql database our AED teacher told us to do no more than 2 levels.
+  In this project the main CRUD is made in the model Courses because every single class has something to do with it. 
+  
+  As a nonSql database our AED teacher told us to do no more than 2 levels.
+
+  There's 6 different classes on this project (User,admin,student,instructor,course and content), every one with their attributes and methods.
 </p>
 <h2>User Case<h2>
 <img src="backend/public/img/useCase.png"></img>
@@ -198,6 +214,13 @@ Here I'm gonna explain how and why i design this app.
 I tried to make it minimalist and easy to understand for everyone. 
 
 
+## Thoughts and conclussions
+
+I'm a more Sql person myself but the thing of using a nonSql database before like MongoDB is has been fun because it give the oportunity of learning of documental database.
+
+If the technologieas were have been my choice I maybe will have change from Mongoose and MongoDB to Sequalize and SQL. But the frontend i wouldn't have change it.
+
+I've had fun doing this project 
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/

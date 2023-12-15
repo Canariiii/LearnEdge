@@ -3,7 +3,7 @@ import './header.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = () => {
@@ -14,6 +14,10 @@ const Header = () => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   const showData = useCallback(() => {
@@ -69,12 +73,13 @@ const Header = () => {
         </Link>
       </div>
       <div className="menu-toggle" onClick={toggleMenu}>
-        <div className={`menu-container ${menuOpen ? 'open' : ''}`}>
-          <ul className="menu">
-            <li><a href='/courses'>Courses</a></li>
-            <li><a href='/my-courses'>My Courses</a></li>
-          </ul>
-        </div>
+        <FontAwesomeIcon className={`bars-icon ${menuOpen ? 'open' : ''}`} icon={faBars} style={{ color: "#000000" }} />
+      </div>
+      <div className={`menu-container ${menuOpen ? 'open' : ''}`}>
+        <ul className="menu">
+          <li><a href='/courses' onClick={closeMenu}>Courses</a></li>
+          <li><a href='/my-courses' onClick={closeMenu}>My Courses</a></li>
+        </ul>
       </div>
     </header>
   );
