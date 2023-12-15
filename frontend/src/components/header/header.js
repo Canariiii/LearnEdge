@@ -10,6 +10,11 @@ const Header = () => {
   const navigate = useNavigate();
   const [filename, setFilename] = useState(null);
   const [userId, setUserId] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   const showData = useCallback(() => {
     if (userId && userId !== '') {
@@ -62,6 +67,14 @@ const Header = () => {
         <Link to={'/profile'}>
           <img className='user-header-pic' src={filename} alt='pic' ></img>
         </Link>
+      </div>
+      <div className="menu-toggle" onClick={toggleMenu}>
+        <div className={`menu-container ${menuOpen ? 'open' : ''}`}>
+          <ul className="menu">
+            <li><a href='/courses'>Courses</a></li>
+            <li><a href='/my-courses'>My Courses</a></li>
+          </ul>
+        </div>
       </div>
     </header>
   );
