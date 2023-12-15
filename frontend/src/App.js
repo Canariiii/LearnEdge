@@ -27,12 +27,12 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/user-preferences-form" element={<UserPreferences />} />
-        <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : (<Navigate to="/home" />)} />
-        <Route path="/edit-course/:courseId" element={userRole === 'instructor' ? (<EdtiCourse />) : (<Navigate to="/home" />)} />
-        <Route path="/upload-content" element={userRole === 'instructor' ? (<UploadContent />) : (<Navigate to="/home" />)} />
-        <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/home" />)} />
-        <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/home" />)} />
-        <Route path="/manage-courses" element={userRole === 'admin' ? (<ManageCourses />) : (<Navigate to="/home" />)} />
+        <Route path="/create-course" element={userRole === 'instructor' ? (<CreateCourse />) : (<Navigate to="/courses" />)} />
+        <Route path="/edit-course/:courseId" element={userRole === 'instructor' ? (<EdtiCourse />) : (<Navigate to="/courses" />)} />
+        <Route path="/upload-content" element={userRole === 'instructor' ? (<UploadContent />) : (<Navigate to="/courses" />)} />
+        <Route path="/manage" element={userRole === 'admin' ? <Manage /> : (<Navigate to="/courses" />)} />
+        <Route path="/manage-users" element={userRole === 'admin' ? (<ManageUsers />) : (<Navigate to="/courses" />)} />
+        <Route path="/manage-courses" element={userRole === 'admin' ? (<ManageCourses />) : (<Navigate to="/courses" />)} />
         <Route path="/course/:courseId" element={<Course />} />
         <Route path="/course/:courseId/details" element={<Course />} />
         <Route path="/my-courses" element={<MyCourses />} />

@@ -15,7 +15,7 @@
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
-  width: 1000%;
+  width: 700%;
 }
 
 .active-courses img {
@@ -31,7 +31,7 @@
   font-weight: bold;
   color: #333;
   margin: 0;
-  width: 10%;
+  width: 100%;
 }
 
 .active-courses span {
@@ -72,5 +72,6 @@
   cursor: pointer;
   font-size: 15px; 
   left: 95%;
+  top: 50%;
   position: absolute;
 }

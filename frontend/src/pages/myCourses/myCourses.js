@@ -53,7 +53,7 @@ function MyCourses() {
         .then(response => {
           if (response.data.data.role === 'student') {
             const studentId = response.data.data._id;
-             console.log(response.data.data._id);
+            console.log(response.data.data._id);
             axios.get(`http://localhost:3001/students/active-courses/${studentId}`)
               .then(coursesResponse => {
                 console.log("Courses Response:", coursesResponse.data);
@@ -84,16 +84,17 @@ function MyCourses() {
 
   const leaveCourse = async (courseId) => {
     try {
-      // Filtra los cursos activos y actualiza el estado
-      setActiveCourses((prevCourses) => prevCourses.filter((course) => course._id !== courseId));
-  
-      // Si el usuario es un estudiante, actualiza joinCourses en el backend sin eliminar el curso
       if (userRole === 'student') {
         const updatedStudent = await axios.put(
           `http://localhost:3001/students/${userId}/update-courses`,
-          { courseId, remove: true } // Añade un parámetro para indicar que se debe quitar el curso
+          { courseId, remove: true }
         );
+  
         console.log('Updated Student:', updatedStudent.data.data);
+  
+        // Eliminar duplicados y actualizar la lista
+        const uniqueCourses = Array.from(new Set(updatedStudent.data.data.joinCourses));
+        setActiveCourses((prevCourses) => prevCourses.filter((course) => course._id !== courseId));
       }
     } catch (error) {
       console.error('Error leaving course:', error);
