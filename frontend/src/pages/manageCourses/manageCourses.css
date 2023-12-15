@@ -11,11 +11,11 @@
 
 .list-courses li {
     display: flex;
-    position: sticky;
+    position: relative;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
-    width: 920%;
+    width: 700%;
 }
 
 .list-courses img {
@@ -31,7 +31,7 @@
     font-weight: bold;
     color: #333;
     margin: 0;
-    width: 10%;
+    width: 100%;
 }
 
 .list-courses {
@@ -40,6 +40,7 @@
     position: absolute;
     left: 6.39%;
     top: 30%;
+    width: 12%;
 }
 
 .edit-course-form-popup {
@@ -190,4 +191,12 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 20px;
+}
+
+.arrow-left {
+    position: fixed;
+    left: 5%;
+    top: 14%;
+    cursor: pointer;
+    font-size: 40px;
 }

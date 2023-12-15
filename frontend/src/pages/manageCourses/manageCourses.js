@@ -3,9 +3,10 @@ import Header from '../../components/header/header';
 import './manageCourses.css';
 import { deleteCourseById, getCourses } from '../../services/courseService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import adminUserService from '../../services/adminService';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function ManageCourses({ onClose }) {
   const [courses, setCourses] = useState([]);
@@ -219,6 +220,9 @@ function ManageCourses({ onClose }) {
               </div>
             </li>
           ))}
+          <Link to={'/manage'}>
+            <FontAwesomeIcon className='arrow-left' icon={faArrowRight} rotation={180} style={{ color: "#000000", }} />
+          </Link>
         </ul>
       )}
       {showPopup && (

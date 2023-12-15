@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './manageUsers.css';
 import Header from '../../components/header/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import adminUserService from '../../services/adminService';
+import { message } from 'antd';
+import { Link } from 'react-router-dom';
 
 function ManageUsers({ onClose }) {
   const [users, setUsers] = useState([]);
@@ -74,6 +76,7 @@ function ManageUsers({ onClose }) {
       } else {
         updatedFormData.append('filename', currentPic);
       }
+      message.success('User successfully updated!');
       const response = await adminUserService.updateUserById(userId, updatedFormData);
       console.log('Usuario actualizado:', response.data);
       if (typeof onClose === 'function') {
@@ -81,6 +84,7 @@ function ManageUsers({ onClose }) {
       }
       window.location.reload();
     } catch (error) {
+      message.success('Error updating user: ', error);
       console.error('Error al actualizar usuario:', error);
 
       if (error.response) {
@@ -152,6 +156,9 @@ function ManageUsers({ onClose }) {
               </div>
             </li>
           ))}
+          <Link to={'/manage'}>
+          <FontAwesomeIcon className='arrow-right' icon={faArrowRight} style={{color: "#000000",}} />
+          </Link>
         </ul>
       )}
       {showPopup && (
