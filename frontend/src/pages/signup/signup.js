@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './signup.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { message } from 'antd';
 
 function SignUp() {
 
@@ -51,8 +52,10 @@ function SignUp() {
         localStorage.setItem('token', token);
         localStorage.setItem('role', userRole);
         console.log(response.data);
+        message.success('Account Created!');
       })
       .catch(error => {
+        message.error('Something went wrong!');
         console.error('Error al hacer la solicitud POST:', error);
         console.error('Error en la solicitud POST:', error);
       });

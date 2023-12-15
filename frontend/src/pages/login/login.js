@@ -30,6 +30,7 @@ function Login() {
         localStorage.setItem('role', response.data.user.role);
         const userRole = localStorage.getItem('role');
         console.log('UserRole:', userRole);
+        message.success(`Welcome ${response.data.user.username}`);
         navigate('/courses');
       } else {
         console.error('Token or user information is missing:', response);
@@ -49,7 +50,7 @@ function Login() {
 
   return (
     <div className='login-container'>
-      <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img logo'  />
+      <img src={process.env.PUBLIC_URL + '/assets/img/logo.png'} alt='logo' className='logo-img logo' />
       <img src={process.env.PUBLIC_URL + '/assets/img/background.jpg'} alt='background' className='background-img' />
       <p className='welcome'>Welcome Back .!</p>
       <div className='line-login'></div>

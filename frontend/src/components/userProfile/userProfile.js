@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './userProfile.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { message } from 'antd';
 
 
 const UserProfile = () => {
@@ -48,6 +49,7 @@ const UserProfile = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
+    message.success(`See you later ${username}`)
     navigate('/');
   };
 
