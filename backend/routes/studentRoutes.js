@@ -17,4 +17,7 @@ studentRouter.route('/:_id')
 studentRouter.route('/:studentId/update-courses')
   .put(upload.single('filename'), studentController.updateStudentCourses);
 
+studentRouter.route('/active-courses/:studentId')
+  .get(studentController.getActiveCoursesStudent);
+
 module.exports = studentRouter;

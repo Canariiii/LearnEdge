@@ -9,7 +9,7 @@
   font-size: 50px;
 }
 
-.instructor-active-courses li {
+.active-courses li {
   display: flex;
   position: relative;
   align-items: center;
@@ -18,7 +18,7 @@
   width: 1000%;
 }
 
-.instructor-active-courses img {
+.active-courses img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -26,7 +26,7 @@
   margin-right: 10px;
 }
 
-.instructor-active-courses p {
+.active-courses p {
   font-size: 16px;
   font-weight: bold;
   color: #333;
@@ -34,11 +34,11 @@
   width: 10%;
 }
 
-.instructor-active-courses span {
+.active-courses span {
   width: 38%;
 }
 
-.instructor-active-courses {
+.active-courses {
   list-style: none;
   padding: 0;
   position: absolute;

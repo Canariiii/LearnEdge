@@ -97,14 +97,11 @@ exports.deleteInstructor = async (req, res) => {
 exports.getActiveCoursesByInstructorId = async (req, res) => {
   try {
     const instructorId = req.params.instructorId;
-
     if (!mongoose.Types.ObjectId.isValid(instructorId)) {
       return res.status(400).json({ success: false, error: 'Invalid instructorId' });
     }
-
     const insId = mongoose.Types.ObjectId(instructorId);
     const activeCourses = await Course.find({ instructor: insId }).populate('enrolledStudents');
-
     res.status(200).json({ success: true, data: activeCourses });
   } catch (error) {
     console.error('Error in getActiveCoursesByInstructorId:', error);

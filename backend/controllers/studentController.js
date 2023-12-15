@@ -1,5 +1,6 @@
 const  Student  = require('../models/student');
 const Course = require('../models/course');
+const mongoose = require('mongoose');
 
 exports.createStudent = async (req, res) => {
   try {
@@ -127,4 +128,24 @@ exports.updateStudentCourses = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+exports.getActiveCoursesStudent = async (req, res) => {
+  try {
+    const studentId = req.params.studentId;
+
+    if (!mongoose.Types.ObjectId.isValid(studentId)) {
+      return res.status(400).json({ success: false, error: 'Invalid studentId' });
+    }
+
+    const activeCourses = await Course.find({ enrolledStudents: mongoose.Types.ObjectId(studentId) });
+    console.log('Active Courses:', activeCourses);
+
+    res.status(200).json({ success: true, data: activeCourses });
+  } catch (error) {
+    console.error('Error in getActiveCoursesByInstructorId:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
 
