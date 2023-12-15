@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import { EyeInvisibleOutlined, GoogleOutlined, FacebookOutlined, GithubOutlined, EyeOutlined } from '@ant-design/icons';
 import userService from '../../services/signUpService';
+import { message } from 'antd';
 
 function Login() {
   const [isChecked, setIsChecked] = useState(false);
@@ -34,6 +35,7 @@ function Login() {
         console.error('Token or user information is missing:', response);
       }
     } catch (error) {
+      message.error('Database offline');
       console.error('Error while logging in:', error.response?.data || error.message);
     }
   };

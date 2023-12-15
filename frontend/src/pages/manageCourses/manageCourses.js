@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import './manageCourses.css';
 import { deleteCourseById, getCourses } from '../../services/courseService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faArrowRight, faX } from '@fortawesome/free-solid-svg-icons';
 import adminUserService from '../../services/adminService';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -227,6 +227,7 @@ function ManageCourses({ onClose }) {
       )}
       {showPopup && (
         <form className='edit-course-form-popup' onSubmit={handleSubmit}>
+          <FontAwesomeIcon className='close-user-crud' icon={faX} style={{ color: "#000000", }} onClick={() => setShowPopup(!showPopup)} />
           <p>Title</p>
           <input
             type='text'

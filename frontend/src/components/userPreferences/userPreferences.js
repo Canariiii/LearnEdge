@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './userPreferences.css';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { message } from 'antd';
 
@@ -92,6 +92,7 @@ const UserPreferencesForm = ({ userId = localStorage.getItem('userId'), onClose 
       </form>
       {showPopup && (
         <div className='avatar-popup'>
+          <FontAwesomeIcon className='close-user-preferences' icon={faX} style={{ color: "#000000", }} onClick={() => setShowPopup(!showPopup)} />
           <input type='file' id='fileInput' onChange={(event) => onChange(event.target.files[0] || null)} />
           <label htmlFor='fileInput' className='file-label'>Search...</label>
           <p>Avatar preview</p>

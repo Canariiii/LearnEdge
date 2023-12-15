@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './manageUsers.css';
 import Header from '../../components/header/header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faArrowRight, faX } from '@fortawesome/free-solid-svg-icons';
 import adminUserService from '../../services/adminService';
 import { message } from 'antd';
 import { Link } from 'react-router-dom';
@@ -80,7 +80,7 @@ function ManageUsers({ onClose }) {
       const response = await adminUserService.updateUserById(userId, updatedFormData);
       console.log('Usuario actualizado:', response.data);
       if (typeof onClose === 'function') {
-        onClose();  
+        onClose();
       }
       window.location.reload();
     } catch (error) {
@@ -157,12 +157,13 @@ function ManageUsers({ onClose }) {
             </li>
           ))}
           <Link to={'/manage'}>
-          <FontAwesomeIcon className='arrow-right' icon={faArrowRight} style={{color: "#000000",}} />
+            <FontAwesomeIcon className='arrow-right' icon={faArrowRight} style={{ color: "#000000", }} />
           </Link>
         </ul>
       )}
       {showPopup && (
         <form className='edit-user-form-popup' onSubmit={handleSubmit}>
+          <FontAwesomeIcon className='close-user-crud' icon={faX} style={{ color: "#000000", }} onClick={() => setShowPopup(!showPopup)} />
           <p>Username</p>
           <input type='text' name='username' placeholder='New Username' onChange={handleChange} value={formData.username || ''}></input>
           <p>Email</p>

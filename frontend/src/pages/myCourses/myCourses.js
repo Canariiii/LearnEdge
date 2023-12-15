@@ -91,9 +91,6 @@ function MyCourses() {
         );
   
         console.log('Updated Student:', updatedStudent.data.data);
-  
-        // Eliminar duplicados y actualizar la lista
-        const uniqueCourses = Array.from(new Set(updatedStudent.data.data.joinCourses));
         setActiveCourses((prevCourses) => prevCourses.filter((course) => course._id !== courseId));
       }
     } catch (error) {

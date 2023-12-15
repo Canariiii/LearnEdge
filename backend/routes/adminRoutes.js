@@ -9,6 +9,9 @@ adminRouter.route('/')
   .post(upload.single('filename'), adminController.createAdmin)
   .get(adminController.getAllAdmins);
 
+adminRouter.route('/:adminId')
+  .put(adminController.updateAdminById);
+  
 adminRouter.get('/users', async (req, res) => {
   try {
     const users = await User.find();
