@@ -38,6 +38,21 @@
   width: 38%;
 }
 
+.active-courses button {
+  left: 80%;
+  position: absolute;
+  background-color: black;
+  color: white;
+  width: 10%;
+  height: 40%;
+  top: 45%;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 .active-courses {
   list-style: none;
   padding: 0;

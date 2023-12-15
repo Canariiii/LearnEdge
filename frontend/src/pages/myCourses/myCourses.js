@@ -103,6 +103,10 @@ function MyCourses() {
     navigate(`/edit-course/${courseId}`);
   }
 
+  const goToCourse = (courseId) => {
+    navigate(`/course/${courseId}`);
+  }
+
   return (
     <div>
       <Header />
@@ -136,6 +140,7 @@ function MyCourses() {
                 </div>
                 <div>
                   <p>{course.title}</p>
+                  <button onClick={() => goToCourse(course._id)}>Continue Course</button>
                   <FontAwesomeIcon className='delete-course-courses' icon={faX} style={{ color: "#000000", }} onClick={() => handleDeleteCourse(course._id)} />
                 </div>
               </li>

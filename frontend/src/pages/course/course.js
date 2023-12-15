@@ -15,17 +15,19 @@ function Course() {
       username: "",
       filename: "",
     },
+    filename: "",
   });
 
   useEffect(() => {
     axios.get(`http://localhost:3001/courses/${courseId}`)
       .then(response => {
-        const { title, description, content, instructor } = response.data.data;
+        const { title, description, content, instructor,filename } = response.data.data;
         setCourseData({
           title,
           description,
           content: content || { _id: "", contentData: "" },
           instructor: instructor || { _id: "", username: "", filename: "" },
+          filename: filename
         });
         if (instructor) {
           axios.get(`http://localhost:3001/instructors/${instructor}`)
@@ -57,6 +59,8 @@ function Course() {
         <h1>{courseData.title}</h1>
         <p>{courseData.description}</p>
         <p>Instructor: {courseData.instructor.username}</p>
+        <img src={`http://localhost:3001/user-images/${courseData.filename}`} alt="Instructor" />
+        
         <img src={`http://localhost:3001/user-images/${courseData.instructor.filename}`} alt="Instructor" />
       </div>
     </div>
