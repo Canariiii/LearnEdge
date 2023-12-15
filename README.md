@@ -272,7 +272,7 @@ I'm a more Sql person myself but the thing of using a nonSql database before lik
 
 If the technologieas were have been my choice I maybe will have change from Mongoose and MongoDB to Sequalize and SQL. But the frontend i wouldn't have change it.
 
-I've had fun doing this project it give the chance to learn 
+I've had fun doing this project it give the chance to lear
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
