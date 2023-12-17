@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <a href="https://linkedin.com/in/josemiguelbravomendez">
+  <a href="https://www.linkedin.com/in/jose-miguel-bravo-m%C3%A9ndez-7bb5bb21b/">
     <img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555" alt="LinkedIn">
   </a>
 </div>
