@@ -75,11 +75,17 @@ For this project I have followed the Roadmap from Git(Projects) as our theacher 
 
 ## Figma
 
-The mockup has been made in <a href="https://www.figma.com/file/avrlJiOeIneXq5CDVriOe9/Mitca?type=design&node-id=0-1&mode=design&t=VaqrBnWqjKm7dp3e-0">Figma.</a>
+The prototype has been made in <a href="https://www.figma.com/file/avrlJiOeIneXq5CDVriOe9/Mitca?type=design&node-id=0-1&mode=design&t=VaqrBnWqjKm7dp3e-0">Figma.</a>
   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Requirements
+
+This is a personal project so this is my idea. There's a problem and to solve that problem will be the creation of an app of online courses for everyone either you are student or teacher.
+
+In this app both roles will have an easy way to both study and create courses. Student not only can join courses but see their content and Teachers can create those courses and delete them, also they can upload content to the app for other teachers to use in their courses.
+
+The users that are administrator are able to manage both users and course as well create new admins and new courses if needed.
 
 In order be able to use this app you will need the follow app: 
 
@@ -265,14 +271,43 @@ Here I'm gonna explain how and why i design this app.
 
 I tried to make it minimalist and easy to understand for everyone. 
 
+For the color I have pick white for the background just like other app of learning.
+
+<img src="backend/public/img/color.png"/>
+
+The mesages shown to the user are front AntDesign  .
+
+  * In the app:
+  <img src="backend/public/img/messages.png"/>
+  * Code (message for successfull login): 
+  <img src="backend/public/img/codemessage.png"/>
+
+Form with the enough requirements:
+<img src="backend/public/img/forms.png"/>
+
+Is keyboard accesible.
+
+Images with a logic alternative text: 
+<img src="backend/public/img/alttext.png"/>
+
+Good code structure:
+<img src="backend/public/img/structure1.png"/>
+<img src="backend/public/img/structure2.png"/>
+<img src="backend/public/img/structure.png"/>
+
+Labels for buttons:
+<img src="backend/public/img/labelscode.png"/>
+<img src="backend/public/img/label.png"/>
+
+Navigate buttons to not used the browser: 
+<img src="backend/public/img/backbutton.png"/>
+
 
 ## Thoughts and conclussions
 
-I'm a more Sql person myself but the thing of using a nonSql database before like MongoDB is has been fun because it give the oportunity of learning of documental database.
+To be my first time that I do a "proper" professional full-stack application from scratch has been fun and hard because I had to use a technology that I never used before like MongoDB but to be fair it would it have been even harder if I had to use an SQL database. 
+But dispite that and been honest I would still choose SQL.
 
-If the technologieas were have been my choice I maybe will have change from Mongoose and MongoDB to Sequalize and SQL. But the frontend i wouldn't have change it.
-
-I've had fun doing this project it give the chance to lear
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
