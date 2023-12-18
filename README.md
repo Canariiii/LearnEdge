@@ -306,7 +306,7 @@ Navigate buttons to not used the browser:
 ## Thoughts and conclussions
 
 To be my first time that I do a "proper" professional full-stack application from scratch has been fun and hard because I had to use a technology that I never used before like MongoDB but to be fair it would it have been even harder if I had to use an SQL database. 
-But dispite that and been honest I would still choose SQL.
+
 
 
 [Express.js]: https://img.shields.io/badge/express.js-000000?style=for-the-badge&logo=express&logoColor=white
