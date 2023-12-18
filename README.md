@@ -302,6 +302,30 @@ Labels for buttons:
 Navigate buttons to not used the browser: 
 <img src="backend/public/img/backbutton.png"/>
 
+Compatibility with multiple browsers:
+
+ * Firefox: 
+ <img src="backend/public/img/firefox.png"/>
+ 
+ * Safari:
+ <img src="backend/public/img/safari.png"/>
+
+ * Microsoft Edge: 
+ <img src="backend/public/img/edge.png"/>
+ 
+Avaible for Mobile screens:
+<img src="backend/public/img/mobile1.png"/>
+
+It's easy to understand for everybody for example if you are instructor:
+
+ * Create Course:
+ <img src="backend/public/img/ins1.png"/>
+ <img src="backend/public/img/ins2.png"/>
+
+If you are student:
+
+ * Join Course:
+ <img src="backend/public/img/stu1.png"/>
 
 ## Thoughts and conclussions
 
