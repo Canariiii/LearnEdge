@@ -81,10 +81,13 @@
   .nav-login {
     width: 20%;
     left: 53%;
+    font-size: 20px;
   }
 
   .nav-signup {
     width: 20%;
     left: 76%;
+    font-size: 20px;
+
   }
 }

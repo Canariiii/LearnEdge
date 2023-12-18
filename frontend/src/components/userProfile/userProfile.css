@@ -11,7 +11,7 @@
 .user-container h1 {
   position: fixed;
   top: 26.56%;
-  left: 37%;
+  left: 35%;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -22,7 +22,7 @@
   position: fixed;
   top: 35%;
   left: 27%;
-  width: 25%;
+  width: 25vw;
   border: 1px solid black;
 }
 
@@ -117,12 +117,12 @@
 
   .user-container h1 {
     top: 37%;
-    left: 40%;
+    left: 35%;
   }
 
   .user-line {
     top: 43%;
-    left: 23.5%;
+    left: 26.5%;
     width: 50%;
   }
 

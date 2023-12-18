@@ -26,7 +26,7 @@ const CreateCourseForm = () => {
 
   return (
     <div className="create-course-form">
-      <p>Create Course</p>
+      <h1>Create Course</h1>
       <div className="create-course-line"></div>
       <form className="create-course-form-container">
         <p>Title</p>
