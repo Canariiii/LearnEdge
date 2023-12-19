@@ -8,7 +8,6 @@ beforeAll(async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  await User.deleteMany({});
 });
 
 afterAll(async () => {
@@ -52,13 +51,9 @@ describe('UserController', () => {
 });
 
 describe('UserController', () => {
-    
-
-  // Test para obtener todos los runners
   it('All users', async () => {
     const response = await request(app)
       .get('/users');
-
     expect(response.statusCode).toBe(200);
     expect(response.body.success).toBe(true);
     expect(response.body.data).toBeInstanceOf(Array);
