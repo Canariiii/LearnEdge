@@ -129,6 +129,56 @@ To install MongoDB API go to their <a href="https://www.mongodb.com/docs/manual/
   As a nonSql database our AED teacher told us to do no more than 2 levels.
 
   There's 6 different classes on this project (User,admin,student,instructor,course and content), every one with their attributes and methods.
+
+  User:
+   * _id
+   * username
+   * email
+   * password
+   * phone
+   * role
+   * filename
+  
+  Student: 
+   * _id
+   * username
+   * email
+   * password
+   * phone
+   * role
+   * filename
+  
+  Instructor:
+   * _id
+   * username
+   * email
+   * password
+   * phone
+   * role
+   * filename
+
+  Admin:
+   * _id
+   * username
+   * email
+   * password
+   * phone
+   * role
+   * filename
+
+  Courses:
+   * title
+   * description
+   * filename
+   * content
+   * instructor
+   * enrrolledStudents[]
+  
+  Content:
+   * contentType
+   * contentData
+   * user
+
 </p>
 <h2>User Case<h2>
 <img src="backend/public/img/useCase.png"></img>
