@@ -41,7 +41,7 @@ const CoursesList = () => {
   return (
     <div>
       <Link to="/create-course">
-        {userRole === 'instructor' && (
+        {(userRole === 'instructor' || userRole === 'admin') && (
           <Button className='create-course'>Create Course</Button>
         )}
       </Link>

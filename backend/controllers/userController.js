@@ -36,10 +36,6 @@ exports.getUserFromToken = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const existingAdmin = await User.findOne({ role: 'admin' });
-    if (existingAdmin && req.body.role === 'admin') {
-      return res.status(400).json({ success: false, error: 'Admin already exists' });
-    }
     const newUser = new User(req.body);
     newUser.filename = '';
     if (!["student", "instructor", "admin"].includes(newUser.role)) {
