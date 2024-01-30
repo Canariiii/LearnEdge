@@ -81,7 +81,6 @@ exports.createUser = async (req, res) => {
         filename: newUser.filename,
         user: newUser._id,
       });
-
       await newInstructor.save();
       newRoleUser = newInstructor;
     }
